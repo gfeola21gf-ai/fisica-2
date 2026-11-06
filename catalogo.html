@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalogo esercizi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#f6f3ec; --card:#fffdf8; --ink:#1f2328; --muted:#5f6670; --accent:#1f5fa8; --rule:#e2dccf; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family: Literata, Georgia, serif; font-size:18px; line-height:1.6; }
+.wrap { max-width: 820px; margin: 0 auto; padding: 32px 20px 64px; }
+a { color: var(--accent); }
+h1 { font-size: 2rem; line-height:1.2; margin: 0 0 .3em; }
+h2 { font-size: 1.35rem; margin: 1.8em 0 .6em; }
+h3 { font-size: 1.1rem; margin: 1.4em 0 .4em; }
+.sub { color: var(--muted); margin: 0 0 1.5em; }
+.card { display:block; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:16px 20px; margin:12px 0; text-decoration:none; color:inherit; }
+.card:hover { border-color: var(--accent); }
+.card b { color: var(--accent); font-family: system-ui, sans-serif; }
+.card span { display:block; color:var(--muted); font-size:.92rem; margin-top:4px; }
+.back { font-family: system-ui, sans-serif; font-size:.95rem; text-decoration:none; }
+table { border-collapse: collapse; width:100%; font-size:.85rem; font-family: system-ui, sans-serif; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--rule); padding:6px 8px; text-align:left; vertical-align:top; }
+th { background: var(--card); }
+code { font-family: ui-monospace, Menlo, monospace; font-size:.9em; }
+blockquote { margin:1em 0; padding:.2em 1em; border-left:4px solid var(--rule); color:var(--muted); }
+hr { border:0; border-top:1px solid var(--rule); margin:2em 0; }
+</style></head><body><div class="wrap">
+<p><a class="back" href="index.html">← Biblioteca</a></p>
+<div id="testo"></div>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script>document.getElementById('testo').innerHTML = marked.parse("# Catalogo esercizi\n\nCompilato da Claude leggendo le foto in `libro cap N/` e le tracce in `../esami/`.\nDifficolt\u00e0: \u2605 base \u00b7 \u2605\u2605 media \u00b7 \u2605\u2605\u2605 tipo esame.\nStato: \ud83d\udd12 bloccato (manca un prerequisito) \u00b7 \ud83d\udd13 sbloccato \u00b7 \u2705 fatto \u00b7 \u26a0\ufe0f fatto con errori (rifare)\n\n| Fonte | N\u00b0 | Argomento | Modello / Strategia | Prerequisiti (lezioni) | Diff. | Stato |\n|---|---|---|---|---|---|---|\n| Lezione 2 | es. | 3 cariche ai vertici di un triangolo | sovrapposizione, componenti | 2 | \u2605 | \ud83d\udd13 |\n| Lezione 8 | 8.1 | fettuccia \u03c3 uniforme | campo per integrazione | 3-4, 8 | \u2605\u2605 | \ud83d\udd13 |\n| Lezione 10 | 10.1 | due pendolini carichi: angolo di equilibrio e angolo di inversione del moto (MT03, non dipolo) | equilibrio forze + conservazione dell'energia | 2, 7 | \u2605\u2605 | \ud83d\udd13 |\n| Lezione 11 | esame | dipolo nel campo di una carica Q (guida in `dispense/MT04 Dipolo.html` \u00a75; variante r\u2082 = 2r\u2081 antiparallelo) | U = \u2212p\u00b7E, F = \u2212\u2207U, lavoro | 10-11 | \u2605\u2605\u2605 | \ud83d\udd13 |\n| Lezione 11 | es. | sfera conduttrice + guscio conduttore (q\u2081, q\u2083 dati): q\u2082, E(r), velocit\u00e0 di q di prova (guida in `dispense/MT05\u2026` \u00a79; variante guscio a terra) | Gauss a zone + conduttori + \u2212\u0394U = \u0394T | 6, 9, 11 | \u2605\u2605 | \u2705 (6/11/2026, svolto con \u2212\u0394U = q\u222bE\u00b7dr a zone) |\n| Lezione 14 | 14.1 | sfera + guscio conduttore messo a terra: \u0394U | energia = \u222bw d\u03c4, conduttori | 6, 9, 11, 13-14 | \u2605\u2605 | \ud83d\udd13 |\n| Lezione 14 | 14.2 | due condensatori carichi collegati in parallelo | carica conservata + stesso V | 13-14 | \u2605\u2605 | \ud83d\udd13 |\n| Lezione 14 | 14.3 | collegamento neutralizzante (armature opposte) | q_tot = abs(q\u2081) \u2212 abs(q\u2082), stesso V | 13-14 | \u2605\u2605 | \ud83d\udd13 |\n| Lezione 14 | casa | ponte di condensatori: C\u2084 perch\u00e9 V_C = V_D (guida con indizi in `dispense/MT05\u2026` \u00a77) | serie/parallelo, Q = C\u0394V | 13-14 | \u2605\u2605 | \ud83d\udd13 |\n| Alessio (lez. 12?) | es. | semicerchio \u03bb uniforme e semicerchio +\u03bb/\u2212\u03bb: E(O), V(O) | calcolo diretto, simmetrie, integrale in \u03b8 | 3-4, 8 | \u2605\u2605 | \ud83d\udd13 |\n| Alessio (lez. 12?) | es. | sfera \u03c1 con cavit\u00e0 non centrale: E(P) | sovrapposizione + Gauss | 6, 12 | \u2605\u2605 | \ud83d\udd13 |\n| Alessio (lez. 12?) | es. | piano \u03c3 + sfera \u03c1: E in A e B, lavoro per portare q da A a O | sovrapposizione + V = \u222bE\u00b7dl | 5-6, 9 | \u2605\u2605\u2605 | \ud83d\udd13 |\n| Alessio (lez. 14-15?) | es. | condensatore piano d \u2192 d' a tensione costante / carica costante | tipo di processo, C = \u03b5\u2080A/d | 13-14 | \u2605 | \ud83d\udd13 |\n| Alessio (lez. 16?) | es. | lastra dielettrica in condensatore: E, \u03c3_p, \u03b5_r (svolto in `dispense/MT06\u2026` \u00a76) | dielettrici, \u0394V a tratti | 13-16 | \u2605\u2605 | \ud83d\udd12 (recupero dielettrici) |\n| Lezione 19 | 19.1 | forza tra le armature del condensatore piano | lavoro virtuale, energia | 13-14, 19 | \u2605\u2605 | \ud83d\udd12 (recupero MT05) |\n| Lezione 19 | 19.2 | due condensatori piani in serie con dielettrici: \u0394U, forza sul dielettrico (guida con numeri in `dispense/MT06\u2026` \u00a79; variante 19.3) | serie + dielettrici + energia | 13-16 | \u2605\u2605\u2605 | \ud83d\udd12 (recupero MT06) |\n| Lezione 19 | 19.3 | inserimento di dielettrici con generatore attaccato: L_gen, \u0394U | processo a V costante | 13-16 | \u2605\u2605\u2605 | \ud83d\udd12 (recupero MT06) |\n| Lezione 19 | 19.4 | scarica del condensatore su R: q(t), I(t), \u03c4 | circuito RC, eq. differenziale | 16-19 | \u2605\u2605 | \ud83d\udd12 (recupero MT07) |\n| Lezione 19 | 19.5 | energia dissipata in R (C\u2081 carico \u2192 C\u2082) | RC + bilancio energetico | 16-19 | \u2605\u2605\u2605 | \ud83d\udd12 (recupero MT07) |\n| Lezione 19 | 19.6 | circuito equivalente con C\u2081, C\u2082, C\u2083 e R\u2081, R\u2082, R\u2083 | C_eq e R_eq | 14, 18 | \u2605\u2605 | \ud83d\udd12 (recupero MT05/MT07) |\n| Lezione 19 | casa | C\u2081 carico collegato tramite R a C\u2082 scarico: I(t) | RC, legge oraria della corrente | 16-19 | \u2605\u2605\u2605 | \ud83d\udd12 (recupero MT07) |\n\n<!-- Gli esercizi del libro vanno aggiunti qui quando arrivano le foto. -->\n");</script>
+</div></body></html>

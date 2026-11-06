@@ -1,0 +1,1548 @@
+<meta charset="utf-8">
+<title>MT06 Dielettrici</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* Layout: una colonna da quaderno di studio (max ~68ch), blocchi etichettati come nel metodo dell'utente, laboratori a tutta colonna.
+   Tema unico chiaro, per scelta dell'utente: leggibile anche con il telefono in modalità scura. */
+:root {
+  --paper: #f5f7fa;
+  --card: #ffffff;
+  --ink: #18202e;
+  --muted: #5a6477;
+  --rule: #d8dee8;
+  --accent: #0f6e66;
+  --accent-soft: #e2f1ef;
+  --pos: #c43d2c;
+  --neg: #2563c9;
+  --formal: #eef1f7;
+  --warn: #9a5b00;
+  --warn-soft: #fbf1e1;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-label: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.62;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+main { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: 2.1rem; font-weight: 600; }
+h2 { font-size: 1.35rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+.part { display: flex; flex-direction: column; gap: 36px; padding-top: 28px; border-top: 2px solid var(--ink); scroll-margin-top: 12px; }
+.part-head { display: flex; flex-direction: column; gap: 8px; }
+.part-n { font-family: var(--f-mono); font-size: .9rem; color: var(--accent); }
+.level { font-family: var(--f-label); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.eyebrow, .tag, .chip, summary, .btn, .readout dt, .step-n, nav a, .level {
+  font-family: var(--f-label); letter-spacing: .04em;
+}
+.eyebrow { font-size: .8rem; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.sub { color: var(--muted); }
+.tag {
+  align-self: flex-start; font-size: .72rem; text-transform: uppercase; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent);
+}
+.chip { font-size: .72rem; font-weight: 600; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.chip.lez { border-color: var(--accent); color: var(--accent); }
+ul, ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+.formal { background: var(--formal); border-left: 3px solid var(--ink); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.warnbox { background: var(--warn-soft); border-left: 3px solid var(--warn); padding: 14px 18px; }
+.warnbox li::marker { color: var(--warn); }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: 2px; }
+nav ol { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule); }
+nav li { border-bottom: 1px solid var(--rule); }
+nav a { display: flex; gap: 12px; align-items: baseline; padding: 9px 2px; color: var(--ink); text-decoration: none; font-size: .95rem; }
+nav a:hover { color: var(--accent); }
+nav a span:first-child { font-family: var(--f-mono); color: var(--accent); min-width: 1.6em; }
+nav a span:nth-child(2) { flex: 1; min-width: 0; }
+nav a span:last-child { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.cover { list-style: none; padding: 0; gap: 8px; }
+.cover li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.cover li > span:first-child { flex: 1 1 16rem; min-width: 0; }
+.cover .grp { font-family: var(--f-label); font-weight: 600; font-size: .85rem; color: var(--muted); border: 0; padding: 8px 0 0; letter-spacing: .03em; }
+.chain { counter-reset: c; list-style: none; padding: 0; gap: 10px; }
+.chain li { counter-increment: c; display: grid; grid-template-columns: 1.8em 1fr; gap: 8px; }
+.chain li::before { content: counter(c); font-family: var(--f-mono); color: var(--accent); }
+.chain li > div { min-width: 0; }
+.step { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.step-n { font-size: .78rem; text-transform: uppercase; color: var(--muted); font-weight: 600; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.why { color: var(--muted); font-size: .95rem; }
+.why b { color: var(--accent); font-family: var(--f-label); font-weight: 600; letter-spacing: .03em; }
+details { border: 1px solid var(--rule); border-radius: 6px; background: var(--card); }
+summary { cursor: pointer; padding: 12px 14px; font-weight: 600; font-size: .95rem; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸ "; color: var(--accent); }
+details[open] summary::before { content: "▾ "; }
+details > div { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px; }
+.links { list-style: none; padding: 0; gap: 10px; }
+.links li { display: grid; grid-template-columns: 5em 1fr; gap: 10px; }
+.links li > span:first-child { font-family: var(--f-label); font-size: .8rem; color: var(--accent); font-weight: 600; padding-top: .2em; }
+.links li > div { min-width: 0; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-label); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+/* formulario finale */
+.fcard { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+.f-name { font-family: var(--f-label); font-size: .85rem; font-weight: 600; color: var(--accent); letter-spacing: .02em; }
+.f-eq { overflow-x: auto; transition: filter .2s; }
+.f-note { font-size: .88rem; color: var(--muted); }
+#formulario.quiz .f-eq { filter: blur(8px); cursor: pointer; }
+#formulario.quiz .f-eq.show { filter: none; }
+/* laboratori */
+.lab { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.lab canvas { width: 100%; height: auto; max-width: 100%; touch-action: none; border-radius: 4px; display: block; }
+#cv, #c2 { cursor: crosshair; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.controls label { font-family: var(--f-label); font-size: .85rem; color: var(--muted); display: flex; gap: 8px; align-items: center; flex: 1 1 14rem; min-width: 0; }
+.controls label.check { flex: 0 0 auto; }
+.controls input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.controls input[type=checkbox] { accent-color: var(--accent); width: 1.1em; height: 1.1em; }
+.btn { font-size: .85rem; font-weight: 600; padding: 6px 12px; border-radius: 4px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+.btn:hover { background: var(--accent-soft); }
+.btn.on { background: var(--accent); color: var(--card); }
+.btn:focus-visible, summary:focus-visible, input:focus-visible, nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 8px 16px; margin: 0; }
+.readout div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--rule); padding-bottom: 3px; }
+.readout dt { font-size: .82rem; color: var(--muted); }
+.readout dd { margin: 0; font-family: var(--f-mono); font-size: .88rem; font-variant-numeric: tabular-nums; }
+.readout .err dd { color: var(--accent); font-weight: 500; }
+.state { font-family: var(--f-label); font-weight: 600; color: var(--accent); }
+.legend { font-family: var(--f-label); font-size: .8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.dot { display: inline-block; width: .8em; height: .8em; border-radius: 50%; vertical-align: -1px; margin-right: 4px; }
+.flow { display: flex; flex-direction: column; gap: 6px; }
+.flow div { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.flow div > span:first-child { font-family: var(--f-label); font-weight: 600; font-size: .88rem; }
+.flow div > span:last-child { min-width: 0; }
+.task { background: var(--card); border: 1px solid var(--ink); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+/* Avanzamento: piccolo riquadro fisso in basso a destra, uguale su ogni schermo (scelta dell'utente). */
+.rail { position: fixed; z-index: 5; right: calc(12px + env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: 9rem; display: flex; flex-direction: column; gap: 5px; padding: 6px 10px 8px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--rule); box-shadow: 0 2px 8px rgb(24 32 46 / .10);
+  font-family: var(--f-label); letter-spacing: .03em; font-size: .72rem; color: var(--muted); }
+.rail-pct { display: flex; gap: 6px; align-items: baseline; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rail-pct b { color: var(--accent); font-size: .9rem; font-weight: 600; }
+.vbar { position: relative; height: 4px; border-radius: 2px; background: var(--rule); overflow: hidden; }
+.vbar .fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 2px; background: var(--accent); transition: width .4s ease; }
+.vbar .read, .rail-list { display: none; }
+@media (prefers-reduced-motion: reduce) { .vbar .fill { transition: none; } }
+.done { align-self: flex-start; font-family: var(--f-label); font-size: .9rem; font-weight: 600; letter-spacing: .03em; padding: 9px 16px; border-radius: 6px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); cursor: pointer; }
+.done:hover { background: var(--accent-soft); }
+.done.is-done { background: var(--accent); color: var(--card); }
+.done:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 16px; }
+@media (max-width: 30rem) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.7rem; }
+  .flow div, .links li { grid-template-columns: 1fr; gap: 2px; }
+}
+/* ===== Modalità libro: pagine fisse da sfogliare (Mac e iPad). Due pagine affiancate su schermo largo, una su schermo stretto. ===== */
+html { height: 100%; font-size: var(--fs, 16px); }
+body { height: 100%; overflow: hidden; padding: 0; font-size: calc(var(--fs, 16px) * 1.06); }
+.sheet { position: fixed; z-index: 1; top: calc(env(safe-area-inset-top, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 66px);
+  left: 50%; transform: translateX(-50%); width: min(1320px, calc(100vw - 28px)); box-sizing: border-box; padding: 28px 36px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 6px 24px rgb(24 32 46 / .08); }
+.sheet main { display: block; max-width: none; margin: 0; height: 100%; overflow: hidden; column-fill: auto; column-rule: 1px solid var(--rule); touch-action: pinch-zoom; }
+.sheet header { display: block !important; }
+.sheet .part, .sheet section, .sheet .part-head { display: block; }
+.sheet main > * { margin: 0; }
+.sheet main > * + * { margin-top: 30px; }
+.sheet .part > * + * { margin-top: 26px; }
+.sheet section > * + *, .sheet header > * + *, .sheet .part-head > * + * { margin-top: 12px; }
+.sheet .part { break-before: column; border-top: 0; padding-top: 0; }
+.sheet .part-head { border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.sheet h2, .sheet h3, .sheet .tag, .sheet .part-head, .sheet .step-n { break-after: avoid; }
+.sheet .formal, .sheet figure, .sheet .lab, .sheet details, .sheet .task, .sheet .warnbox, .sheet .tbl, .sheet mjx-container[display="true"],
+.sheet .fcard, .sheet .chain li, .sheet .cover li, .sheet .links li, .sheet .flow > div, .sheet .done, .sheet nav li { break-inside: avoid; }
+.sheet .lab canvas { margin: 0 auto; }
+.sheet .tag { display: table; }
+.toolbar { position: fixed; z-index: 6; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  font-family: var(--f-label); letter-spacing: .03em; background: var(--paper); }
+.tb-btn { height: 40px; min-width: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--card); color: var(--ink);
+  font-family: var(--f-label); font-size: 14px; font-weight: 600; cursor: pointer; }
+.tb-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.tb-btn:disabled { opacity: .35; cursor: default; }
+.tb-btn.arrow { font-size: 20px; color: var(--accent); min-width: 52px; }
+.tb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pgNum { min-width: 10em; text-align: center; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tb-sep { width: 1px; height: 26px; background: var(--rule); margin: 0 4px; }
+.toolbar .rail { position: static; width: auto; padding: 0; border: 0; background: none; box-shadow: none; flex-direction: row; align-items: center; gap: 8px; }
+.toolbar .rail-pct { font-size: 12px; }
+.toolbar .rail-pct b { font-size: 14px; }
+.toolbar .vbar { width: 56px; }
+</style>
+
+<div class="sheet">
+<main>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">MT06 · Lezioni 15-16 (+ es. 19.2-19.3) · Dispensa</span>
+    <h1>Dielettrici</h1>
+    <p class="sub">Un isolante tra le armature abbassa il campo: perché succede, come si calcola e cosa cambia nell'energia. Tempo di studio: circa 3 ore in 2 sessioni, più la mappa.</p>
+  </header>
+
+  <aside class="rail" id="prog" aria-label="Avanzamento della dispensa">
+    <div class="rail-pct"><b id="pgPct">0%</b><span id="pgMin"></span></div>
+    <div class="rail-body">
+      <div class="vbar" aria-hidden="true"><div class="read" id="pgRead"></div><div class="fill" id="pgFill"></div></div>
+      <ol class="rail-list" id="pgList"></ol>
+    </div>
+  </aside>
+
+  <nav aria-label="Indice">
+    <ol>
+      <li><a href="#ripasso"><span>·</span><span>Ripasso lampo</span><span>1 min</span></a></li>
+      <li><a href="#quadro"><span>·</span><span>Il quadro e la lista di copertura</span><span>6 min</span></a></li>
+      <li><a href="#s1"><span>1</span><span>Il fatto sperimentale: ε<sub>r</sub></span><span>leggero</span></a></li>
+      <li><a href="#s2"><span>2</span><span>Dipoli indotti e dipoli orientati</span><span>leggero</span></a></li>
+      <li><a href="#s3"><span>3</span><span>Polarizzazione P e cariche σ<sub>p</sub></span><span>pieno</span></a></li>
+      <li><a href="#s4"><span>4</span><span>Il vettore D e la legge di Gauss</span><span>pieno</span></a></li>
+      <li><a href="#s5"><span>5</span><span>Al confine tra due dielettrici</span><span>leggero</span></a></li>
+      <li><a href="#s6"><span>6</span><span>Lastra dielettrica nel condensatore</span><span>pieno</span></a></li>
+      <li><a href="#s7"><span>7</span><span>Due dielettrici: in serie o in parallelo</span><span>pieno</span></a></li>
+      <li><a href="#s8"><span>8</span><span>Energia e forza sul dielettrico</span><span>pieno</span></a></li>
+      <li><a href="#s9"><span>9</span><span>Esercizio guidato: es. 19.2 e 19.3</span><span>guida</span></a></li>
+      <li><a href="#chiusura"><span>·</span><span>Mappa, Dossier e libro</span><span>chiusura</span></a></li>
+      <li><a href="#formulario"><span>·</span><span>Formulario da memorizzare</span><span>sempre</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- RIPASSO LAMPO -->
+  <section id="ripasso" data-part="Ripasso lampo">
+    <span class="tag">Ripasso lampo · MT04 e MT05 · 1 minuto</span>
+    <details>
+      <summary>Un dipolo \(\vec p\) in un campo uniforme \(\vec E\): che cosa fa? Quando ha energia minima?</summary>
+      <div><p>La forza totale è nulla, ma c'è il momento \(\vec\tau = \vec p\times\vec E\) che lo fa ruotare. L'energia \(U = -\vec p\cdot\vec E\) è minima quando \(\vec p\) è parallelo a \(\vec E\): il dipolo tende ad allinearsi al campo. È il cuore del sotto-argomento 2.</p></div>
+    </details>
+    <details>
+      <summary>Condensatore piano carico, generatore staccato: cosa resta fisso? E con il generatore attaccato?</summary>
+      <div><p>Staccato: resta fissa la <b>carica Q</b> (non ha dove andare). Attaccato: resta fissa la <b>tensione V</b> (la impone il generatore). La stessa domanda decide tutto nei sotto-argomenti 8 e 9.</p></div>
+    </details>
+  </section>
+
+  <!-- QUADRO -->
+  <section id="quadro" data-part="Il quadro">
+    <span class="tag">Il quadro</span>
+    <h2>Dov'è finito un pezzo di campo?</h2>
+    <p>Metti una lastra di plastica tra le armature di un condensatore carico e isolato: la tensione cala. La carica sulle armature è la stessa, quindi il campo dentro è diminuito. Tutta la mappa risponde a una domanda: <b>dove è finito un pezzo di campo, e come si calcola quello che resta?</b></p>
+    <ul>
+      <li><b>Sessione 1 · Il perché</b> (1-4): il fatto sperimentale, i dipoli microscopici, il vettore \(\vec P\) e le cariche di polarizzazione, il vettore \(\vec D\).</li>
+      <li><b>Sessione 2 · Il come</b> (5-9): le regole al confine tra materiali, i condensatori con dielettrici (lastra, serie, parallelo), l'energia, la forza che “risucchia” il dielettrico, l'esercizio 19.2.</li>
+    </ul>
+    <p>Il filo che lega tutto: <b>le molecole dell'isolante diventano piccoli dipoli; sulle facce del materiale restano scoperte cariche di segno opposto a quelle vicine, e il loro campo si oppone a quello esterno</b>.</p>
+    <p class="sub">Metafora guida (la stessa del tuo Predict): la <b>sala da ballo</b>. Le molecole sono coppie di ballerini “+” e “−” che si tengono per mano; le cariche libere sono gli invitati entrati dalla porta.</p>
+
+    <h3>Lista di copertura</h3>
+    <p class="sub">Fonti: appunti di Alessio (foto “Campo elettrostatico nei dielettrici”, “P → σ<sub>p</sub>”, esercizio della lastra); la tua mappa della lezione 19 (es. 19.2, 19.3); programma ufficiale (“Campo elettrico nei dielettrici. Cariche di polarizzazione. Vettore di polarizzazione elettrica. Vettore spostamento elettrico. Forze tra cariche in un dielettrico”); Mencuccini cap. 3.</p>
+    <ul class="cover">
+      <li class="grp">1 · Il fatto sperimentale</li>
+      <li><span>Condensatore isolato con dielettrico: \(V' &lt; V_0\), \(E' &lt; E_0\), costante dielettrica relativa \(\varepsilon_r\)</span><span class="chip lez">lez. 15</span></li>
+      <li class="grp">2 · Interpretazione microscopica</li>
+      <li><span>Dipolo indotto da \(\vec E\) (deformazione); \(\langle\vec p\rangle = 0\) senza campo, \(\neq 0\) con il campo</span><span class="chip lez">lez. 15</span></li>
+      <li><span>Polarizzazione per orientamento, agitazione termica</span><span class="chip">approfondimento</span></li>
+      <li class="grp">3 · P e cariche di polarizzazione</li>
+      <li><span>\(\vec P\) momento di dipolo per unità di volume; \(\lvert\vec P\rvert = \sigma_p\) (prisma \(dA\,dh\))</span><span class="chip lez">lez. 15-16</span></li>
+      <li><span>\(E = (\sigma_L-\sigma_p)/\varepsilon_0 = \sigma_L/\varepsilon_0\varepsilon_r\)</span><span class="chip lez">lez. 15-16</span></li>
+      <li><span>\(\sigma_p = \vec P\cdot\hat n\), \(\rho_p = -\nabla\cdot\vec P\), \(\vec P = \varepsilon_0\chi\vec E\)</span><span class="chip">approfondimento</span></li>
+      <li class="grp">4 · Il vettore D</li>
+      <li><span>\(\vec D = \varepsilon_0\vec E+\vec P\), Gauss con le sole cariche libere — <b>voce del programma che non trovo negli appunti: da chiedere o leggere</b> (p. 130)</span><span class="chip">approfondimento</span></li>
+      <li><span>Forze tra cariche in un dielettrico — <b>voce del programma, da chiedere o leggere</b></span><span class="chip">approfondimento</span></li>
+      <li class="grp">5 · Condizioni al contorno</li>
+      <li><span>\(D_n\) e \(E_t\) continui, rifrazione delle linee di forza (p. 132)</span><span class="chip">approfondimento</span></li>
+      <li class="grp">6-7 · Modelli: condensatori con dielettrici</li>
+      <li><span>Lastra di spessore \(d_1\) in un condensatore di distanza \(d_0\): \(E\), \(\sigma_p\), \(\varepsilon_r\) dalla misura di \(\Delta V\)</span><span class="chip lez">lez. 16</span></li>
+      <li><span>Due dielettrici in serie (es. 19.2); in parallelo</span><span class="chip lez">lez. 19</span></li>
+      <li class="grp">8-9 · Energia e forze</li>
+      <li><span>Energia con dielettrico a carica costante e a tensione costante; lavoro del generatore (es. 19.2, 19.3)</span><span class="chip lez">lez. 19</span></li>
+      <li><span>Forza sul dielettrico (“fenomeno elettrico → manifestazione meccanica”)</span><span class="chip lez">lez. 19</span></li>
+      <li><span>Densità di energia \(w = \tfrac12\vec E\cdot\vec D\), formula della forza \(\tfrac12V^2\,dC/dx\)</span><span class="chip">approfondimento</span></li>
+    </ul>
+    <p class="sub">Spostato altrove: l'esercizio “due condensatori in parallelo isolati (ΔU &lt; 0)” degli stessi appunti è di MT05 (§7); le correnti (lez. 16-18) sono MT07.</p>
+
+    <h3>Prerequisiti</h3>
+    <ul>
+      <li><b>Dipolo</b> (MT04, lez. 10): \(\vec p = q\vec\delta\), dalla carica − alla carica +.</li>
+      <li><b>Dipolo in un campo</b> (MT04, lez. 11): \(\vec\tau = \vec p\times\vec E\), \(U = -\vec p\cdot\vec E\).</li>
+      <li><b>Doppio strato</b> (MT02, lez. 6): fra due piani \(+\sigma\) e \(-\sigma\) il campo è \(\sigma/\varepsilon_0\), fuori è zero.</li>
+      <li><b>Gauss</b> (MT02, lez. 5-6): \(\oint\vec E\cdot\hat n\,dA = q_{int}/\varepsilon_0\); forma locale \(\nabla\cdot\vec E = \rho/\varepsilon_0\).</li>
+      <li><b>Condensatore piano</b> (MT05, lez. 13-14): \(C_0 = \varepsilon_0A/d\), \(U = Q^2/2C = \tfrac12CV^2\), serie e parallelo, processi a Q o V costante.</li>
+    </ul>
+    <details>
+      <summary>Richiamo di Analisi · derivare \(1/C(x)\) (serve al sotto-argomento 8)</summary>
+      <div>
+        <p><b>Immagine:</b> se una grandezza C cresce, il suo inverso 1/C cala. La derivata di 1/C dice <i>quanto</i> cala.</p>
+        <p><b>Regola:</b> la derivata di \(1/u\) rispetto a \(u\) è \(-1/u^2\). Se \(u = C(x)\) dipende da x, si usa la <b>regola della catena</b>: derivata “esterna” per derivata “interna”.</p>
+        \[\begin{aligned}
+        \frac{d}{dx}\left(\frac{1}{C(x)}\right) &= -\frac{1}{C(x)^2}\cdot\frac{dC}{dx} && \text{(regola della catena)}
+        \end{aligned}\]
+        <p><b>Esempio numerico:</b> \(C(x) = 2+3x\). In \(x = 1\): \(C = 5\), \(dC/dx = 3\), quindi la derivata di \(1/C\) vale \(-3/25 = -0{,}12\). Controllo: \(1/C(1{,}01) = 1/5{,}03 = 0{,}19881\) e \(1/C(1) = 0{,}2\): la differenza \(-0{,}00119\) divisa per \(0{,}01\) dà \(-0{,}119\). ✓</p>
+      </div>
+    </details>
+    <button class="done" data-sec="intro" data-min="6" type="button">Segna “Ripasso e quadro” come fatto</button>
+  </section>
+
+  <!-- ==================== 1 ==================== -->
+  <div class="part" id="s1" data-part="1 · Il fatto sperimentale">
+    <div class="part-head">
+      <span class="part-n">1 / 9 · sessione 1</span>
+      <h2>Il fatto sperimentale: la costante dielettrica</h2>
+      <span class="level">Livello leggero · 12 minuti</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Che cosa succede, misurando, se riempio un condensatore carico e isolato con un isolante?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Un <b>dielettrico</b> è un materiale isolante: le sue cariche non possono spostarsi per distanze macroscopiche, ma possono spostarsi di pochissimo all'interno di atomi e molecole.</p>
+        <p>Se un condensatore isolato, con carica \(Q\) e tensione \(V_0\) nel vuoto, viene riempito completamente da un dielettrico omogeneo, la tensione scende a \(V = V_0/\varepsilon_r\). Il numero puro \(\varepsilon_r \ge 1\) è la <b>costante dielettrica relativa</b> del materiale. Di conseguenza:</p>
+        \[ C = \varepsilon_r C_0, \qquad E = \frac{E_0}{\varepsilon_r} \]
+        <p>Si pone \(\varepsilon = \varepsilon_0\varepsilon_r\) (costante dielettrica assoluta del mezzo).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Un condensatore carico, staccato dal generatore, con un voltmetro che segna 100 V. Infili una lastra di plastica che riempie lo spazio fra le armature, senza toccare nulla. L'ago scende a 40 V. Nessuna carica è entrata o uscita dalle armature: eppure la tensione è crollata.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Il condensatore è isolato</b> → la carica libera \(Q\) (e quindi \(\sigma_L = Q/A\)) non cambia.</div></li>
+        <li><div><b>La tensione cala</b> da \(V_0\) a \(V\) → poiché \(V = E\,d\) con d fissa, anche il <b>campo</b> dentro cala: \(E &lt; E_0\).</div></li>
+        <li><div><b>Capacità</b>: \(C = Q/V\), stessa Q e V più piccola → C più grande. Con i numeri: \(V\) è 2,5 volte più piccola → \(\varepsilon_r = 2{,}5\) e C è 2,5 volte più grande.</div></li>
+        <li><div><b>Ma il campo delle armature è sempre \(\sigma_L/\varepsilon_0\)</b> → deve esserci qualche altra carica che produce un campo opposto. La trovi nel sotto-argomento 3.</div></li>
+      </ol>
+      <p><b>In una frase:</b> il dielettrico non tocca le cariche libere, ma indebolisce il campo di un fattore \(\varepsilon_r\).</p>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Dalla misura a ε<sub>r</sub> <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        V_0 &= E_0\,d, \quad V = E\,d && \text{(campo uniforme: } V = E\cdot d)\\
+        \frac{V_0}{V} &= \frac{E_0\,d}{E\,d} = \frac{E_0}{E} && \text{(divido membro a membro, d si semplifica)}\\
+        \varepsilon_r &\equiv \frac{V_0}{V} = \frac{E_0}{E} && \text{(definizione)}\\
+        C &= \frac{Q}{V} = \frac{Q}{V_0/\varepsilon_r} = \varepsilon_r\frac{Q}{V_0} = \varepsilon_r C_0 && \text{(sostituisco } V = V_0/\varepsilon_r)
+        \end{aligned}\]
+        <p class="why"><b>Valori tipici:</b> aria ≈ 1,0006 (si usa 1), carta ≈ 2-3, vetro ≈ 4-10, acqua ≈ 80.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT05</span><div>Stessa logica dei processi a carica costante: “cosa resta fisso?” (qui Q).</div></li>
+        <li><span>→ §8</span><div>Con il generatore attaccato invece resta fissa V: allora è Q che aumenta di \(\varepsilon_r\).</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>\(E = E_0/\varepsilon_r\) vale per un dielettrico che <b>riempie</b> tutto lo spazio tra le armature (o almeno tutto il tratto dove calcoli E). Con una lastra parziale fuori dalla lastra il campo resta \(E_0\) (§6).</li>
+        <li>\(\varepsilon_r\) non ha unità di misura; \(\varepsilon_0\varepsilon_r\) sì (F/m).</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Perché per un conduttore si potrebbe dire “\(\varepsilon_r = \infty\)”?</summary><div><p>Una lastra conduttrice che riempie il condensatore porterebbe il campo interno a zero (MT05): \(E = E_0/\varepsilon_r \to 0\) per \(\varepsilon_r\to\infty\). Il dielettrico fa “un pezzo” di quello che fa il conduttore: le sue cariche si spostano solo un poco.</p></div></details>
+      <details><summary>Si può avere \(\varepsilon_r &lt; 1\)?</summary><div><p>No (per i materiali normali in elettrostatica): le cariche di polarizzazione hanno sempre segno opposto a quelle vicine, quindi il campo si indebolisce, mai si rinforza.</p></div></details>
+    </section>
+    <button class="done" data-sec="s1" data-min="12" type="button">Segna “1 · Il fatto sperimentale” come fatto</button>
+  </div>
+
+  <!-- ==================== 2 ==================== -->
+  <div class="part" id="s2" data-part="2 · Dipoli indotti e orientati">
+    <div class="part-head">
+      <span class="part-n">2 / 9 · sessione 1</span>
+      <h2>Dipoli indotti e dipoli orientati</h2>
+      <span class="level">Livello leggero · 10 minuti</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Che cosa succede dentro le molecole di un isolante quando arriva un campo?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p><b>Polarizzazione per deformazione (elettronica):</b> in un atomo senza campo il centro della nuvola elettronica coincide con il nucleo, \(\vec p = 0\). Un campo \(\vec E\) sposta in versi opposti nucleo e nuvola: nasce un <b>dipolo indotto</b> \(\vec p\) parallelo a \(\vec E\), proporzionale a E per campi non troppo intensi.</p>
+        <p><b>Polarizzazione per orientamento:</b> nelle molecole polari (es. acqua) \(\vec p \neq 0\) già senza campo, ma le direzioni sono casuali e la media è \(\langle\vec p\rangle = 0\). Il campo le fa ruotare (\(\vec\tau = \vec p\times\vec E\)), l'agitazione termica le rimescola: il risultato è un allineamento parziale, \(\langle\vec p\rangle \neq 0\) e parallelo a \(\vec E\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Nella sala da ballo, senza musica, le coppie guardano a caso: da lontano la sala non ha nessuna direzione. Parte la musica (il campo): ogni ballerino si allunga un po' verso il suo lato (deformazione) e le coppie si girano più o meno tutte nello stesso verso (orientamento). Ora la sala, vista da lontano, ha una direzione.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Senza campo</b> → dipoli nulli o orientati a caso → \(\langle\vec p\rangle = 0\) → il materiale non produce campo.</div></li>
+        <li><div><b>Con il campo</b> → forza \(+q\vec E\) sul nucleo, \(-q\vec E\) sugli elettroni → si separano di un pochino (molto meno della dimensione dell'atomo).</div></li>
+        <li><div><b>Molecole già polari</b> → momento \(\vec p\times\vec E\) → ruotano verso \(\vec E\), l'urto termico le disallinea → compromesso: più freddo, più allineamento.</div></li>
+        <li><div><b>Risultato</b> → ogni pezzetto di materiale ha un momento di dipolo medio parallelo a \(\vec E\): il materiale è <b>polarizzato</b>.</div></li>
+      </ol>
+      <p><b>In una frase:</b> il campo trasforma l'isolante in un esercito di piccoli dipoli allineati con lui.</p>
+    </section>
+    <section>
+      <span class="tag">Metafora</span>
+      <p>Coppie di ballerini che si tengono per mano: possono allungare le braccia o girarsi, ma <b>non possono lasciarsi</b>. Questa è la differenza con un conduttore, dove gli invitati corrono liberi per tutta la sala.</p>
+      <p class="why"><b>Dove smette di funzionare:</b> nella deformazione le “coppie” non esistono prima della musica: è il campo stesso a creare il dipolo, stirando un atomo che prima era simmetrico.</p>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT04</span><div>Momento \(\vec\tau = \vec p\times\vec E\) ed energia minima con \(\vec p\parallel\vec E\): è proprio quello che orienta le molecole.</div></li>
+        <li><span>← MT05</span><div>In un conduttore le cariche si spostano finché il campo interno è zero; qui si spostano poco e il campo resta, solo più debole.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Perché l'acqua ha \(\varepsilon_r\approx 80\) e il vetro solo 4-10?</summary><div><p>L'acqua ha molecole già polari con un momento grande: oltre alla deformazione c'è l'orientamento, che dà molti più dipoli allineati. Nei materiali non polari c'è solo la deformazione, più debole.</p></div></details>
+      <details><summary>Un pettine strofinato attira i pezzetti di carta, che sono neutri. Perché?</summary><div><p>Il campo del pettine polarizza la carta (dipoli indotti allineati); il campo non è uniforme, quindi sul dipolo c'è una forza netta verso dove il campo è più forte (MT04): verso il pettine.</p></div></details>
+    </section>
+    <button class="done" data-sec="s2" data-min="10" type="button">Segna “2 · Dipoli indotti e orientati” come fatto</button>
+  </div>
+
+  <!-- ==================== 3 ==================== -->
+  <div class="part" id="s3" data-part="3 · P e cariche σp">
+    <div class="part-head">
+      <span class="part-n">3 / 9 · sessione 1</span>
+      <h2>Il vettore polarizzazione e le cariche di polarizzazione</h2>
+      <span class="level">Livello pieno · 30 minuti</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Milioni di dipoli microscopici: come li descrivo con una sola grandezza, e dove compaiono le cariche che indeboliscono il campo?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Il <b>vettore polarizzazione</b> \(\vec P\) è il momento di dipolo elettrico per unità di volume del dielettrico:</p>
+        \[ \vec P = \frac{d\vec p}{d\tau} \qquad [\vec P] = \frac{\text{C}\cdot\text{m}}{\text{m}^3} = \frac{\text{C}}{\text{m}^2} \]
+        <p>dove \(d\vec p\) è la somma dei momenti di dipolo contenuti nel volumetto \(d\tau\). Su una superficie del dielettrico con normale uscente \(\hat n\) compare una <b>densità superficiale di carica di polarizzazione</b> (o legata) \(\sigma_p = \vec P\cdot\hat n\); se \(\vec P\) è perpendicolare alla faccia, \(\lvert\sigma_p\rvert = \lvert\vec P\rvert\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Una fila di coppie di ballerini allineate, ciascuna con il “−” in alto e il “+” in basso. Dentro la fila il “+” di una coppia tocca il “−” della coppia sotto: da lontano si annullano. Restano scoperti <b>solo i due capi</b>: un “−” in cima e un “+” in fondo. Lo stesso succede in tutta la lastra: dentro è neutra, sulle due facce compare carica.</p></section>
+    <figure style="margin:0">
+      <svg viewBox="0 0 420 230" role="img" aria-label="Lastra dielettrica polarizzata tra le armature: dipoli allineati, carica negativa scoperta sulla faccia in alto e positiva sulla faccia in basso" style="width:100%;max-width:420px;display:block;margin:0 auto">
+        <rect x="40" y="14" width="300" height="10" style="fill:var(--ink)"/>
+        <rect x="40" y="206" width="300" height="10" style="fill:var(--ink)"/>
+        <text x="350" y="24" style="fill:var(--pos);font:600 14px var(--f-label)">+σ<tspan dy="4" font-size="10">L</tspan></text>
+        <text x="350" y="216" style="fill:var(--neg);font:600 14px var(--f-label)">−σ<tspan dy="4" font-size="10">L</tspan></text>
+        <rect x="60" y="50" width="260" height="130" rx="3" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <defs><g id="dcol">
+          <circle cx="0" cy="62" r="6" style="fill:var(--neg)"/><circle cx="0" cy="80" r="6" style="fill:var(--pos)"/>
+          <circle cx="0" cy="92" r="6" style="fill:var(--neg)"/><circle cx="0" cy="110" r="6" style="fill:var(--pos)"/>
+          <circle cx="0" cy="122" r="6" style="fill:var(--neg)"/><circle cx="0" cy="140" r="6" style="fill:var(--pos)"/>
+          <circle cx="0" cy="152" r="6" style="fill:var(--neg)"/><circle cx="0" cy="170" r="6" style="fill:var(--pos)"/>
+        </g></defs>
+        <use href="#dcol" x="90"/><use href="#dcol" x="130"/><use href="#dcol" x="170"/><use href="#dcol" x="210"/><use href="#dcol" x="250"/><use href="#dcol" x="290"/>
+        <text x="330" y="66" style="fill:var(--neg);font:600 13px var(--f-label)">−σ<tspan dy="4" font-size="10">p</tspan></text>
+        <text x="330" y="176" style="fill:var(--pos);font:600 13px var(--f-label)">+σ<tspan dy="4" font-size="10">p</tspan></text>
+        <text x="8" y="120" style="fill:var(--muted);font:12px var(--f-label)">E↓</text>
+        <text x="150" y="198" style="fill:var(--muted);font:12px var(--f-label)">dentro: + e − si toccano</text>
+      </svg>
+    </figure>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Le armature</b> (\(+\sigma_L\) in alto) fanno un campo verso il basso → i dipoli si allineano con il “+” in basso.</div></li>
+        <li><div><b>Dentro la lastra</b> ogni + tocca un − → carica netta zero (se \(\vec P\) è uniforme).</div></li>
+        <li><div><b>Sulla faccia in alto</b> restano scoperti i “−”, vicino all'armatura “+” → \(-\sigma_p\). Sulla faccia in basso i “+” → \(+\sigma_p\).</div></li>
+        <li><div><b>Le due facce</b> sono un doppio strato con campo dal + al −, cioè <b>verso l'alto</b> → si oppone al campo delle armature → il campo totale cala.</div></li>
+      </ol>
+      <p><b>In una frase:</b> il pezzo di campo “mancante” non è sparito: una parte delle linee che partono dalle armature si ferma sulle cariche di polarizzazione.</p>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Un prisma di dielettrico è un dipolo <span class="chip lez">a lezione</span></span>
+        <p>Ritaglio un prismetto con le basi di area \(dA\) perpendicolari a \(\vec P\) e altezza \(dh\). Sulle basi ci sono le cariche scoperte \(-dq_p\) e \(+dq_p\), a distanza \(dh\): è un dipolo.</p>
+        \[\begin{aligned}
+        \lvert d\vec p\rvert &= dq_p\cdot dh && \text{(momento di dipolo = carica × distanza)}\\
+        dq_p &= \sigma_p\,dA && \text{(definizione di densità superficiale)}\\
+        \lvert d\vec p\rvert &= \sigma_p\,dA\,dh && \text{(sostituisco } dq_p)\\
+        &= \sigma_p\,d\tau && (d\tau = dA\,dh\text{: volume del prisma})
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Quindi P = σ<sub>p</sub> <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \lvert\vec P\rvert &= \frac{\lvert d\vec p\rvert}{d\tau} && \text{(definizione di } \vec P)\\
+        &= \frac{\sigma_p\,d\tau}{d\tau} && \text{(sostituisco il passo 1)}\\
+        &= \sigma_p && (d\tau \text{ si semplifica})
+        \end{aligned}\]
+        <p class="why"><b>Se la faccia è inclinata</b> <span class="chip">approfondimento</span>: conta solo la componente di \(\vec P\) perpendicolare alla faccia, \(\sigma_p = \vec P\cdot\hat n = P\cos\theta\). Se \(\vec P\) non è uniforme compare carica anche dentro: \(\rho_p = -\nabla\cdot\vec P\) (con \(\vec P\) uniforme la divergenza è zero e \(\rho_p = 0\)).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Il campo dentro la lastra <span class="chip lez">a lezione</span></span>
+        <p>Due doppi strati sovrapposti (MT02): le armature (\(+\sigma_L\) sopra, \(-\sigma_L\) sotto) e le facce della lastra (\(-\sigma_p\) sopra, \(+\sigma_p\) sotto). Asse verso il basso.</p>
+        \[\begin{aligned}
+        E_{armature} &= +\frac{\sigma_L}{\varepsilon_0} && \text{(doppio strato, verso il basso)}\\
+        E_{polarizz.} &= -\frac{\sigma_p}{\varepsilon_0} && \text{(doppio strato rovesciato, verso l'alto)}\\
+        E &= \frac{\sigma_L}{\varepsilon_0}-\frac{\sigma_p}{\varepsilon_0} = \frac{\sigma_L-\sigma_p}{\varepsilon_0} && \text{(sovrapposizione)}\\
+        &= \frac{\sigma_L}{\varepsilon_0}-\frac{P}{\varepsilon_0} && (\sigma_p = P,\ \text{passo 2})
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Quanto vale σ<sub>p</sub>? <span class="chip lez">a lezione</span></span>
+        <p>Metto insieme il risultato del passo 3 e il fatto sperimentale \(E = \sigma_L/\varepsilon_0\varepsilon_r\) (§1):</p>
+        \[\begin{aligned}
+        \frac{\sigma_L-\sigma_p}{\varepsilon_0} &= \frac{\sigma_L}{\varepsilon_0\varepsilon_r} && \text{(due espressioni dello stesso E)}\\
+        \sigma_L-\sigma_p &= \frac{\sigma_L}{\varepsilon_r} && \text{(moltiplico per } \varepsilon_0)\\
+        \sigma_p &= \sigma_L-\frac{\sigma_L}{\varepsilon_r} && \text{(isolo } \sigma_p)\\
+        \sigma_p &= \sigma_L\left(1-\frac1{\varepsilon_r}\right) = \sigma_L\,\frac{\varepsilon_r-1}{\varepsilon_r} && \text{(raccolgo } \sigma_L)
+        \end{aligned}\]
+        <p class="why"><b>Esempio numerico:</b> \(\varepsilon_r = 4\): \(\sigma_p = \tfrac34\sigma_L\). Tre linee su quattro si fermano sulla lastra, una passa: \(E = E_0/4\). <b>Controlli:</b> \(\varepsilon_r = 1\) (vuoto) → \(\sigma_p = 0\) ✓; \(\varepsilon_r\to\infty\) (conduttore) → \(\sigma_p\to\sigma_L\), \(E\to 0\) ✓.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 5 · P è proporzionale a E <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        \sigma_p &= \sigma_L-\varepsilon_0E && \text{(passo 3, moltiplicato per } \varepsilon_0 \text{ e riordinato)}\\
+        \sigma_L &= \varepsilon_0\varepsilon_r E && \text{(fatto sperimentale, §1)}\\
+        P = \sigma_p &= \varepsilon_0\varepsilon_rE-\varepsilon_0E && \text{(sostituisco } \sigma_L)\\
+        &= \varepsilon_0(\varepsilon_r-1)\,E && \text{(raccolgo } \varepsilon_0E)\\
+        \vec P &= \varepsilon_0\chi\,\vec E,\quad \chi \equiv \varepsilon_r-1 && \text{(suscettività elettrica)}
+        \end{aligned}\]
+        <p class="why"><b>Vale per</b> dielettrici <b>lineari</b> (P proporzionale a E) e <b>isotropi</b> (\(\vec P\) parallelo a \(\vec E\)): sono quelli di tutti gli esercizi.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT02</span><div>Il campo del doppio strato \(\sigma/\varepsilon_0\), usato due volte nel passo 3.</div></li>
+        <li><span>← MT04</span><div>Il prisma del passo 1 è un dipolo \(p = q\delta\) con \(q = dq_p\), \(\delta = dh\).</div></li>
+        <li><span>→ §6</span><div>Le stesse formule nell'esercizio della lastra: dalla misura di \(\Delta V\) si risale a \(E\), \(\sigma_p\), \(\varepsilon_r\).</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>La faccia della lastra vicina all'armatura “+” ha carica di polarizzazione <b>negativa</b>.</li>
+        <li>\(\sigma_p\) è sempre più piccola di \(\sigma_L\): il campo cala ma non si annulla (non è un conduttore).</li>
+        <li>Le cariche di polarizzazione non si possono “raccogliere” o portare via: la lastra resta neutra nel complesso (\(+\sigma_p\) e \(-\sigma_p\) uguali).</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Tolgo la lastra dal condensatore e la porto lontano: è carica?</summary><div><p>No. Fuori dal campo i dipoli tornano nulli o casuali, \(\vec P = 0\), le cariche di polarizzazione spariscono. E anche nel campo la carica totale della lastra è zero: \(+\sigma_pA - \sigma_pA = 0\).</p></div></details>
+      <details><summary>Perché \(\vec P\) si misura in C/m², come una densità superficiale?</summary><div><p>Perché è (C·m)/m³: un momento di dipolo per volume. Ed è proprio uguale alla carica scoperta per unità di superficie, come mostra il passo 2.</p></div></details>
+    </section>
+    <button class="done" data-sec="s3" data-min="30" type="button">Segna “3 · P e cariche σp” come fatto</button>
+  </div>
+
+  <!-- ==================== 4 ==================== -->
+  <div class="part" id="s4" data-part="4 · Il vettore D">
+    <div class="part-head">
+      <span class="part-n">4 / 9 · sessione 1</span>
+      <h2>Il vettore D e la legge di Gauss nei dielettrici</h2>
+      <span class="level">Livello pieno · 25 minuti · voce del programma da verificare a lezione</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Gauss per \(\vec E\) vuole tutte le cariche, anche quelle di polarizzazione, che però dipendono dal campo che cerco. Come esco da questo circolo?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Il <b>vettore spostamento elettrico</b> è \(\ \vec D = \varepsilon_0\vec E+\vec P\ \) (si misura in C/m²). Il suo flusso uscente da una superficie chiusa è uguale alla sola <b>carica libera</b> racchiusa:</p>
+        \[ \oint_S \vec D\cdot\hat n\,dA = q_{L,int} \qquad\Longleftrightarrow\qquad \nabla\cdot\vec D = \rho_L \]
+        <p>In un dielettrico lineare e isotropo \(\vec D = \varepsilon_0\varepsilon_r\vec E\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Il buttafuori all'ingresso della sala conta solo gli invitati entrati dalla porta. Non gli importa come ballano le coppie dentro. \(\vec D\) è quel conteggio: le sue linee partono e finiscono solo sulle cariche libere, e attraversano la lastra senza fermarsi.</p></section>
+    <figure style="margin:0">
+      <svg viewBox="0 0 440 262" role="img" aria-label="Stesso condensatore con lastra dielettrica: a sinistra 5 linee di E nel vuoto, 4 si fermano sulle cariche di polarizzazione e solo 1 attraversa la lastra; a destra tutte e 5 le linee di D attraversano la lastra" style="width:100%;max-width:440px;display:block;margin:0 auto">
+        <defs><marker id="mkE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" style="stroke:var(--ink)" stroke-width="1.6"/></marker>
+        <marker id="mkD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" style="stroke:var(--accent)" stroke-width="1.6"/></marker></defs>
+        <text x="110" y="18" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--f-label)">linee di E (tutte le cariche)</text>
+        <text x="330" y="18" text-anchor="middle" style="fill:var(--accent);font:600 13px var(--f-label)">linee di D (solo libere)</text>
+        <rect x="20" y="28" width="180" height="8" style="fill:var(--pos)"/><rect x="20" y="212" width="180" height="8" style="fill:var(--neg)"/><rect x="20" y="96" width="180" height="58" rx="3" style="fill:var(--accent-soft);stroke:var(--accent)"/><rect x="240" y="28" width="180" height="8" style="fill:var(--pos)"/><rect x="240" y="212" width="180" height="8" style="fill:var(--neg)"/><rect x="240" y="96" width="180" height="58" rx="3" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <g style="stroke:var(--ink)" stroke-width="1.6"><line x1="40" y1="40" x2="40" y2="94" marker-end="url(#mkE)"/><line x1="40" y1="156" x2="40" y2="207" marker-end="url(#mkE)"/><line x1="75" y1="40" x2="75" y2="94" marker-end="url(#mkE)"/><line x1="75" y1="156" x2="75" y2="207" marker-end="url(#mkE)"/><line x1="145" y1="40" x2="145" y2="94" marker-end="url(#mkE)"/><line x1="145" y1="156" x2="145" y2="207" marker-end="url(#mkE)"/><line x1="180" y1="40" x2="180" y2="94" marker-end="url(#mkE)"/><line x1="180" y1="156" x2="180" y2="207" marker-end="url(#mkE)"/><line x1="110" y1="40" x2="110" y2="207" marker-end="url(#mkE)"/></g>
+        <g style="stroke:var(--accent)" stroke-width="1.6"><line x1="260" y1="40" x2="260" y2="207" marker-end="url(#mkD)"/><line x1="295" y1="40" x2="295" y2="207" marker-end="url(#mkD)"/><line x1="330" y1="40" x2="330" y2="207" marker-end="url(#mkD)"/><line x1="365" y1="40" x2="365" y2="207" marker-end="url(#mkD)"/><line x1="400" y1="40" x2="400" y2="207" marker-end="url(#mkD)"/></g>
+        <circle cx="40" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="40" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="75" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="75" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="145" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="145" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="180" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="180" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="277" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="277" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="312" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="312" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="347" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="347" cy="148" r="4.5" style="fill:var(--pos)"/><circle cx="382" cy="102" r="4.5" style="fill:var(--neg)"/><circle cx="382" cy="148" r="4.5" style="fill:var(--pos)"/>
+        <text x="110" y="238" text-anchor="middle" style="fill:var(--muted);font:12px var(--f-label)">vuoto: 5 linee · lastra: 1 linea</text>
+        <text x="330" y="238" text-anchor="middle" style="fill:var(--muted);font:12px var(--f-label)">5 linee ovunque</text>
+        <text x="220" y="256" text-anchor="middle" style="fill:var(--muted);font:12px var(--f-label)">barre = armature (cariche libere) · pallini = cariche di polarizzazione · εr = 5</text>
+      </svg>
+    </figure>
+    <section>
+      <span class="tag">Come leggere il disegno</span>
+      <p>A sinistra: le linee di \(\vec E\) partono e finiscono su <b>qualsiasi</b> carica. 4 linee su 5 si fermano sulle cariche “−” comparse sulla faccia alta della lastra, e ripartono dalle “+” della faccia bassa: dentro il dielettrico \(E\) è <b>5 volte più debole</b>.</p>
+      <p>A destra: \(\vec D\) è costruito apposta per <b>non vedere</b> le cariche di polarizzazione. Le sue linee nascono e muoiono solo sulle armature e attraversano la lastra come se non ci fosse.</p>
+      <p><b>Il senso fisico di D:</b> è la parte del campo decisa <b>solo dalle cariche che metti tu</b> (quelle libere); il materiale non la cambia.</p>
+    </section>
+    <section>
+      <span class="tag">Esempio numerico · il bilancio</span>
+      <p>Leggi \(\vec D=\varepsilon_0\vec E+\vec P\) come un bilancio. Prendi \(\sigma_L = 10\) (unità a piacere) ed \(\varepsilon_r = 5\):</p>
+      <div class="tbl"><table>
+        <tr><th></th><th>D · cariche libere</th><th>ε₀E · campo vero</th><th>P · preso dal materiale</th></tr>
+        <tr><td>nel vuoto</td><td>10</td><td>10</td><td>0</td></tr>
+        <tr><td>nella lastra</td><td>10</td><td>2</td><td>8</td></tr>
+      </table></div>
+      <p>Nella lastra, un passo alla volta:</p>
+      <ol>
+        <li>Gauss per D (solo cariche libere): \(D=\sigma_L=10\)</li>
+        <li>divido per \(\varepsilon_r\): \(\varepsilon_0E = D/\varepsilon_r = 10/5 = 2\)</li>
+        <li>ricavo P da \(D=\varepsilon_0E+P\): \(P = D-\varepsilon_0E = 10-2 = 8\)</li>
+      </ol>
+      <p>Controllo: \(P = \sigma_p = 8\) è proprio la carica “mangiata” sulle facce della lastra, cioè \(\sigma_L - \sigma_L/\varepsilon_r\) come nel §3.</p>
+    </section>
+    <section>
+      <span class="tag">Metafora</span>
+      <p><b>Lo stipendio.</b> \(D\) è il <b>lordo</b>, deciso solo dal datore di lavoro (le cariche libere). Il dielettrico è il <b>fisco</b> che trattiene \(P\). Quello che arriva davvero in tasca è \(\varepsilon_0E\), il campo che spinge davvero le cariche: lordo = netto + trattenute, cioè \(D=\varepsilon_0E+P\).</p>
+      <p class="why"><b>Dove smette di funzionare:</b> la trattenuta non è fissata prima, dipende dal netto stesso (\(P=\varepsilon_0\chi E\)): è il circolo vizioso della domanda guida. D serve proprio a uscirne: lo calcoli <b>prima</b>, perché non dipende da P. E “D dipende solo dalle libere” vale con simmetria (sfera, cilindro, piano); in generale vale solo la legge del flusso.</p>
+    </section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Gauss per E</b> conta \(q_L + q_p\) → ma \(q_p\) dipende da E → circolo vizioso.</div></li>
+        <li><div><b>La carica di polarizzazione dentro S</b> si scrive con il flusso di \(\vec P\) → la sposto a sinistra dell'uguale.</div></li>
+        <li><div><b>A sinistra</b> resta il flusso di \(\varepsilon_0\vec E+\vec P\), a destra solo \(q_L\) → chiamo \(\vec D\) quella combinazione.</div></li>
+        <li><div><b>Negli esercizi</b>: trovo D con Gauss dalle sole cariche libere, poi divido: \(E = D/\varepsilon_0\varepsilon_r\).</div></li>
+      </ol>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Gauss con tutte le cariche <span class="chip">approfondimento</span></span>
+        \[ \oint_S \vec E\cdot\hat n\,dA = \frac{q_{L,int}+q_{p,int}}{\varepsilon_0} \qquad \text{(Gauss, MT02: vale con tutte le cariche)} \]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · La carica di polarizzazione dentro S <span class="chip">approfondimento</span></span>
+        <p>La superficie S taglia dei dipoli. Su ogni pezzo \(dA\) la carica che “esce” è \(\vec P\cdot\hat n\,dA\) (come \(\sigma_p = \vec P\cdot\hat n\) del §3). Il dielettrico era neutro, quindi dentro resta l'opposto:</p>
+        \[ q_{p,int} = -\oint_S \vec P\cdot\hat n\,dA \qquad \text{(la carica che esce lascia dentro carica opposta)} \]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Si ricava D <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        \varepsilon_0\oint_S \vec E\cdot\hat n\,dA &= q_{L,int}-\oint_S \vec P\cdot\hat n\,dA && \text{(passo 1 × } \varepsilon_0\text{, sostituisco il passo 2)}\\
+        \oint_S \varepsilon_0\vec E\cdot\hat n\,dA+\oint_S \vec P\cdot\hat n\,dA &= q_{L,int} && \text{(porto il flusso di P a sinistra)}\\
+        \oint_S (\varepsilon_0\vec E+\vec P)\cdot\hat n\,dA &= q_{L,int} && \text{(somma di integrali = integrale della somma)}\\
+        \oint_S \vec D\cdot\hat n\,dA &= q_{L,int} && (\vec D \equiv \varepsilon_0\vec E+\vec P)
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · D nei dielettrici lineari <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        \vec D &= \varepsilon_0\vec E+\varepsilon_0\chi\vec E && (\vec P = \varepsilon_0\chi\vec E\text{, §3 passo 5})\\
+        &= \varepsilon_0(1+\chi)\vec E && \text{(raccolgo } \varepsilon_0\vec E)\\
+        &= \varepsilon_0\varepsilon_r\vec E && (1+\chi = \varepsilon_r)
+        \end{aligned}\]
+        <p class="why"><b>Forma locale:</b> con il teorema della divergenza (MT02, come per \(\nabla\cdot\vec E = \rho/\varepsilon_0\)) si ottiene \(\nabla\cdot\vec D = \rho_L\).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 5 · Controllo nel condensatore</span>
+        <p>Scatola di Gauss con una faccia dentro l'armatura superiore (dove tutto è zero) e una nel dielettrico, area \(A\):</p>
+        <figure style="margin:6px 0">
+          <svg viewBox="0 0 440 210" role="img" aria-label="Scatola di Gauss a cilindretto: faccia alta dentro il metallo dell'armatura dove D è zero, faccia bassa dentro la lastra; le pareti laterali sono parallele alle linee, quindi il flusso passa solo dalla faccia bassa" style="width:100%;max-width:440px;display:block;margin:0 auto">
+            <defs><marker id="mkG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" style="stroke:var(--warn)" stroke-width="1.6"/></marker></defs>
+            <rect x="10" y="10" width="250" height="44" style="fill:#c9ced8"/>
+            <text x="18" y="30" style="fill:var(--ink);font:600 12px var(--f-label)">armatura (metallo)</text>
+            <rect x="10" y="54" width="250" height="6" style="fill:var(--pos)"/>
+            <rect x="10" y="90" width="250" height="110" rx="3" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+            <rect x="10" y="90" width="250" height="5" style="fill:var(--neg)"/>
+            <text x="18" y="188" style="fill:var(--accent);font:600 12px var(--f-label)">lastra di dielettrico</text>
+            <rect x="120" y="36" width="60" height="110" rx="2" fill="none" style="stroke:var(--warn)" stroke-width="2" stroke-dasharray="5 3"/>
+            <line x1="150" y1="150" x2="150" y2="176" style="stroke:var(--warn)" stroke-width="2" marker-end="url(#mkG)"/>
+            <text x="272" y="34" style="fill:var(--muted);font:12px var(--f-label)">faccia alta nel metallo:</text><text x="272" y="48" style="fill:var(--muted);font:12px var(--f-label)">D = 0 → flusso 0</text>
+            <text x="272" y="74" style="fill:var(--muted);font:12px var(--f-label)">dentro: +σL·A (libera)</text>
+            <text x="272" y="108" style="fill:var(--muted);font:12px var(--f-label)">pareti laterali ∥ alle linee:</text><text x="272" y="122" style="fill:var(--muted);font:12px var(--f-label)">flusso 0</text>
+            <text x="272" y="150" style="fill:var(--muted);font:12px var(--f-label)">faccia bassa nella lastra:</text><text x="272" y="164" style="fill:var(--muted);font:12px var(--f-label)">flusso = D·A</text>
+          </svg>
+        </figure>
+        <p class="why">Con Gauss per E dovresti contare anche la −σ<sub>p</sub> della faccia della lastra (se la scatola ci arriva): \(\varepsilon_0E\,A = (\sigma_L-\sigma_p)A\). Con D non serve: conti solo la carica dell'armatura.</p>
+        \[\begin{aligned}
+        D\,A &= \sigma_L A && \text{(Gauss per D: solo la carica libera dell'armatura)}\\
+        D &= \sigma_L && \text{(divido per } A)\\
+        E &= \frac{D}{\varepsilon_0\varepsilon_r} = \frac{\sigma_L}{\varepsilon_0\varepsilon_r} && \text{(passo 4)}
+        \end{aligned}\]
+        <p class="why"><b>Stesso risultato del §3</b> in due righe, senza conoscere \(\sigma_p\). E D vale \(\sigma_L\) sia nel vuoto sia nel dielettrico: le sue linee non si fermano sulla lastra.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 6 · Forza tra cariche in un dielettrico <span class="chip">approfondimento</span></span>
+        <p>Carica \(q_1\) immersa in un dielettrico fluido che riempie tutto lo spazio. Sfera di Gauss di raggio r:</p>
+        \[\begin{aligned}
+        D\cdot 4\pi r^2 &= q_1 && \text{(Gauss per D, simmetria sferica)}\\
+        D &= \frac{q_1}{4\pi r^2} && \text{(divido per } 4\pi r^2)\\
+        E &= \frac{q_1}{4\pi\varepsilon_0\varepsilon_r r^2} && (E = D/\varepsilon_0\varepsilon_r)\\
+        F &= q_2E = \frac{q_1q_2}{4\pi\varepsilon_0\varepsilon_r r^2} && \text{(forza su } q_2)
+        \end{aligned}\]
+        <p class="why"><b>Esempio:</b> in acqua (\(\varepsilon_r\approx 80\)) gli ioni Na⁺ e Cl⁻ si attirano 80 volte meno che nel vuoto: per questo il sale si scioglie. Le molecole d'acqua attorno a ogni ione si orientano e lo “schermano”.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT02</span><div>Stessa legge di Gauss e stesse superfici (sfera, cilindro, scatola); cambia solo che si contano le cariche libere.</div></li>
+        <li><span>→ §5</span><div>La scatola di Gauss per D, schiacciata su un confine, dà la regola “\(D_n\) continuo”.</div></li>
+        <li><span>→ magnet.</span><div>In magnetostatica nei materiali ritroverai la stessa idea: un vettore “ausiliario” (H) che conta solo le correnti libere.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>Gauss per <b>D</b>: solo cariche <b>libere</b>. Gauss per <b>E</b>: tutte. Non mescolarli.</li>
+        <li>\(\oint\vec D\cdot\hat n\,dA = q_L\) vale sempre; ma da questo ricavi D solo se c'è simmetria (come per E).</li>
+        <li>\(\vec D = \varepsilon_0\varepsilon_r\vec E\): non dimenticare \(\varepsilon_0\).</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Una sfera conduttrice con carica Q è immersa in olio (\(\varepsilon_r = 2\)). Quanto vale E fuori, a distanza r?</summary><div><p>Gauss per D: \(D = Q/4\pi r^2\); quindi \(E = Q/(4\pi\varepsilon_0\cdot 2\cdot r^2)\), metà che nel vuoto. Sulla superficie dell'olio a contatto con la sfera c'è \(\sigma_p\) negativa che “mangia” metà della carica.</p></div></details>
+      <details><summary>Nel condensatore pieno, D è più grande dentro il dielettrico o nel vuoto?</summary><div><p>Uguale: \(D = \sigma_L\) in entrambi. È E che cambia, perché si divide per \(\varepsilon_r\).</p></div></details>
+    </section>
+    <button class="done" data-sec="s4" data-min="25" type="button">Segna “4 · Il vettore D” come fatto</button>
+  </div>
+
+  <!-- ==================== 5 ==================== -->
+  <div class="part" id="s5" data-part="5 · Al confine tra dielettrici">
+    <div class="part-head">
+      <span class="part-n">5 / 9 · sessione 2</span>
+      <h2>Al confine tra due dielettrici</h2>
+      <span class="level">Livello leggero · 8 minuti · approfondimento dal libro</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Quando una linea di campo passa dall'aria al vetro, che cosa resta uguale e che cosa cambia?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Sulla superficie di separazione tra due dielettrici, in assenza di cariche libere superficiali:</p>
+        \[ D_{1n} = D_{2n} \qquad E_{1t} = E_{2t} \]
+        <p>(componente normale di \(\vec D\) e componente tangente di \(\vec E\) continue). Ne segue la “rifrazione” delle linee di forza: \(\ \dfrac{\tan\theta_1}{\tan\theta_2} = \dfrac{\varepsilon_{r1}}{\varepsilon_{r2}}\), con \(\theta\) angolo dalla normale.</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Un raggio di luce che entra nell'acqua e si piega. Le linee di campo fanno lo stesso: entrando nel materiale con \(\varepsilon_r\) più grande si piegano <b>allontanandosi</b> dalla normale (si “sdraiano” lungo il confine).</p></section>
+    <figure style="margin:0">
+      <svg viewBox="0 0 400 190" role="img" aria-label="Linea di campo che attraversa il confine tra due dielettrici e si piega" style="width:100%;max-width:400px;display:block;margin:0 auto">
+        <rect x="20" y="10" width="360" height="85" style="fill:var(--card);stroke:var(--rule)"/>
+        <rect x="20" y="95" width="360" height="85" style="fill:var(--accent-soft);stroke:var(--rule)"/>
+        <line x1="200" y1="20" x2="200" y2="170" style="stroke:var(--muted);stroke-dasharray:4 4"/>
+        <line x1="150" y1="20" x2="200" y2="95" style="stroke:var(--accent);stroke-width:2.5"/>
+        <line x1="200" y1="95" x2="320" y2="170" style="stroke:var(--accent);stroke-width:2.5"/>
+        <text x="30" y="30" style="fill:var(--ink);font:13px var(--f-label)">mezzo 1: ε<tspan dy="3" font-size="10">r1</tspan><tspan dy="-3"> = 1 (aria)</tspan></text>
+        <text x="30" y="172" style="fill:var(--ink);font:13px var(--f-label)">mezzo 2: ε<tspan dy="3" font-size="10">r2</tspan><tspan dy="-3"> = 3</tspan></text>
+        <text x="172" y="60" style="fill:var(--muted);font:13px var(--f-label)">θ₁</text>
+        <text x="212" y="140" style="fill:var(--muted);font:13px var(--f-label)">θ₂</text>
+        <text x="300" y="88" style="fill:var(--muted);font:12px var(--f-label)">confine</text>
+      </svg>
+    </figure>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Scatoletta di Gauss</b> schiacciata sul confine (MT02): il flusso laterale sparisce, sulle due basi \(D_{2n}dA - D_{1n}dA = \) carica libera \(= 0\) → \(D_{1n} = D_{2n}\).</div></li>
+        <li><div><b>Rettangolino</b> a cavallo del confine, con i lati corti che tendono a zero: la circuitazione di E è zero (MT03) → \(E_{1t}l - E_{2t}l = 0\) → \(E_{1t} = E_{2t}\).</div></li>
+        <li><div><b>La normale di E cambia</b>: \(E_n = D_n/\varepsilon_0\varepsilon_r\) → dove \(\varepsilon_r\) è grande, \(E_n\) è piccola, mentre \(E_t\) è la stessa → la linea si inclina di più.</div></li>
+      </ol>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">La legge di rifrazione <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        \tan\theta_1 &= \frac{E_{1t}}{E_{1n}} = \frac{E_{t}\,\varepsilon_0\varepsilon_{r1}}{D_n} && \text{(tangente = opposto/adiacente; } E_n = D_n/\varepsilon_0\varepsilon_r)\\
+        \tan\theta_2 &= \frac{E_{t}\,\varepsilon_0\varepsilon_{r2}}{D_n} && \text{(stesso conto: } E_t \text{ e } D_n \text{ sono uguali)}\\
+        \frac{\tan\theta_1}{\tan\theta_2} &= \frac{\varepsilon_{r1}}{\varepsilon_{r2}} && \text{(divido: } E_t,\ \varepsilon_0,\ D_n \text{ si semplificano)}
+        \end{aligned}\]
+        <p class="why"><b>Esempio:</b> aria → \(\varepsilon_{r2} = 3\), \(\theta_1 = 30°\): \(\tan\theta_2 = 3\tan 30° = 3\cdot 0{,}577 = 1{,}73\), \(\theta_2 = 60°\). Si allontana dalla normale ✓.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Nel condensatore con la lastra (§6) il campo è perpendicolare alle facce. Quale regola usi?</summary><div><p>Solo \(D_n\) continuo: \(D = \sigma_L\) nel vuoto e nella lastra. La componente tangente è zero da entrambe le parti. È il caso dei dielettrici “in serie” (§7).</p></div></details>
+      <details><summary>E se il confine è parallelo al campo (dielettrici “in parallelo”, §7)?</summary><div><p>Allora il campo è tutto tangente: vale \(E_{1t} = E_{2t}\), cioè lo stesso E nei due materiali; D invece è diverso (\(\varepsilon_0\varepsilon_{r1}E\) e \(\varepsilon_0\varepsilon_{r2}E\)).</p></div></details>
+    </section>
+    <button class="done" data-sec="s5" data-min="8" type="button">Segna “5 · Al confine tra dielettrici” come fatto</button>
+  </div>
+
+  <!-- ==================== 6 ==================== -->
+  <div class="part" id="s6" data-part="6 · Lastra nel condensatore">
+    <div class="part-head">
+      <span class="part-n">6 / 9 · sessione 2</span>
+      <h2>Modello: lastra dielettrica nel condensatore</h2>
+      <span class="level">Livello pieno · 25 minuti · esercizio della lezione 16</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Se la lastra non riempie tutto lo spazio, come cambiano campo, tensione e capacità? E come si misura \(\varepsilon_r\) di un materiale?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Condensatore piano di area A e distanza \(d_0\), con densità libera \(\sigma_L\); dentro, parallela alle armature, una lastra di spessore \(d_1\) e costante \(\varepsilon_r\) (vuoti \(d_2\) sopra e \(d_3\) sotto). Il campo è \(E_0 = \sigma_L/\varepsilon_0\) nei vuoti ed \(E = \sigma_L/\varepsilon_0\varepsilon_r\) nella lastra, e:</p>
+        \[ \Delta V = \frac{\sigma_L}{\varepsilon_0}\left(d_0-d_1+\frac{d_1}{\varepsilon_r}\right), \qquad C = \frac{\varepsilon_0A}{d_0-d_1+\dfrac{d_1}{\varepsilon_r}} \]
+        <p>indipendenti dalla posizione della lastra.</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Le linee di campo scendono dall'armatura “+”. Arrivate alla lastra, tre su quattro si fermano sulle cariche “−” della faccia (se \(\varepsilon_r = 4\)); dall'altra faccia ne ripartono altrettante. Il tratto in cui il campo è debole “accorcia” la distanza efficace: è come se il condensatore fosse più sottile.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>D è lo stesso ovunque</b> (\(D = \sigma_L\), §4) → nei vuoti \(E_0 = \sigma_L/\varepsilon_0\), nella lastra \(E = E_0/\varepsilon_r\).</div></li>
+        <li><div><b>La tensione è la somma dei tratti</b> → \(\Delta V = E_0d_2 + Ed_1 + E_0d_3\): i due vuoti contano solo per la loro somma \(d_0 - d_1\) → la posizione della lastra non conta.</div></li>
+        <li><div><b>Misurando \(\Delta V\)</b> prima e dopo aver inserito la lastra (condensatore isolato) → ricavo E nella lastra → poi \(\varepsilon_r\) e \(\sigma_p\).</div></li>
+      </ol>
+    </section>
+    <section>
+      <div class="task">
+        <span class="tag">L'esercizio della lezione (dati scelti da me: negli appunti mancano)</span>
+        <p>Condensatore piano con \(d_0 = 4\) mm, caricato a \(\Delta V_0 = 400\) V e poi isolato. Si inserisce una lastra di spessore \(d_1 = 2\) mm e la tensione scende a \(\Delta V = 250\) V. Trovare E nella lastra, \(\varepsilon_r\) e \(\sigma_p\).</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · La carica libera, dal condensatore vuoto <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        E_0 &= \frac{\Delta V_0}{d_0} = \frac{400\ \text{V}}{4\cdot10^{-3}\ \text{m}} = 1{,}0\cdot10^{5}\ \text{V/m} && \text{(campo uniforme)}\\
+        \sigma_L &= \varepsilon_0E_0 = 8{,}85\cdot10^{-12}\cdot 10^{5} = 8{,}85\cdot10^{-7}\ \text{C/m}^2 && (E_0 = \sigma_L/\varepsilon_0)
+        \end{aligned}\]
+        <p class="why"><b>Perché:</b> il condensatore è isolato, quindi questa \(\sigma_L\) resta la stessa anche dopo: anche \(E_0\) nei vuoti resta \(10^5\) V/m.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · La tensione è la somma dei tratti <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \Delta V &= \int_1^2\vec E\cdot d\vec l = E_0d_2+E\,d_1+E_0d_3 && \text{(spezzo l'integrale nei tre tratti, campo uniforme in ognuno)}\\
+        &= E\,d_1+E_0(d_2+d_3) && \text{(raccolgo } E_0)\\
+        &= E\,d_1+E_0(d_0-d_1) && (d_2+d_3 = d_0-d_1)
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Il campo nella lastra <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        E\,d_1 &= \Delta V-E_0(d_0-d_1) && \text{(porto il termine noto a destra)}\\
+        &= 250-10^5\cdot 2\cdot10^{-3} = 250-200 = 50\ \text{V} && \text{(sostituisco)}\\
+        E &= \frac{50\ \text{V}}{2\cdot10^{-3}\ \text{m}} = 2{,}5\cdot10^{4}\ \text{V/m} && \text{(divido per } d_1)
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · ε<sub>r</sub> e σ<sub>p</sub> <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \varepsilon_r &= \frac{E_0}{E} = \frac{10^5}{2{,}5\cdot10^4} = 4 && (E = E_0/\varepsilon_r)\\
+        \sigma_p &= \sigma_L-\varepsilon_0E && (E = (\sigma_L-\sigma_p)/\varepsilon_0\text{, isolo } \sigma_p)\\
+        &= 8{,}85\cdot10^{-12}\,(10^5-2{,}5\cdot10^4) = 6{,}64\cdot10^{-7}\ \text{C/m}^2 && \text{(raccolgo } \varepsilon_0)
+        \end{aligned}\]
+        <p class="why"><b>Controllo:</b> con \(\varepsilon_r = 4\) il §3 dice \(\sigma_p = \tfrac34\sigma_L = 0{,}75\cdot 8{,}85\cdot10^{-7} = 6{,}64\cdot10^{-7}\) ✓. Segno: faccia vicina all'armatura + → \(-\sigma_p\).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 5 · La formula generale della capacità <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        \Delta V &= \frac{\sigma_L}{\varepsilon_0\varepsilon_r}d_1+\frac{\sigma_L}{\varepsilon_0}(d_0-d_1) && \text{(passo 2 con } E = \sigma_L/\varepsilon_0\varepsilon_r)\\
+        &= \frac{\sigma_L}{\varepsilon_0}\left(d_0-d_1+\frac{d_1}{\varepsilon_r}\right) && \text{(raccolgo } \sigma_L/\varepsilon_0)\\
+        C = \frac{Q}{\Delta V} &= \frac{\sigma_LA}{\Delta V} = \frac{\varepsilon_0A}{d_0-d_1+d_1/\varepsilon_r} && (Q = \sigma_LA\text{, } \sigma_L \text{ si semplifica})
+        \end{aligned}\]
+        <p class="why"><b>Controlli:</b> \(d_1 = 0\) → \(C = \varepsilon_0A/d_0 = C_0\) ✓; \(d_1 = d_0\) → \(C = \varepsilon_r C_0\) ✓ (§1); \(\varepsilon_r = 1\) → \(C_0\) ✓. Con i dati: \(d_0-d_1+d_1/\varepsilon_r = 2+0{,}5 = 2{,}5\) mm invece di 4: \(C = 1{,}6\,C_0\), e infatti \(400/250 = 1{,}6\) ✓. È anche la serie di tre condensatori (vuoto, lastra, vuoto): \(1/C = d_2/\varepsilon_0A + d_1/\varepsilon_0\varepsilon_rA + d_3/\varepsilon_0A\).</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Laboratorio</span>
+      <h3>Infila la lastra</h3>
+      <p>Trascina la lastra su e giù, cambia \(\varepsilon_r\) e lo spessore, attacca o stacca il generatore. Le linee rosse si fermano sulle cariche di polarizzazione. Dati: \(d_0 = 4\) mm, A = 100 cm², generatore da 400 V.</p>
+      <div class="lab">
+        <canvas id="slab" width="600" height="380" aria-label="Condensatore con lastra dielettrica: trascina la lastra in verticale"></canvas>
+        <div class="controls">
+          <label for="er">ε<sub>r</sub> <input id="er" type="range" min="10" max="100" value="40"></label>
+          <label for="th">Spessore d<sub>1</sub>/d<sub>0</sub> <input id="th" type="range" min="0" max="100" value="50"></label>
+          <button class="btn" id="bGen" type="button">Generatore staccato</button>
+          <button class="btn" id="bReset" type="button">Ricomincia</button>
+        </div>
+        <dl class="readout" id="roSlab"></dl>
+      </div>
+      <details>
+        <summary>Tre cose da provare</summary>
+        <div>
+          <p>1. Così com'è (staccato, \(\varepsilon_r = 4\), metà spessore): \(\Delta V = 250\) V, come nell'esercizio. Porta lo spessore a 0 e poi a 100%: 400 V → 100 V.</p>
+          <p>2. Trascina la lastra in alto e in basso: \(\Delta V\) e C <b>non cambiano</b>.</p>
+          <p>3. Attacca il generatore e alza \(\varepsilon_r\): ora è Q che cresce (più “+” sulle armature) e l'energia <b>aumenta</b>; staccato, l'energia <b>cala</b>. Lo spiega il §8.</p>
+        </div>
+      </details>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>Fuori dalla lastra il campo è \(E_0\), non \(E_0/\varepsilon_r\).</li>
+        <li>A carica costante, \(E_0\) nei vuoti è lo stesso di prima dell'inserimento; a tensione costante no (cambia \(\sigma_L\)).</li>
+        <li>Spessori in metri: 2 mm = \(2\cdot10^{-3}\) m.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Se la lastra fosse conduttrice (stesso spessore), quanto varrebbe C?</summary><div><p>Dentro il conduttore E = 0: resta solo il vuoto, \(C = \varepsilon_0A/(d_0-d_1) = 2C_0\). È il limite \(\varepsilon_r\to\infty\) della formula del passo 5 ✓.</p></div></details>
+      <details><summary>Perché la posizione della lastra non conta?</summary><div><p>Perché nei due vuoti il campo è lo stesso \(E_0\): conta solo la loro lunghezza totale \(d_2+d_3 = d_0-d_1\), non come è divisa.</p></div></details>
+    </section>
+    <button class="done" data-sec="s6" data-min="25" type="button">Segna “6 · Lastra nel condensatore” come fatto</button>
+  </div>
+
+  <!-- ==================== 7 ==================== -->
+  <div class="part" id="s7" data-part="7 · Due dielettrici">
+    <div class="part-head">
+      <span class="part-n">7 / 9 · sessione 2</span>
+      <h2>Modello: due dielettrici, in serie o in parallelo</h2>
+      <span class="level">Livello pieno · 15 minuti</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Un condensatore pieno di due materiali diversi: come capisco se sono “in serie” o “in parallelo”?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p><b>In serie</b> (confine parallelo alle armature, spessori a e b): stessa D, stessa carica, E diversa.</p>
+        \[ \frac1C = \frac{a}{\varepsilon_0\varepsilon_{r1}A}+\frac{b}{\varepsilon_0\varepsilon_{r2}A} \]
+        <p><b>In parallelo</b> (confine perpendicolare alle armature, aree \(A_1\) e \(A_2\)): stessa V, stessa E, \(\sigma_L\) diversa sui due pezzi di armatura.</p>
+        \[ C = \frac{\varepsilon_0\varepsilon_{r1}A_1}{d}+\frac{\varepsilon_0\varepsilon_{r2}A_2}{d} \]
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p><b>Serie:</b> due fette di torta impilate, le linee le attraversano una dopo l'altra. <b>Parallelo:</b> due fette affiancate, ogni linea ne attraversa una sola.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Serie</b> → le linee attraversano entrambi → il confine è ⊥ al campo → vale \(D_n\) continuo (§5) → stessa D = \(\sigma_L\), stessa carica (come i condensatori in serie, MT05).</div></li>
+        <li><div><b>Parallelo</b> → le armature sono equipotenziali e la distanza è la stessa → stesso \(E = V/d\) (anche: \(E_t\) continuo, §5) → ma \(D = \varepsilon_0\varepsilon_rE\) diverso → più carica libera sul lato con \(\varepsilon_r\) grande.</div></li>
+      </ol>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Serie · metà e metà, ε<sub>r1</sub> = 2, ε<sub>r2</sub> = 6 <span class="chip lez">es. 19.2</span></span>
+        \[\begin{aligned}
+        C_1 &= \frac{\varepsilon_0\cdot 2\cdot A}{d/2} = 4\,C_0, \quad C_2 = \frac{\varepsilon_0\cdot 6\cdot A}{d/2} = 12\,C_0 && (C_0 = \varepsilon_0A/d)\\
+        \frac1C &= \frac1{4C_0}+\frac1{12C_0} = \frac{3+1}{12C_0} = \frac{1}{3C_0} && \text{(serie; denominatore comune } 12C_0)\\
+        C &= 3\,C_0
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Parallelo · metà area ciascuno, stessi materiali <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        C &= \frac{\varepsilon_0\cdot 2\cdot A/2}{d}+\frac{\varepsilon_0\cdot 6\cdot A/2}{d} && \text{(parallelo: si sommano)}\\
+        &= C_0+3C_0 = 4\,C_0 && \text{(la media di 2 e 6)}
+        \end{aligned}\]
+        <p class="why"><b>Confronto:</b> con gli stessi materiali il parallelo (4 C₀, media aritmetica) batte la serie (3 C₀): in serie pesa di più il materiale “debole”. <b>Controllo:</b> con \(\varepsilon_{r1} = \varepsilon_{r2} = \varepsilon_r\) entrambe danno \(\varepsilon_rC_0\) ✓.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT05</span><div>Le stesse regole di serie (stessa carica) e parallelo (stessa tensione).</div></li>
+        <li><span>← §6</span><div>La lastra con i vuoti è una serie di tre strati, uno con \(\varepsilon_r = 1\).</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>In parallelo la carica sull'armatura <b>non</b> è uniforme: \(\sigma_{L1} = \varepsilon_0\varepsilon_{r1}V/d\) e \(\sigma_{L2} = \varepsilon_0\varepsilon_{r2}V/d\).</li>
+        <li>Ogni strato in serie ha il suo spessore (d/2, non d).</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Nella serie, sul confine tra i due dielettrici c'è carica?</summary><div><p>Sì, di polarizzazione: la faccia inferiore del primo ha \(+\sigma_L(1-1/\varepsilon_{r1})\), la superiore del secondo \(-\sigma_L(1-1/\varepsilon_{r2})\). Con 2 e 6: \(+\tfrac12\sigma_L - \tfrac56\sigma_L = -\tfrac13\sigma_L\). È lei che fa “saltare” E da \(\sigma_L/2\varepsilon_0\) a \(\sigma_L/6\varepsilon_0\).</p></div></details>
+    </section>
+    <button class="done" data-sec="s7" data-min="15" type="button">Segna “7 · Due dielettrici” come fatto</button>
+  </div>
+
+  <!-- ==================== 8 ==================== -->
+  <div class="part" id="s8" data-part="8 · Energia e forza">
+    <div class="part-head">
+      <span class="part-n">8 / 9 · sessione 2</span>
+      <h2>Energia e forza sul dielettrico</h2>
+      <span class="level">Livello pieno · 25 minuti</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Inserire un dielettrico aumenta o diminuisce l'energia del condensatore? E il dielettrico viene spinto fuori o risucchiato dentro?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>In un dielettrico lineare la densità di energia è \(\ w = \tfrac12\varepsilon_0\varepsilon_rE^2 = \tfrac12\vec E\cdot\vec D\). Riempiendo il condensatore (\(C_0\to\varepsilon_rC_0\)):</p>
+        <ul>
+          <li><b>a carica costante</b>: \(U = U_0/\varepsilon_r\), \(\Delta U &lt; 0\): il campo compie lavoro positivo sul dielettrico;</li>
+          <li><b>a tensione costante</b>: \(U = \varepsilon_rU_0\), \(\Delta U &gt; 0\), il generatore compie \(L_{gen} = V\Delta Q = 2\Delta U\).</li>
+        </ul>
+        <p>In entrambi i casi il dielettrico è <b>attirato</b> dentro, con forza \(F = \tfrac12V^2\,dC/dx\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Avvicini una lastra di vetro al bordo di un condensatore carico: il campo che “sfrangia” fuori dalle armature la polarizza, e i suoi dipoli vengono tirati dove il campo è forte, cioè dentro. Il campo elettrico produce un effetto meccanico: è il “fenomeno elettrico → manifestazione meccanica” della tua mappa.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Generatore staccato</b> → Q fissa → C cresce → \(U = Q^2/2C\) cala → l'energia persa è il lavoro fatto dal campo per tirare dentro la lastra.</div></li>
+        <li><div><b>Generatore attaccato</b> → V fissa → C cresce → Q cresce → il generatore “pompa” \(\Delta Q\) e spende \(V\Delta Q\).</div></li>
+        <li><div><b>Metà di quel lavoro</b> va in energia del condensatore, l'altra metà è il lavoro meccanico sul dielettrico (che quindi anche ora è risucchiato).</div></li>
+      </ol>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Densità di energia <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        U &= \tfrac12 CV^2 = \tfrac12\,\frac{\varepsilon_0\varepsilon_rA}{d}\,(Ed)^2 && (C = \varepsilon_r C_0,\ V = Ed)\\
+        &= \tfrac12\varepsilon_0\varepsilon_rE^2\cdot Ad && \text{(semplifico una d)}\\
+        w &= \frac{U}{Ad} = \tfrac12\varepsilon_0\varepsilon_rE^2 = \tfrac12 ED && (Ad = \text{volume};\ D = \varepsilon_0\varepsilon_rE)
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Carica costante <span class="chip lez">es. 19.2</span></span>
+        \[\begin{aligned}
+        U_0 &= \frac{Q^2}{2C_0},\quad U = \frac{Q^2}{2\varepsilon_rC_0} = \frac{U_0}{\varepsilon_r} && \text{(stessa Q, C moltiplicata per } \varepsilon_r)\\
+        \Delta U &= \frac{U_0}{\varepsilon_r}-U_0 = U_0\left(\frac1{\varepsilon_r}-1\right) &lt; 0 && (\varepsilon_r &gt; 1)\\
+        L_{campo} &= -\Delta U &gt; 0 && \text{(lavoro di una forza conservativa)}
+        \end{aligned}\]
+        <p class="why"><b>Esempio:</b> \(U_0 = 10\) μJ, \(\varepsilon_r = 4\): \(U = 2{,}5\) μJ, il campo fa 7,5 μJ di lavoro sulla lastra.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Tensione costante <span class="chip lez">es. 19.3</span></span>
+        \[\begin{aligned}
+        U &= \tfrac12\varepsilon_rC_0V^2 = \varepsilon_rU_0 && \text{(stessa V)}\\
+        \Delta U &= (\varepsilon_r-1)\,U_0 &gt; 0\\
+        \Delta Q &= \varepsilon_rC_0V-C_0V = (\varepsilon_r-1)\,C_0V && (Q = CV)\\
+        L_{gen} &= V\,\Delta Q = (\varepsilon_r-1)\,C_0V^2 = 2\,\Delta U && \text{(sposta } \Delta Q \text{ con tensione V; } U_0 = \tfrac12C_0V^2)\\
+        L_{mecc} &= L_{gen}-\Delta U = \Delta U &gt; 0 && \text{(bilancio: lavoro del generatore = } \Delta U + \text{lavoro sul dielettrico)}
+        \end{aligned}\]
+        <p class="why"><b>Nella tua mappa (es. 19.3)</b> c'è scritto “\(L_{gen} = -\Delta U\)”: controlla con Alessio o con il professore. Se \(\Delta U\) è la variazione di energia <i>del condensatore</i>, il bilancio corretto è \(L_{gen} = 2\Delta U\); “\(-\Delta U\)” vale se si intende l'energia <i>del generatore</i> (che si scarica di \(L_{gen}\)).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · La forza sulla lastra <span class="chip">approfondimento</span></span>
+        <p>Armature \(a\times b\), distanza d, lastra spessa d inserita per un tratto x lungo a. È un parallelo (§7): un pezzo largo x con \(\varepsilon_r\), uno largo \(a-x\) vuoto.</p>
+        \[\begin{aligned}
+        C(x) &= \frac{\varepsilon_0\varepsilon_r\,bx}{d}+\frac{\varepsilon_0\,b(a-x)}{d} = \frac{\varepsilon_0b\,[a+(\varepsilon_r-1)x]}{d} && \text{(parallelo; raccolgo)}\\
+        \frac{dC}{dx} &= \frac{\varepsilon_0b(\varepsilon_r-1)}{d} && \text{(derivo: solo il termine in x)}\\
+        F &= -\frac{d}{dx}\left(\frac{Q^2}{2C}\right) && \text{(Q costante: } F = -dU/dx)\\
+        &= -\frac{Q^2}{2}\cdot\left(-\frac{1}{C^2}\frac{dC}{dx}\right) && \text{(regola della catena, Richiamo di Analisi)}\\
+        &= \frac{Q^2}{2C^2}\frac{dC}{dx} = \tfrac12V^2\frac{dC}{dx} &gt; 0 && (Q/C = V)
+        \end{aligned}\]
+        <p class="why"><b>Esempio:</b> b = 10 cm, d = 1 mm, \(\varepsilon_r = 4\), V = 1000 V: \(dC/dx = 8{,}85\cdot10^{-12}\cdot 0{,}1\cdot 3/10^{-3} = 2{,}66\cdot10^{-9}\) F/m, \(F = \tfrac12\cdot 10^6\cdot 2{,}66\cdot10^{-9} = 1{,}3\cdot10^{-3}\) N. Positiva: verso l'interno. Non dipende da x. A tensione costante si ottiene la stessa formula (con il bilancio del passo 3).</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT05</span><div>Stessa tecnica della forza tra le armature (es. 19.1): forza = − derivata dell'energia a carica costante.</div></li>
+        <li><span>← MT04</span><div>Un dipolo in campo non uniforme va verso il campo forte: la lastra è fatta di dipoli.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>Prima di tutto: <b>Q fissa o V fissa?</b> Il segno di \(\Delta U\) dipende da questo.</li>
+        <li>\(\Delta U &gt; 0\) a V costante <b>non</b> vuol dire che il dielettrico è respinto: c'è anche il lavoro del generatore.</li>
+        <li>\(F = -dU/dx\) solo a <b>carica costante</b>; a tensione costante il segno si inverte (\(F = +dU/dx\)).</li>
+        <li>Usa \(U = Q^2/2C\) se Q è fissa, \(U = \tfrac12CV^2\) se V è fissa: così una sola cosa cambia.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>A carica costante, dove va l'energia persa se la lastra entra senza attrito?</summary><div><p>In energia cinetica della lastra: entra accelerando, supera il centro, viene richiamata… oscilla avanti e indietro. Con un po' di attrito si ferma dentro.</p></div></details>
+      <details><summary>Perché il generatore spende il doppio di quello che il condensatore accumula?</summary><div><p>Sposta tutta la carica \(\Delta Q\) alla tensione piena V, mentre l'energia del condensatore cresce come se la carica fosse stata aggiunta “a metà tensione” in media. La differenza è il lavoro meccanico sul dielettrico.</p></div></details>
+    </section>
+    <button class="done" data-sec="s8" data-min="25" type="button">Segna “8 · Energia e forza” come fatto</button>
+  </div>
+
+  <!-- ==================== 9 ==================== -->
+  <div class="part" id="s9" data-part="9 · Esercizio 19.2">
+    <div class="part-head">
+      <span class="part-n">9 / 9 · sessione 2</span>
+      <h2>Esercizio guidato: due condensatori in serie con dielettrici</h2>
+      <span class="level">Guida all'esercizio · 25 minuti · es. 19.2 (numeri scelti da me)</span>
+    </div>
+    <section>
+      <div class="task">
+        <span class="tag">Testo</span>
+        <p>Due condensatori piani vuoti, \(C_1 = 6\) nF e \(C_2 = 3\) nF, sono collegati in serie a un generatore \(V_0 = 100\) V. Si stacca il generatore. Poi si riempie \(C_1\) con un dielettrico \(\varepsilon_{r1} = 2\) e \(C_2\) con \(\varepsilon_{r2} = 3\).</p>
+        <p>1) Carica e energia iniziali. &nbsp; 2) Energia finale e \(\Delta U\). &nbsp; 3) I dielettrici sono attirati o respinti? &nbsp; 4) Tensione finale ai capi della serie.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Classifica prima di calcolare</span>
+      <details><summary>Quale Modello? Quale processo?</summary><div>
+        <p><b>Modello:</b> condensatori in serie (MT05) + condensatore riempito di dielettrico (§1: \(C\to\varepsilon_rC\)).</p>
+        <p><b>Processo:</b> generatore staccato → <b>carica costante</b>. In serie la carica è la stessa su tutti e due (“\(q_1 = q_2\)” della tua mappa): il nodo centrale è isolato.</p>
+        <p><b>Strategia:</b> energia con \(U = q^2/2C\) (q fissa), confronto prima/dopo.</p>
+      </div></details>
+    </section>
+    <section>
+      <span class="tag">Indizi, uno alla volta</span>
+      <details><summary>Indizio 1</summary><div><p>Calcola \(C_{eq} = C_1C_2/(C_1+C_2)\) e poi \(q = C_{eq}V_0\).</p></div></details>
+      <details><summary>Indizio 2</summary><div><p>Dopo: \(C_1' = \varepsilon_{r1}C_1\), \(C_2' = \varepsilon_{r2}C_2\). La carica q non cambia.</p></div></details>
+      <details><summary>Indizio 3</summary><div><p>\(U_f = q^2/2C_1' + q^2/2C_2'\) (oppure \(q^2/2C_{eq}'\): devono venire uguali).</p></div></details>
+    </section>
+    <section>
+      <span class="tag">Soluzione</span>
+      <details><summary>Punto 1 · Carica e energia iniziali</summary><div>
+        \[\begin{aligned}
+        C_{eq} &= \frac{C_1C_2}{C_1+C_2} = \frac{6\cdot 3}{6+3} = 2\ \text{nF} && \text{(serie)}\\
+        q &= C_{eq}V_0 = 2\cdot10^{-9}\cdot 100 = 2\cdot10^{-7}\ \text{C} = 0{,}2\ \mu\text{C}\\
+        U_i &= \tfrac12C_{eq}V_0^2 = \tfrac12\cdot 2\cdot10^{-9}\cdot 10^4 = 10\ \mu\text{J}
+        \end{aligned}\]
+      </div></details>
+      <details><summary>Punto 2 · Energia finale e ΔU</summary><div>
+        \[\begin{aligned}
+        C_1' &= 2\cdot 6 = 12\ \text{nF},\quad C_2' = 3\cdot 3 = 9\ \text{nF} && (C = \varepsilon_rC_0)\\
+        U_f &= \frac{q^2}{2C_1'}+\frac{q^2}{2C_2'} = \frac{4\cdot10^{-14}}{24\cdot10^{-9}}+\frac{4\cdot10^{-14}}{18\cdot10^{-9}} && (q^2 = 4\cdot10^{-14}\ \text{C}^2)\\
+        &= 1{,}67\ \mu\text{J}+2{,}22\ \mu\text{J} = 3{,}89\ \mu\text{J}\\
+        \Delta U &= 3{,}89-10 = -6{,}11\ \mu\text{J}
+        \end{aligned}\]
+        <p class="why"><b>Controllo con \(C_{eq}'\):</b> \(12\cdot 9/21 = 5{,}14\) nF; \(q^2/2C_{eq}' = 4\cdot10^{-14}/1{,}03\cdot10^{-8} = 3{,}89\) μJ ✓.</p>
+      </div></details>
+      <details><summary>Punto 3 · Attirati o respinti?</summary><div><p>\(\Delta U &lt; 0\) a carica costante: il campo ha compiuto lavoro positivo \(L = -\Delta U = 6{,}11\) μJ sui dielettrici. Sono <b>attirati</b> (§8). Segno fisico ✓: un dielettrico è sempre risucchiato.</p></div></details>
+      <details><summary>Punto 4 · Tensione finale</summary><div>
+        \[\begin{aligned}
+        V_1' &= \frac{q}{C_1'} = \frac{2\cdot10^{-7}}{12\cdot10^{-9}} = 16{,}7\ \text{V},\quad V_2' = \frac{2\cdot10^{-7}}{9\cdot10^{-9}} = 22{,}2\ \text{V}\\
+        V' &= V_1'+V_2' = 38{,}9\ \text{V} && \text{(serie: le tensioni si sommano)}
+        \end{aligned}\]
+        <p class="why">Prima: \(V_1 = 33{,}3\) V, \(V_2 = 66{,}7\) V. Ognuna si è divisa per il suo \(\varepsilon_r\) ✓.</p>
+      </div></details>
+    </section>
+    <section>
+      <span class="tag">Errori tipici</span>
+      <div class="warnbox"><ul>
+        <li>Usare \(U = \tfrac12CV_0^2\) dopo l'inserimento: V non è più 100 V, il generatore è staccato.</li>
+        <li>Dimenticare che in serie la carica è la stessa sui due condensatori.</li>
+        <li>Concludere “ΔU &lt; 0 → qualcosa non torna”: è giusto, è l'energia spesa per tirare dentro i dielettrici.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Variante per allenarti · es. 19.3</span>
+      <p>Stesso circuito, ma il generatore resta <b>attaccato</b> mentre si inseriscono i dielettrici. Trova \(q'\), \(U_f\), \(\Delta U\), \(L_{gen}\) e il lavoro sui dielettrici.</p>
+      <details><summary>Risultati per controllare</summary><div><p>\(C_{eq}' = 5{,}14\) nF, \(q' = 0{,}514\) μC, \(U_f = \tfrac12C_{eq}'V_0^2 = 25{,}7\) μJ, \(\Delta U = +15{,}7\) μJ, \(L_{gen} = V_0(q'-q) = 31{,}4\) μJ \(= 2\Delta U\), lavoro sui dielettrici \(= 15{,}7\) μJ (attirati anche qui).</p></div></details>
+    </section>
+    <button class="done" data-sec="s9" data-min="25" type="button">Segna “9 · Esercizio 19.2” come fatto</button>
+  </div>
+
+  <!-- ==================== CHIUSURA ==================== -->
+  <div class="part" id="chiusura" data-part="Chiusura">
+    <div class="part-head"><span class="part-n">fine</span><h2>Mappa, Dossier e libro</h2></div>
+    <section>
+      <span class="tag">Per la Mappa Tematica MT06 · rami proposti</span>
+      <p class="sub">Le parole chiave le scegli tu: questi sono solo i rami principali, dal globale al dettaglio.</p>
+      <div class="flow">
+        <div><span>Fatto sperimentale</span><span>condensatore isolato, V cala, \(\varepsilon_r\), C cresce</span></div>
+        <div><span>Microscopico</span><span>deformare, orientare, dipolo medio</span></div>
+        <div><span>P e σ<sub>p</sub></span><span>densità di dipoli, capi scoperti, campo opposto</span></div>
+        <div><span>Vettore D</span><span>contare le libere, Gauss, \(\varepsilon_0\varepsilon_r\)</span></div>
+        <div><span>Confine</span><span>\(D_n\), \(E_t\), rifrazione</span></div>
+        <div><span>Modelli</span><span>lastra, serie, parallelo</span></div>
+        <div><span>Energia e forze</span><span>Q o V fissa?, generatore, risucchio</span></div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Mappa del Modello · lastra nel condensatore</span>
+      <div class="flow">
+        <div><span>Geometria</span><span>armature A, distanza \(d_0\); lastra \(d_1\); vuoti \(d_2\), \(d_3\)</span></div>
+        <div><span>Simmetrie</span><span>piani “infiniti”: campo ⊥ alle armature, uniforme in ogni tratto; D = \(\sigma_L\) ovunque</span></div>
+        <div><span>Elemento</span><span>tratto \(dl\) lungo il campo</span></div>
+        <div><span>Variabile e intervallo</span><span>da un'armatura all'altra, spezzato in vuoto · lastra · vuoto</span></div>
+        <div><span>Risultato</span><span>\(\Delta V = \tfrac{\sigma_L}{\varepsilon_0}(d_0-d_1+d_1/\varepsilon_r)\), C, poi \(\varepsilon_r\) e \(\sigma_p\)</span></div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Schede del Dossier (★ = prima del recupero)</span>
+      <ul>
+        <li>★ D · Polarizzazione: prisma \(dA\,dh\) → \(P = \sigma_p\); \(E = (\sigma_L-\sigma_p)/\varepsilon_0 = \sigma_L/\varepsilon_0\varepsilon_r\); \(\sigma_p = \sigma_L(\varepsilon_r-1)/\varepsilon_r\) (§3)</li>
+        <li>★ D · Vettore D e Gauss nei dielettrici; forza tra cariche in un dielettrico (§4)</li>
+        <li>D · Condizioni al contorno per E e D, legge delle tangenti (§5)</li>
+        <li>★ M · Lastra dielettrica nel condensatore: E, \(\varepsilon_r\), \(\sigma_p\) dalla misura di ΔV; C generale (§6)</li>
+        <li>★ M · Due dielettrici in serie (es. 19.2) e in parallelo (§7, §9)</li>
+        <li>M · Energia a Q e a V costante, \(L_{gen} = 2\Delta U\), forza sulla lastra (§8)</li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Controlla sul libro · 5-10 minuti</span>
+      <p>Mencuccini-Silvestrini, cap. 3 “Elettrostatica in presenza di dielettrici”: §1 Costante dielettrica, p. 117; §2 Interpretazione microscopica, p. 119 (deformazione p. 120, orientamento p. 121); §3 Il vettore polarizzazione, p. 124; §4 Equazioni dell'elettrostatica in presenza di dielettrici (vettore D), p. 130; §5 Condizioni al contorno per E e D, p. 132; §6 Energia, p. 142.</p>
+      <p class="sub">Da verificare lì: la forza sulla lastra (§6, p. 142) e la forza tra cariche in un dielettrico, che non trovo negli appunti. Chiedi anche al professore se il vettore D è stato trattato a lezione.</p>
+    </section>
+  </div>
+
+  <!-- ==================== FORMULARIO ==================== -->
+  <div class="part" id="formulario" data-part="Formulario">
+    <div class="part-head"><span class="part-n">fine</span><h2>Formulario da memorizzare</h2></div>
+    <p>Le formule da sapere a memoria. Per allenarti premi <b>Mettiti alla prova</b>: le formule si sfocano, prova a scriverle e tocca per controllare.</p>
+    <button class="tb-btn" id="bQuiz" type="button">Mettiti alla prova</button>
+    <section>
+      <span class="tag">1 · Fatto sperimentale</span>
+      <div class="fcard"><div class="f-name">Capacità con dielettrico</div><div class="f-eq">\[ C = \varepsilon_rC_0 \]</div><div class="f-note">dielettrico che riempie tutto · \(\varepsilon_r \ge 1\) numero puro · → §1</div></div>
+      <div class="fcard"><div class="f-name">Campo e tensione a carica costante</div><div class="f-eq">\[ E = \frac{E_0}{\varepsilon_r} = \frac{\sigma_L}{\varepsilon_0\varepsilon_r},\qquad V = \frac{V_0}{\varepsilon_r} \]</div><div class="f-note">\(\sigma_L\) = densità di carica libera sulle armature · → §1</div></div>
+    </section>
+    <section>
+      <span class="tag">3 · P e cariche di polarizzazione</span>
+      <div class="fcard"><div class="f-name">Vettore polarizzazione</div><div class="f-eq">\[ \vec P = \frac{d\vec p}{d\tau} \quad [\text{C/m}^2] \]</div><div class="f-note">momento di dipolo per unità di volume · → §3</div></div>
+      <div class="fcard"><div class="f-name">Cariche di polarizzazione</div><div class="f-eq">\[ \sigma_p = \vec P\cdot\hat n,\qquad \rho_p = -\nabla\cdot\vec P \]</div><div class="f-note">\(\hat n\) normale uscente; con P ⊥ alla faccia \(\lvert\sigma_p\rvert = P\) · → §3</div></div>
+      <div class="fcard"><div class="f-name">Campo nel dielettrico</div><div class="f-eq">\[ E = \frac{\sigma_L-\sigma_p}{\varepsilon_0} \]</div><div class="f-note">condensatore piano, sovrapposizione di due doppi strati · → §3</div></div>
+      <div class="fcard"><div class="f-name">σ<sub>p</sub> in funzione di σ<sub>L</sub></div><div class="f-eq">\[ \sigma_p = \sigma_L\,\frac{\varepsilon_r-1}{\varepsilon_r} \]</div><div class="f-note">segno opposto alla carica dell'armatura vicina · → §3</div></div>
+      <div class="fcard"><div class="f-name">Dielettrico lineare</div><div class="f-eq">\[ \vec P = \varepsilon_0\chi\vec E,\qquad \chi = \varepsilon_r-1 \]</div><div class="f-note">lineare e isotropo · χ suscettività · → §3</div></div>
+    </section>
+    <section>
+      <span class="tag">4 · Il vettore D</span>
+      <div class="fcard"><div class="f-name">Spostamento elettrico</div><div class="f-eq">\[ \vec D = \varepsilon_0\vec E+\vec P = \varepsilon_0\varepsilon_r\vec E \]</div><div class="f-note">la seconda uguaglianza solo per dielettrici lineari · → §4</div></div>
+      <div class="fcard"><div class="f-name">Gauss per D</div><div class="f-eq">\[ \oint_S\vec D\cdot\hat n\,dA = q_{L,int},\qquad \nabla\cdot\vec D = \rho_L \]</div><div class="f-note">solo cariche libere · → §4</div></div>
+      <div class="fcard"><div class="f-name">Coulomb in un dielettrico</div><div class="f-eq">\[ F = \frac{q_1q_2}{4\pi\varepsilon_0\varepsilon_r r^2} \]</div><div class="f-note">cariche in un fluido dielettrico che riempie lo spazio · → §4</div></div>
+    </section>
+    <section>
+      <span class="tag">5 · Confine tra dielettrici</span>
+      <div class="fcard"><div class="f-name">Condizioni al contorno</div><div class="f-eq">\[ D_{1n} = D_{2n},\qquad E_{1t} = E_{2t} \]</div><div class="f-note">senza cariche libere sul confine · → §5</div></div>
+      <div class="fcard"><div class="f-name">Rifrazione delle linee</div><div class="f-eq">\[ \frac{\tan\theta_1}{\tan\theta_2} = \frac{\varepsilon_{r1}}{\varepsilon_{r2}} \]</div><div class="f-note">θ angolo dalla normale · → §5</div></div>
+    </section>
+    <section>
+      <span class="tag">6-7 · Condensatori con dielettrici</span>
+      <div class="fcard"><div class="f-name">Lastra di spessore d₁</div><div class="f-eq">\[ C = \frac{\varepsilon_0A}{d_0-d_1+d_1/\varepsilon_r} \]</div><div class="f-note">indipendente dalla posizione della lastra · → §6</div></div>
+      <div class="fcard"><div class="f-name">Tensione a tratti</div><div class="f-eq">\[ \Delta V = E\,d_1+E_0\,(d_0-d_1) \]</div><div class="f-note">\(E_0 = \sigma_L/\varepsilon_0\) nei vuoti, \(E = E_0/\varepsilon_r\) nella lastra · → §6</div></div>
+      <div class="fcard"><div class="f-name">Dielettrici in serie</div><div class="f-eq">\[ \frac1C = \frac{a}{\varepsilon_0\varepsilon_{r1}A}+\frac{b}{\varepsilon_0\varepsilon_{r2}A} \]</div><div class="f-note">strati paralleli alle armature, stessa D · → §7</div></div>
+      <div class="fcard"><div class="f-name">Dielettrici in parallelo</div><div class="f-eq">\[ C = \frac{\varepsilon_0(\varepsilon_{r1}A_1+\varepsilon_{r2}A_2)}{d} \]</div><div class="f-note">affiancati, stessa E · → §7</div></div>
+    </section>
+    <section>
+      <span class="tag">8 · Energia e forza</span>
+      <div class="fcard"><div class="f-name">Densità di energia</div><div class="f-eq">\[ w = \tfrac12\varepsilon_0\varepsilon_rE^2 = \tfrac12\vec E\cdot\vec D \]</div><div class="f-note">→ §8</div></div>
+      <div class="fcard"><div class="f-name">Riempimento a carica costante</div><div class="f-eq">\[ U = \frac{U_0}{\varepsilon_r},\qquad \Delta U &lt; 0 \]</div><div class="f-note">generatore staccato · → §8</div></div>
+      <div class="fcard"><div class="f-name">Riempimento a tensione costante</div><div class="f-eq">\[ U = \varepsilon_rU_0,\qquad L_{gen} = V\Delta Q = 2\Delta U \]</div><div class="f-note">generatore attaccato · → §8</div></div>
+      <div class="fcard"><div class="f-name">Forza sulla lastra</div><div class="f-eq">\[ F = \tfrac12V^2\frac{dC}{dx} = \frac{\varepsilon_0b(\varepsilon_r-1)V^2}{2d} \]</div><div class="f-note">verso l'interno; b = larghezza, d = distanza armature · → §8</div></div>
+    </section>
+  </div>
+
+  <footer>Dispensa MT06. Dimmi in chat cosa cambiare.</footer>
+
+</main>
+</div>
+
+<div class="toolbar" id="toolbar" role="toolbar" aria-label="Sfoglia la dispensa">
+  <button class="tb-btn" id="bIdx" type="button" title="Vai all'indice">Indice</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn arrow" id="bPrev" type="button" aria-label="Pagina precedente">‹</button>
+  <span id="pgNum" aria-live="polite">pag. 1</span>
+  <button class="tb-btn arrow" id="bNext" type="button" aria-label="Pagina successiva">›</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn" id="bFlip" type="button" title="Quante pagine girare a ogni passo">sfoglia di 2</button>
+  <button class="tb-btn" id="bSmall" type="button" aria-label="Testo più piccolo">A−</button>
+  <button class="tb-btn" id="bBig" type="button" aria-label="Testo più grande">A+</button>
+  <span class="tb-sep"></span>
+  <span id="railSlot"></span>
+</div>
+
+<!-- Formulario: "Mettiti alla prova" sfoca le formule, un tocco ne scopre una -->
+<script>
+(function () {
+  const box = document.getElementById('formulario'), b = document.getElementById('bQuiz');
+  if (!box || !b) return;
+  b.addEventListener('click', () => {
+    const on = box.classList.toggle('quiz');
+    box.querySelectorAll('.f-eq.show').forEach(e => e.classList.remove('show'));
+    b.textContent = on ? 'Mostra tutte le formule' : 'Mettiti alla prova';
+  });
+  box.addEventListener('click', ev => {
+    const e = ev.target.closest('.f-eq');
+    if (e && box.classList.contains('quiz')) e.classList.toggle('show');
+  });
+})();
+</script>
+
+<!-- Funzioni comuni per i laboratori (canvas): cssVar, hex, arrowOn, fmt -->
+<script>
+/* incollare dentro lo script dei laboratori */
+(function () {
+  const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const hex = h => { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)); };
+  function arrowOn(ctx, x0, y0, x1, y1, color, w) {
+    const ang = Math.atan2(y1 - y0, x1 - x0), hd = 9 + w * 2;
+    ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hd * Math.cos(ang - 0.4), y1 - hd * Math.sin(ang - 0.4));
+    ctx.lineTo(x1 - hd * Math.cos(ang + 0.4), y1 - hd * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fill();
+  }
+  const fmt = v => {
+    if (!isFinite(v)) return '—';
+    const a = Math.abs(v);
+    if (a !== 0 && (a < 1e-3 || a >= 1e4)) return v.toExponential(2).replace('e', '·10^');
+    return v.toPrecision(3);
+  };
+
+  /* ---------- Laboratorio: lastra dielettrica nel condensatore ---------- */
+  (function () {
+    const cv = document.getElementById('slab'), g = cv.getContext('2d');
+    const sEr = document.getElementById('er'), sTh = document.getElementById('th');
+    const bGen = document.getElementById('bGen'), bReset = document.getElementById('bReset');
+    const ro = document.getElementById('roSlab');
+    const W = 600, H = 380, X0 = 120, X1 = 450, YT = 60, YB = 330, GAP = YB - YT;
+    const EPS = 8.854e-12, A = 1e-2, D0 = 4e-3, V0 = 400;
+    const C0 = EPS * A / D0, Q0 = C0 * V0, U0 = Q0 * Q0 / (2 * C0);
+    // stato iniziale: caricato a 400 V a vuoto, poi staccato (come nell'esercizio)
+    let er = 4, th = 0.5, pos = 0.5, attached = false, Qfix = Q0, dragging = false, grab = 0;
+
+    function state() {
+      const d1 = th * D0;
+      const C = EPS * A / (D0 - d1 + d1 / er);
+      const Q = attached ? C * V0 : Qfix;
+      const sL = Q / A, E0 = sL / EPS, E = E0 / er, sP = sL * (1 - 1 / er);
+      return { d1, C, Q, V: Q / C, E0, E, sL, sP, U: Q * Q / (2 * C) };
+    }
+    const slabPx = () => {
+      const h = th * GAP, top = YT + pos * (GAP - h);
+      return { top, h, bot: top + h };
+    };
+
+    function draw() {
+      const s = state(), sl = slabPx();
+      const ink = cssVar('--ink'), muted = cssVar('--muted'), acc = cssVar('--accent'), soft = cssVar('--accent-soft');
+      const pos_ = cssVar('--pos'), neg = cssVar('--neg'), card = cssVar('--card');
+      g.fillStyle = card; g.fillRect(0, 0, W, H);
+      // lastra
+      if (sl.h > 1) {
+        g.fillStyle = soft; g.fillRect(X0 + 10, sl.top, X1 - X0 - 20, sl.h);
+        g.strokeStyle = acc; g.lineWidth = 1.5; g.strokeRect(X0 + 10, sl.top, X1 - X0 - 20, sl.h);
+        g.fillStyle = acc; g.font = '600 13px system-ui'; g.textAlign = 'left'; g.textBaseline = 'middle';
+        g.fillText('εr = ' + er.toFixed(1).replace('.', ','), X1 + 8, sl.top + sl.h / 2);
+      }
+      // linee di campo: una per ogni carica libera
+      const N = Math.max(2, Math.min(28, Math.round(10 * s.Q / Q0)));
+      const pass = Math.round(N / er);              // linee che attraversano la lastra
+      for (let i = 0; i < N; i++) {
+        const x = X0 + 18 + (i + 0.5) * (X1 - X0 - 36) / N;
+        const through = Math.floor((i + 1) * pass / N) > Math.floor(i * pass / N);
+        g.globalAlpha = 0.75;
+        if (sl.h <= 1) { arrowOn(g, x, YT + 8, x, YB - 6, acc, 1.4); continue; }
+        if (sl.top - YT > 16) arrowOn(g, x, YT + 8, x, sl.top - 4, through ? acc : pos_, 1.4);
+        if (through) { if (sl.h > 16) arrowOn(g, x, sl.top + 2, x, sl.bot - 4, acc, 1.4); }
+        if (YB - sl.bot > 16) arrowOn(g, x, sl.bot + 4, x, YB - 6, through ? acc : pos_, 1.4);
+        g.globalAlpha = 1;
+        if (!through) {
+          g.font = '600 13px system-ui'; g.textAlign = 'center'; g.textBaseline = 'middle';
+          g.fillStyle = neg; g.fillText('−', x, sl.top + 7);
+          g.fillStyle = pos_; g.fillText('+', x, sl.bot - 7);
+        }
+      }
+      g.globalAlpha = 1;
+      // armature e cariche libere
+      g.fillStyle = ink; g.fillRect(X0, YT - 8, X1 - X0, 8); g.fillRect(X0, YB, X1 - X0, 8);
+      g.font = '600 14px system-ui'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      for (let i = 0; i < N; i++) {
+        const x = X0 + 18 + (i + 0.5) * (X1 - X0 - 36) / N;
+        g.fillStyle = pos_; g.fillText('+', x, YT - 18);
+        g.fillStyle = neg; g.fillText('−', x, YB + 20);
+      }
+      // generatore
+      const xb = 60, ym = (YT + YB) / 2;
+      g.strokeStyle = muted; g.lineWidth = 2;
+      g.beginPath(); g.moveTo(X0, YT - 4); g.lineTo(xb, YT - 4); g.lineTo(xb, ym - 14); g.stroke();
+      g.beginPath(); g.moveTo(X0, YB + 4); g.lineTo(xb, YB + 4); g.lineTo(xb, ym + 14); g.stroke();
+      g.textAlign = 'left';
+      if (attached) {
+        g.strokeStyle = ink; g.lineWidth = 3; g.beginPath(); g.moveTo(xb - 16, ym - 6); g.lineTo(xb + 16, ym - 6); g.stroke();
+        g.lineWidth = 6; g.beginPath(); g.moveTo(xb - 8, ym + 6); g.lineTo(xb + 8, ym + 6); g.stroke();
+        g.fillStyle = ink; g.font = '600 13px system-ui'; g.fillText('400 V', xb - 40, ym + 30);
+      } else {
+        g.fillStyle = muted; g.font = '13px system-ui'; g.fillText('staccato', xb - 40, ym);
+      }
+      g.fillStyle = muted; g.font = '13px system-ui'; g.textAlign = 'left';
+      g.fillText('trascina la lastra su e giù', X0, 22);
+      g.textAlign = 'right'; g.fillStyle = pos_; g.fillText('rosse: si fermano su σp', X1 + 140, 22);
+      readout(s);
+    }
+
+    const num = (v, k) => v.toFixed(k).replace('.', ',');
+    function readout(s) {
+      const rows = [
+        ['ΔV', num(s.V, 0) + ' V'],
+        ['C', num(s.C * 1e12, 1) + ' pF ×' + num(s.C / C0, 2)],
+        ['Q', num(s.Q * 1e9, 2) + ' nC'],
+        ['E₀ (vuoto)', num(s.E0 / 1e3, 1) + ' kV/m'],
+        ['E (lastra)', num(s.E / 1e3, 1) + ' kV/m'],
+        ['σp / σL', num(s.sP / s.sL, 2)],
+        ['U', num(s.U * 1e6, 2) + ' μJ ×' + num(s.U / U0, 2)]
+      ];
+      ro.innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('') +
+        `<div style="grid-column:1/-1"><dt>fisso</dt><dd class="state">${attached ? 'V = 400 V (generatore attaccato)' : 'Q = ' + num(Qfix * 1e9, 2) + ' nC (generatore staccato)'}</dd></div>`;
+    }
+
+    sEr.addEventListener('input', () => { er = sEr.value / 10; draw(); });
+    sTh.addEventListener('input', () => { th = sTh.value / 100; draw(); });
+    bGen.addEventListener('click', () => {
+      if (attached) { Qfix = state().Q; attached = false; }
+      else attached = true;
+      bGen.textContent = attached ? 'Generatore attaccato' : 'Generatore staccato';
+      bGen.classList.toggle('on', attached);
+      draw();
+    });
+    bReset.addEventListener('click', () => {
+      er = 4; th = 0.5; pos = 0.5; attached = false; Qfix = Q0;
+      sEr.value = 40; sTh.value = 50; bGen.textContent = 'Generatore staccato'; bGen.classList.remove('on'); draw();
+    });
+    const yOf = ev => { const rc = cv.getBoundingClientRect(); return (ev.clientY - rc.top) / rc.height * H; };
+    function move(ev) {
+      const sl = slabPx(), room = GAP - sl.h;
+      if (room <= 0) return;
+      pos = Math.min(1, Math.max(0, (yOf(ev) - grab - YT) / room)); draw();
+    }
+    cv.addEventListener('pointerdown', ev => { dragging = true; grab = yOf(ev) - slabPx().top; if (grab < 0 || grab > slabPx().h) grab = slabPx().h / 2; cv.setPointerCapture(ev.pointerId); move(ev); });
+    cv.addEventListener('pointermove', ev => { if (dragging) move(ev); });
+    cv.addEventListener('pointerup', () => { dragging = false; });
+    cv.addEventListener('pointercancel', () => { dragging = false; });
+    draw();
+  })();
+
+})();
+</script>
+
+<script>
+/* Avanzamento: pieno = parti segnate come fatte (pesate sui minuti), chiaro = dove sei arrivato a leggere.
+   Le spunte restano salvate solo in questo browser. */
+(function () {
+  const KEY = 'mt06-dispensa-fatto';   // ← cambiare per ogni dispensa
+  const btns = [...document.querySelectorAll('.done')];
+  const total = btns.reduce((a, b) => a + +b.dataset.min, 0);
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+  const fill = document.getElementById('pgFill'), read = document.getElementById('pgRead');
+  const pct = document.getElementById('pgPct'), mins = document.getElementById('pgMin'), list = document.getElementById('pgList');
+  btns.forEach(b => b.dataset.label = b.textContent.match(/“(.*)”/)[1]);
+  const target = sec => sec === 'intro' ? 'ripasso' : sec;
+  list.innerHTML = btns.map(b => `<li data-sec="${b.dataset.sec}"><a href="#${target(b.dataset.sec)}"><span class="ck"></span><span>${b.dataset.label}</span></a></li>`).join('');
+  const lis = [...list.children];
+  let cur = 'intro';
+
+  function paint() {
+    let m = 0;
+    btns.forEach((b, i) => {
+      const on = !!done[b.dataset.sec];
+      b.classList.toggle('is-done', on);
+      b.setAttribute('aria-pressed', on);
+      b.textContent = on ? '✓ ' + b.dataset.label + ' · fatto' : 'Segna “' + b.dataset.label + '” come fatto';
+      lis[i].classList.toggle('done', on);
+      lis[i].querySelector('.ck').textContent = on ? '✓' : '';
+      if (on) m += +b.dataset.min;
+    });
+    lis.forEach(li => li.classList.toggle('cur', li.dataset.sec === cur));
+    const p = Math.round(m / total * 100);
+    fill.style.width = p + '%';
+    pct.textContent = p + '%';
+    mins.textContent = p < 100 ? 'fatto · ~' + (total - m) + ' min' : 'fatto';
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    done[b.dataset.sec] = !done[b.dataset.sec];
+    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    paint();
+  }));
+
+  const parts = [...document.querySelectorAll('[data-part]')];
+  const secOf = id => (id === 'ripasso' || id === 'quadro') ? 'intro' : (/^s\d$/.test(id) ? id : null);
+  function onScroll() {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    read.style.height = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + '%';
+    let c = 'intro';
+    for (const el of parts) if (el.getBoundingClientRect().top < innerHeight * 0.35) c = secOf(el.id) || c;
+    if (c !== cur) { cur = c; paint(); }
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  paint(); onScroll();
+})();
+</script>
+<script>
+/* Modalità libro: la dispensa è divisa in colonne alte quanto lo schermo (le pagine); si sfoglia spostando la vista di una o due colonne. */
+(function () {
+  const main = document.querySelector('.sheet main');
+  document.getElementById('railSlot').appendChild(document.getElementById('prog'));
+  const num = document.getElementById('pgNum'), prev = document.getElementById('bPrev'), next = document.getElementById('bNext');
+  const flipBtn = document.getElementById('bFlip');
+  const KEY = 'mt06-libro';   // ← cambiare per ogni dispensa
+  let st = { fs: 16, flip: 2, frac: 0 };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let count = 2, gap = 72, step = 1, total = 1, idx = 0;
+
+  function measure() {
+    count = innerWidth >= 900 ? 2 : 1;
+    gap = count === 2 ? 72 : 40;
+    document.documentElement.style.setProperty('--fs', st.fs + 'px');
+    main.style.columnCount = count;
+    main.style.columnGap = gap + 'px';
+    const pw = (main.clientWidth - gap * (count - 1)) / count, ph = main.clientHeight;
+    document.querySelectorAll('.lab canvas').forEach(c => {
+      c.style.width = Math.max(160, Math.min(pw - 30, ph * 0.5 * c.width / c.height)) + 'px';
+    });
+    step = pw + gap;
+    total = Math.max(1, Math.round((main.scrollWidth + gap) / step));
+  }
+  const maxIdx = () => Math.max(0, total - count);
+  const align = () => { if (count === 2 && st.flip === 2) idx -= idx % 2; };
+  function show(anim) {
+    idx = Math.min(Math.max(0, idx), maxIdx());
+    const before = main.scrollLeft;
+    main.scrollLeft = Math.round(idx * step);
+    // effetto "pagina che gira": breve scivolata nella direzione in cui si sfoglia
+    if (anim && !reduce && main.animate && main.scrollLeft !== before) {
+      const dir = main.scrollLeft > before ? 1 : -1;
+      main.animate([{ opacity: 0.2, transform: 'translateX(' + (dir * 28) + 'px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 220, easing: 'ease-out' });
+    }
+    const a = idx + 1, b = Math.min(total, idx + count);
+    num.textContent = 'pag. ' + (a === b ? a : a + '–' + b) + ' di ' + total;
+    prev.disabled = idx <= 0;
+    next.disabled = idx >= maxIdx();
+    flipBtn.hidden = count !== 2;
+    flipBtn.textContent = st.flip === 2 ? 'sfoglia di 2' : 'sfoglia di 1';
+    st.frac = total > 1 ? idx / (total - 1) : 0;
+    save();
+  }
+  function layout() { measure(); idx = Math.round(st.frac * (total - 1)); align(); show(false); }
+  function relayout() { measure(); show(false); }
+  function turn(dir) { idx += dir * (count === 2 ? st.flip : 1); show(true); }
+  function pageOf(el) {
+    const r = el.getBoundingClientRect(), m = main.getBoundingClientRect();
+    return Math.floor((r.left - m.left + main.scrollLeft + 2) / step);
+  }
+
+  prev.addEventListener('click', () => turn(-1));
+  next.addEventListener('click', () => turn(1));
+  flipBtn.addEventListener('click', () => { st.flip = 3 - st.flip; align(); show(false); });
+  document.getElementById('bSmall').addEventListener('click', () => { st.fs = Math.max(13, st.fs - 1); layout(); });
+  document.getElementById('bBig').addEventListener('click', () => { st.fs = Math.min(24, st.fs + 1); layout(); });
+  document.getElementById('bIdx').addEventListener('click', () => { idx = pageOf(document.querySelector('nav')); align(); show(true); });
+
+  // link interni (indice, rimandi): vai alla pagina giusta invece di scorrere
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    idx = pageOf(t); align(); show(true);
+  });
+  // tastiera
+  addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, select')) return;
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); turn(1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); turn(-1); }
+  });
+  // swipe con il dito (iPad) o con il mouse trascinando
+  let sx = null, sy = 0;
+  main.addEventListener('pointerdown', e => {
+    sx = e.target.closest('canvas, input, button, summary, a, .lab') ? null : e.clientX; sy = e.clientY;
+  });
+  main.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) turn(dx < 0 ? 1 : -1);
+    sx = null;
+  });
+  // trackpad e rotella: un gesto = una pagina
+  let acc = 0, lastTurn = 0, accTimer = 0;
+  main.addEventListener('wheel', e => {
+    if (e.target.closest('mjx-container') && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    acc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    clearTimeout(accTimer); accTimer = setTimeout(() => { acc = 0; }, 200);
+    const now = Date.now();
+    if (Math.abs(acc) > 60 && now - lastTurn > 500) { turn(acc > 0 ? 1 : -1); acc = 0; lastTurn = now; }
+  }, { passive: false });
+  // se il browser sposta la vista da solo (es. passando con Tab), riallinea alla pagina
+  let scTimer = 0;
+  main.addEventListener('scroll', () => {
+    clearTimeout(scTimer);
+    scTimer = setTimeout(() => {
+      if (Math.abs(main.scrollLeft - idx * step) > 4) { idx = Math.round(main.scrollLeft / step); align(); show(false); }
+    }, 200);
+  });
+  // aprire o chiudere una risposta cambia il numero di pagine
+  document.addEventListener('toggle', relayout, true);
+  addEventListener('resize', layout);
+
+  layout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  addEventListener('load', () => {
+    const mj = window.MathJax;
+    if (mj && mj.startup && mj.startup.promise) mj.startup.promise.then(layout); else layout();
+  });
+})();
+</script>

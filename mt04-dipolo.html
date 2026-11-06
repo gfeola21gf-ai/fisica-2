@@ -1,0 +1,1428 @@
+<title>MT04 Dipolo elettrico</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* Layout: una colonna da quaderno di studio (max ~68ch), blocchi etichettati come nel metodo dell'utente, laboratori a tutta colonna.
+   Tema unico chiaro, per scelta dell'utente: leggibile anche con il telefono in modalità scura. */
+:root {
+  --paper: #f5f7fa;
+  --card: #ffffff;
+  --ink: #18202e;
+  --muted: #5a6477;
+  --rule: #d8dee8;
+  --accent: #0f6e66;
+  --accent-soft: #e2f1ef;
+  --pos: #c43d2c;
+  --neg: #2563c9;
+  --formal: #eef1f7;
+  --warn: #9a5b00;
+  --warn-soft: #fbf1e1;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-label: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.62;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+main { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: 2.1rem; font-weight: 600; }
+h2 { font-size: 1.35rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+.part { display: flex; flex-direction: column; gap: 36px; padding-top: 28px; border-top: 2px solid var(--ink); scroll-margin-top: 12px; }
+.part-head { display: flex; flex-direction: column; gap: 8px; }
+.part-n { font-family: var(--f-mono); font-size: .9rem; color: var(--accent); }
+.level { font-family: var(--f-label); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.eyebrow, .tag, .chip, summary, .btn, .readout dt, .step-n, nav a, .level {
+  font-family: var(--f-label); letter-spacing: .04em;
+}
+.eyebrow { font-size: .8rem; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.sub { color: var(--muted); }
+.tag {
+  align-self: flex-start; font-size: .72rem; text-transform: uppercase; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent);
+}
+.chip { font-size: .72rem; font-weight: 600; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.chip.lez { border-color: var(--accent); color: var(--accent); }
+ul, ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+.formal { background: var(--formal); border-left: 3px solid var(--ink); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.warnbox { background: var(--warn-soft); border-left: 3px solid var(--warn); padding: 14px 18px; }
+.warnbox li::marker { color: var(--warn); }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: 2px; }
+nav ol { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule); }
+nav li { border-bottom: 1px solid var(--rule); }
+nav a { display: flex; gap: 12px; align-items: baseline; padding: 9px 2px; color: var(--ink); text-decoration: none; font-size: .95rem; }
+nav a:hover { color: var(--accent); }
+nav a span:first-child { font-family: var(--f-mono); color: var(--accent); min-width: 1.6em; }
+nav a span:nth-child(2) { flex: 1; min-width: 0; }
+nav a span:last-child { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.cover { list-style: none; padding: 0; gap: 8px; }
+.cover li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.cover li > span:first-child { flex: 1 1 16rem; min-width: 0; }
+.cover .grp { font-family: var(--f-label); font-weight: 600; font-size: .85rem; color: var(--muted); border: 0; padding: 8px 0 0; letter-spacing: .03em; }
+.chain { counter-reset: c; list-style: none; padding: 0; gap: 10px; }
+.chain li { counter-increment: c; display: grid; grid-template-columns: 1.8em 1fr; gap: 8px; }
+.chain li::before { content: counter(c); font-family: var(--f-mono); color: var(--accent); }
+.chain li > div { min-width: 0; }
+.step { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.step-n { font-size: .78rem; text-transform: uppercase; color: var(--muted); font-weight: 600; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.why { color: var(--muted); font-size: .95rem; }
+.why b { color: var(--accent); font-family: var(--f-label); font-weight: 600; letter-spacing: .03em; }
+details { border: 1px solid var(--rule); border-radius: 6px; background: var(--card); }
+summary { cursor: pointer; padding: 12px 14px; font-weight: 600; font-size: .95rem; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸ "; color: var(--accent); }
+details[open] summary::before { content: "▾ "; }
+details > div { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px; }
+.links { list-style: none; padding: 0; gap: 10px; }
+.links li { display: grid; grid-template-columns: 5em 1fr; gap: 10px; }
+.links li > span:first-child { font-family: var(--f-label); font-size: .8rem; color: var(--accent); font-weight: 600; padding-top: .2em; }
+.links li > div { min-width: 0; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-label); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+/* laboratori */
+.lab { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.lab canvas { width: 100%; height: auto; max-width: 100%; touch-action: none; border-radius: 4px; display: block; }
+#cv, #c2 { cursor: crosshair; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.controls label { font-family: var(--f-label); font-size: .85rem; color: var(--muted); display: flex; gap: 8px; align-items: center; flex: 1 1 14rem; min-width: 0; }
+.controls label.check { flex: 0 0 auto; }
+.controls input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.controls input[type=checkbox] { accent-color: var(--accent); width: 1.1em; height: 1.1em; }
+.btn { font-size: .85rem; font-weight: 600; padding: 6px 12px; border-radius: 4px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+.btn:hover { background: var(--accent-soft); }
+.btn.on { background: var(--accent); color: var(--card); }
+.btn:focus-visible, summary:focus-visible, input:focus-visible, nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 8px 16px; margin: 0; }
+.readout div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--rule); padding-bottom: 3px; }
+.readout dt { font-size: .82rem; color: var(--muted); }
+.readout dd { margin: 0; font-family: var(--f-mono); font-size: .88rem; font-variant-numeric: tabular-nums; }
+.readout .err dd { color: var(--accent); font-weight: 500; }
+.state { font-family: var(--f-label); font-weight: 600; color: var(--accent); }
+.legend { font-family: var(--f-label); font-size: .8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.dot { display: inline-block; width: .8em; height: .8em; border-radius: 50%; vertical-align: -1px; margin-right: 4px; }
+.flow { display: flex; flex-direction: column; gap: 6px; }
+.flow div { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.flow div > span:first-child { font-family: var(--f-label); font-weight: 600; font-size: .88rem; }
+.flow div > span:last-child { min-width: 0; }
+.task { background: var(--card); border: 1px solid var(--ink); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+/* Avanzamento: piccolo riquadro fisso in basso a destra, uguale su ogni schermo (scelta dell'utente). */
+.rail { position: fixed; z-index: 5; right: calc(12px + env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: 9rem; display: flex; flex-direction: column; gap: 5px; padding: 6px 10px 8px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--rule); box-shadow: 0 2px 8px rgb(24 32 46 / .10);
+  font-family: var(--f-label); letter-spacing: .03em; font-size: .72rem; color: var(--muted); }
+.rail-pct { display: flex; gap: 6px; align-items: baseline; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rail-pct b { color: var(--accent); font-size: .9rem; font-weight: 600; }
+.vbar { position: relative; height: 4px; border-radius: 2px; background: var(--rule); overflow: hidden; }
+.vbar .fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 2px; background: var(--accent); transition: width .4s ease; }
+.vbar .read, .rail-list { display: none; }
+@media (prefers-reduced-motion: reduce) { .vbar .fill { transition: none; } }
+.done { align-self: flex-start; font-family: var(--f-label); font-size: .9rem; font-weight: 600; letter-spacing: .03em; padding: 9px 16px; border-radius: 6px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); cursor: pointer; }
+.done:hover { background: var(--accent-soft); }
+.done.is-done { background: var(--accent); color: var(--card); }
+.done:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 16px; }
+@media (max-width: 30rem) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.7rem; }
+  .flow div, .links li { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* ===== Modalità libro: pagine fisse da sfogliare (Mac e iPad). Due pagine affiancate su schermo largo, una su schermo stretto. ===== */
+html { height: 100%; font-size: var(--fs, 16px); }
+body { height: 100%; overflow: hidden; padding: 0; font-size: calc(var(--fs, 16px) * 1.06); }
+.sheet { position: fixed; z-index: 1; top: calc(env(safe-area-inset-top, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 66px);
+  left: 50%; transform: translateX(-50%); width: min(1320px, calc(100vw - 28px)); box-sizing: border-box; padding: 28px 36px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 6px 24px rgb(24 32 46 / .08); }
+.sheet main { display: block; max-width: none; margin: 0; height: 100%; overflow: hidden; column-fill: auto; column-rule: 1px solid var(--rule); touch-action: pinch-zoom; }
+.sheet header { display: block !important; }
+.sheet .part, .sheet section, .sheet .part-head { display: block; }
+.sheet main > * { margin: 0; }
+.sheet main > * + * { margin-top: 30px; }
+.sheet .part > * + * { margin-top: 26px; }
+.sheet section > * + *, .sheet header > * + *, .sheet .part-head > * + * { margin-top: 12px; }
+.sheet .part { break-before: column; border-top: 0; padding-top: 0; }
+.sheet .part-head { border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.sheet h2, .sheet h3, .sheet .tag, .sheet .part-head, .sheet .step-n { break-after: avoid; }
+.sheet .formal, .sheet figure, .sheet .lab, .sheet details, .sheet .task, .sheet .warnbox, .sheet .tbl, .sheet mjx-container[display="true"],
+.sheet .chain li, .sheet .cover li, .sheet .links li, .sheet .flow > div, .sheet .done, .sheet nav li { break-inside: avoid; }
+.sheet .lab canvas { margin: 0 auto; }
+.sheet .tag { display: table; }
+.toolbar { position: fixed; z-index: 6; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  font-family: var(--f-label); letter-spacing: .03em; background: var(--paper); }
+.tb-btn { height: 40px; min-width: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--card); color: var(--ink);
+  font-family: var(--f-label); font-size: 14px; font-weight: 600; cursor: pointer; }
+.tb-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.tb-btn:disabled { opacity: .35; cursor: default; }
+.tb-btn.arrow { font-size: 20px; color: var(--accent); min-width: 52px; }
+.tb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pgNum { min-width: 10em; text-align: center; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tb-sep { width: 1px; height: 26px; background: var(--rule); margin: 0 4px; }
+.toolbar .rail { position: static; width: auto; padding: 0; border: 0; background: none; box-shadow: none; flex-direction: row; align-items: center; gap: 8px; }
+.toolbar .rail-pct { font-size: 12px; }
+.toolbar .rail-pct b { font-size: 14px; }
+.toolbar .vbar { width: 56px; }
+</style>
+
+<div class="sheet">
+<main>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">MT04 · Lezioni 10-11 · Dispensa</span>
+    <h1>Il dipolo elettrico</h1>
+    <p class="sub">Cinque sotto-argomenti, dal dipolo come sorgente di campo al dipolo immerso nel campo di altri. Tempo di studio: 60-90 minuti, più la mappa.</p>
+  </header>
+
+  <aside class="rail" id="prog" aria-label="Avanzamento della dispensa">
+    <div class="rail-pct"><b id="pgPct">0%</b><span id="pgMin"></span></div>
+    <div class="rail-body">
+      <div class="vbar" aria-hidden="true"><div class="read" id="pgRead"></div><div class="fill" id="pgFill"></div></div>
+      <ol class="rail-list" id="pgList"></ol>
+    </div>
+  </aside>
+
+  <nav aria-label="Indice">
+    <ol>
+      <li><a href="#ripasso"><span>·</span><span>Ripasso lampo</span><span>1 min</span></a></li>
+      <li><a href="#quadro"><span>·</span><span>Il quadro e la lista di copertura</span><span>5 min</span></a></li>
+      <li><a href="#s1"><span>1</span><span>Che cos'è un dipolo</span><span>leggero</span></a></li>
+      <li><a href="#s2"><span>2</span><span>Potenziale e campo del dipolo</span><span>pieno</span></a></li>
+      <li><a href="#s3"><span>3</span><span>Energia in un campo esterno</span><span>pieno, corto</span></a></li>
+      <li><a href="#s4"><span>4</span><span>Forza, momento ed equilibrio</span><span>pieno</span></a></li>
+      <li><a href="#s5"><span>5</span><span>Esercizio d'esame: dipolo e carica Q</span><span>guida</span></a></li>
+      <li><a href="#chiusura"><span>·</span><span>Mappa, Dossier e libro</span><span>chiusura</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- RIPASSO LAMPO -->
+  <section id="ripasso" data-part="Ripasso lampo">
+    <span class="tag">Ripasso lampo · MT03 · 1 minuto</span>
+    <details>
+      <summary>Conosci V(x, y, z) ovunque. Come ottieni E, e cosa significa il segno meno?</summary>
+      <div><p>\(\vec E = -\nabla V\). Il gradiente punta dove V cresce più in fretta; il campo punta dalla parte opposta, verso dove V cala. Una carica positiva “scende” il potenziale come una pallina scende da una collina.</p></div>
+    </details>
+    <details>
+      <summary>Due cariche puntiformi: come calcoli il potenziale totale in un punto P?</summary>
+      <div><p>Per sovrapposizione: \(V = \sum_i \dfrac{q_i}{4\pi\varepsilon_0 r_i}\). È una somma di numeri, non di vettori. Per questo è più comoda della somma dei campi, e la useremo subito.</p></div>
+    </details>
+  </section>
+
+  <!-- QUADRO -->
+  <section id="quadro" data-part="Il quadro">
+    <span class="tag">Il quadro</span>
+    <h2>Le due facce del dipolo</h2>
+    <p>Un dipolo è una coppia di cariche uguali e opposte, quasi attaccate. Lo studieremo da due lati.</p>
+    <ul>
+      <li><b>Il dipolo come sorgente</b> (1-2): che campo produce intorno a sé? La carica totale è zero, eppure qualcosa resta. Quanto, e in che direzione?</li>
+      <li><b>Il dipolo come bersaglio</b> (3-4): messo nel campo di qualcun altro, che energia ha, che forza e che momento sente, dove sta in equilibrio?</li>
+      <li><b>L'esercizio d'esame</b> (5) usa la seconda faccia: un dipolo spostato nel campo di una carica Q.</li>
+    </ul>
+    <p>Il filo che lega tutto: in ogni passaggio si confronta ciò che “vede” la carica \(+q\) con ciò che vede la \(-q\), che sta a un passo \(\vec\delta\) di distanza. Il dipolo è sempre una <b>differenza fra due punti vicini</b>.</p>
+
+    <h3>Lista di copertura</h3>
+    <p class="sub">Fonti: la tua mappa della lezione 10, gli appunti di Alessio (foto 3-6 e 10), il programma ufficiale (“Campo elettrico generato da dipolo elettrico. Azioni su un dipolo in campo elettrico”).</p>
+    <ul class="cover">
+      <li class="grp">1 · Che cos'è un dipolo</li>
+      <li><span>Definizione, momento di dipolo \(\vec p = q\vec\delta\), verso da − a +</span><span class="chip lez">lez. 10</span></li>
+      <li><span>Esempio in natura: la molecola H₂O</span><span class="chip lez">lez. 10</span></li>
+      <li><span>Dipolo ideale (\(\delta \to 0\) con p fisso)</span><span class="chip">approfondimento</span></li>
+      <li class="grp">2 · Potenziale e campo</li>
+      <li><span>Approssimazione di dipolo, \(r \gg \delta\)</span><span class="chip lez">lez. 10</span></li>
+      <li><span>Strategia: prima V, poi \(\vec E = -\nabla V\)</span><span class="chip lez">lez. 10</span></li>
+      <li><span>\(V = \vec p\cdot\hat r/4\pi\varepsilon_0 r^2\) e \(E_z = p(3\cos^2\theta-1)/4\pi\varepsilon_0 r^3\)</span><span class="chip lez">lez. 10</span></li>
+      <li><span>Forma polare \(E_r, E_\theta\) e verifica sull'asse e sul piano equatoriale</span><span class="chip">approfondimento</span></li>
+      <li class="grp">3 · Energia</li>
+      <li><span>\(U = -\vec p\cdot\vec E\), ricavata con lo sviluppo di V</span><span class="chip lez">lez. 11</span></li>
+      <li class="grp">4 · Forza, momento, equilibrio</li>
+      <li><span>Forza \(\vec F = -\nabla U\): nulla in campo uniforme, non nulla in campo non uniforme</span><span class="chip lez">lez. 11</span></li>
+      <li><span>Momento \(\vec\tau = \vec p\times\vec E\), \(|\tau| = pE\sin\theta\)</span><span class="chip lez">lez. 11</span></li>
+      <li><span>Equilibrio stabile, instabile, indifferente; oscillazioni</span><span class="chip lez">lez. 11</span></li>
+      <li><span>\(\vec F = (\vec p\cdot\nabla)\vec E\), frequenza delle piccole oscillazioni</span><span class="chip">approfondimento</span></li>
+      <li class="grp">5 · Esercizio</li>
+      <li><span>Dipolo nel campo di una carica Q: forza in A, lavoro da A a B</span><span class="chip lez">lez. 11</span></li>
+      <li class="grp">Fuori da MT04</li>
+      <li><span>Es. 10.1, i due pendolini carichi: è un esercizio di energia e forze di Coulomb, non sul dipolo. L'ho spostato in MT03 nel catalogo.</span><span class="chip">nota</span></li>
+    </ul>
+
+    <h3>Prerequisiti</h3>
+    <ul>
+      <li><b>Potenziale di una carica e sovrapposizione</b> (MT03, lez. 8): \(V = q/4\pi\varepsilon_0 r\), e i potenziali si sommano.</li>
+      <li><b>Campo dal potenziale, energia potenziale</b> (MT03, lez. 7-9): \(\vec E = -\nabla V\); una carica q in un punto a potenziale V ha energia \(U = qV\).</li>
+      <li><b>Sviluppo al primo ordine</b> (Analisi 1): per un passo piccolo, la variazione di una funzione è “pendenza × passo”. Serve nei sotto-argomenti 2 e 3: apri il richiamo qui sotto se non ti è chiaro.</li>
+      <li><b>Derivate</b> (Analisi 1): regola della potenza \((r^n)' = n\,r^{n-1}\), regola del prodotto \((fg)' = f'g + fg'\), regola della catena \(\big(f(g(x))\big)' = f'(g)\cdot g'(x)\). Derivata parziale \(\partial/\partial z\): derivi rispetto a z tenendo ferme le altre variabili.</li>
+      <li><b>Momento di una forza e coppia</b> (Fisica 1): \(\vec\tau = \vec r\times\vec F\); due forze uguali e opposte non allineate formano una coppia, che fa ruotare senza spostare.</li>
+    </ul>
+    <details>
+      <summary>Richiamo di Analisi · lo sviluppo al primo ordine</summary>
+      <div>
+        <p><b>L'idea.</b> Ingrandisci il grafico di una funzione attorno a un punto: a un certo zoom la curva sembra dritta. Quel pezzo dritto è la tangente. Per passi piccoli h si può usare la tangente al posto della funzione:</p>
+        \[f(x+h) \approx f(x) + f'(x)\cdot h \qquad\text{(dove sei + pendenza × passo)}\]
+        <p>“Primo ordine” vuol dire che si tiene il termine con h e si buttano \(h^2, h^3,\dots\). Se \(h = 0{,}01\), allora \(h^2 = 0{,}0001\): trascurabile.</p>
+        <p><b>Caso 1: \((1+x)^n \approx 1 + n x\).</b> È la formula sopra applicata a \(f(x) = (1+x)^n\) in \(x = 0\): \(f(0) = 1\), \(f'(0) = n\).</p>
+        <ul>
+          <li>\((1{,}02)^2 \approx 1 + 2\cdot0{,}02 = 1{,}04\) (vero: 1,0404)</li>
+          <li>\((1{,}01)^{-1/2} \approx 1 - \tfrac12\cdot0{,}01 = 0{,}995\) (vero: 0,99504)</li>
+        </ul>
+        <p><b>Caso 2: quanto cambia \(1/r\).</b> Con \(f(r) = 1/r\) la pendenza è \(f'(r) = -1/r^2\), quindi</p>
+        \[\frac{1}{r+h} \approx \frac1r - \frac{h}{r^2}\qquad\Longrightarrow\qquad \frac{1}{r+h} - \frac1r \approx -\frac{h}{r^2}\]
+        <p>Stesso risultato con il caso 1: \(\dfrac{1}{r+h} = \dfrac1r\left(1+\dfrac hr\right)^{-1} \approx \dfrac1r\left(1 - \dfrac hr\right)\). Con i numeri: \(r = 100\), \(h = 1\): \(1/100 - 1/101 = 0{,}0000990\), e \(1/100^2 = 0{,}0001\). ✓</p>
+        <p><b>Caso 3: più variabili.</b> Passeggiata in montagna: fai un piccolo passo, un po' verso est (\(\Delta x\)) e un po' verso nord (\(\Delta y\)). La quota cambia di circa (pendenza verso est)·\(\Delta x\) + (pendenza verso nord)·\(\Delta y\). Le pendenze sono le derivate parziali, cioè le componenti del gradiente:</p>
+        \[f(\vec r + \vec\delta) \approx f(\vec r) + \frac{\partial f}{\partial x}\Delta x + \frac{\partial f}{\partial y}\Delta y + \frac{\partial f}{\partial z}\Delta z = f(\vec r) + \nabla f\cdot\vec\delta\]
+      </div>
+    </details>
+    <button class="done" data-sec="intro" data-min="5" type="button">Segna “Ripasso e quadro” come fatto</button>
+  </section>
+
+  <!-- ==================== 1 ==================== -->
+  <div class="part" id="s1" data-part="1 · Che cos'è un dipolo">
+    <div class="part-head">
+      <span class="part-n">1 / 5</span>
+      <h2>Che cos'è un dipolo</h2>
+      <span class="level">Livello leggero · 5 minuti</span>
+    </div>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Si chiama <b>dipolo elettrico</b> un sistema di due cariche puntiformi uguali e opposte, \(+q\) e \(-q\), poste a distanza fissa \(\delta\). Si definisce <b>momento di dipolo elettrico</b> il vettore</p>
+        \[\vec p = q\,\vec\delta,\]
+        <p>dove \(\vec\delta\) è il vettore che congiunge la carica negativa alla carica positiva. Nel SI il momento di dipolo si misura in C·m. Il <b>dipolo ideale</b> è il limite \(\delta \to 0\), \(q \to \infty\) con \(\vec p\) costante: un oggetto puntiforme, privo di carica netta, descritto solo dal vettore \(\vec p\).</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Una freccia corta con una testa positiva e una coda negativa. La freccia \(\vec p\) parte dalla coda (−) e arriva alla testa (+). Il suo modulo dice “quanto è forte” il dipolo: puoi averne uno forte con cariche piccole ma un po' distanti, o con cariche grandi ma vicinissime. Conta solo il prodotto.</p>
+      <p>In natura i dipoli sono ovunque. Nella molecola d'acqua gli elettroni passano più tempo vicino all'ossigeno che agli idrogeni: il “baricentro” della carica negativa non coincide con quello della positiva. La molecola è neutra, ma è un dipolo, con \(p \approx 6{,}2\cdot10^{-30}\) C·m.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <p><b>Perché proprio il prodotto \(q\delta\)?</b> Un sistema neutro, visto da lontano, si fa sentire solo perché le sue cariche non stanno nello stesso punto. L'effetto cresce con la carica (più carica, più campo) e con la separazione (più distanti, meno si cancellano). Nel sotto-argomento 2 vedrai che, a grande distanza, le formule contengono \(q\) e \(\delta\) sempre e solo nella combinazione \(q\delta\). Per questo il dipolo si descrive con un unico vettore.</p>
+    </section>
+
+    <section>
+      <span class="tag">Domanda di ragionamento</span>
+      <details>
+        <summary>Un atomo isolato è un dipolo? E se lo metti in un campo elettrico?</summary>
+        <div><p>Isolato, no: la nuvola di elettroni è centrata sul nucleo, quindi \(\vec p = 0\). In un campo il nucleo viene spinto in un verso e gli elettroni nell'altro: i due centri si separano un poco e nasce un <b>dipolo indotto</b>. È l'idea su cui si basano i dielettrici (MT06).</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s1" data-min="5" type="button">Segna “1 · Che cos'è un dipolo” come fatto</button>
+  </div>
+
+  <!-- ==================== 2 ==================== -->
+  <div class="part" id="s2" data-part="2 · Potenziale e campo">
+    <div class="part-head">
+      <span class="part-n">2 / 5</span>
+      <h2>Potenziale e campo del dipolo</h2>
+      <span class="level">Livello pieno · 25-30 minuti</span>
+    </div>
+
+    <section>
+      <p><b>La domanda guida.</b> Una carica \(+q\) e una \(-q\), vicinissime. La carica totale è zero. Allora, da lontano, non si sente nulla? Quasi: resta un “residuo”, più debole di una carica singola e diverso a seconda della direzione. Qui lo calcoliamo e lo guardiamo.</p>
+    </section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Si parla di <b>approssimazione di dipolo</b> quando si studia il campo a distanze \(r \gg \delta\). In questo limite potenziale e campo dipendono dalle cariche solo attraverso \(\vec p\), e valgono</p>
+        \[V(P) = \frac{\vec p\cdot\hat r}{4\pi\varepsilon_0\, r^2} = \frac{p\cos\theta}{4\pi\varepsilon_0\, r^2},\qquad E_r = \frac{2p\cos\theta}{4\pi\varepsilon_0 r^3},\quad E_\theta = \frac{p\sin\theta}{4\pi\varepsilon_0 r^3}\]
+        <p>con \(\theta\) angolo fra \(\vec p\) e la direzione di P. Il potenziale decresce come \(1/r^2\) e il campo come \(1/r^3\), più rapidamente che per una carica isolata, perché la carica totale del sistema è nulla.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Metti il dipolo in verticale: \(+q\) sopra, \(-q\) sotto, quasi attaccate. Ora allontanati e cammina intorno a loro restando sempre alla stessa distanza, come lungo un grande cerchio.</p>
+      <ul>
+        <li><b>In alto</b>, sull'asse dalla parte di \(+q\): sei un po' più vicino al “+” che al “−”. Il “+” vince di poco: \(V &gt; 0\).</li>
+        <li><b>Di lato</b>, all'altezza del centro: sei alla stessa distanza da entrambe. Si annullano del tutto: \(V = 0\).</li>
+        <li><b>In basso</b>: vince di poco il “−”: \(V &lt; 0\).</li>
+      </ul>
+      <p>Il potenziale non è uguale in tutte le direzioni, come per una carica sola: c'è un emisfero “più” sopra, un emisfero “meno” sotto, e il piano di mezzo dove vale zero. E più ti allontani, più quel “di poco” si riduce: per questo il dipolo si spegne in fretta.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <h3>Perché proprio \(\cos\theta\) e \(1/r^2\)</h3>
+      <ol class="chain">
+        <li><div><b>Carica totale zero.</b> Se P fosse alla stessa distanza dalle due cariche, i termini \(q/r\) e \(-q/r\) si cancellerebbero esattamente.</div></li>
+        <li><div><b>Ma le distanze non sono uguali.</b> P è lontanissimo, quindi le due linee che vanno da P alle cariche sono quasi parallele, come due raggi di sole. La linea che parte da \(-q\) è più lunga di un pezzetto: l'<b>ombra</b> del bastoncino \(\delta\) sulla direzione di P, cioè \(\delta\cos\theta\) (figura sotto). Tutta \(\delta\) sull'asse, zero di lato.</div></li>
+        <li><div><b>Sopravvive solo la differenza</b> fra due numeri quasi uguali, \(1/r_+ - 1/r_-\). Un risultato piccolo.</div></li>
+        <li><div><b>Quanto piccolo?</b> Per un passo piccolo, la variazione di una funzione è “pendenza × passo” (richiamo di Analisi in alto). La pendenza di \(1/r\) è \(-1/r^2\); il passo è l'ombra \(\delta\cos\theta\). Quindi \(\dfrac{1}{r_+} - \dfrac{1}{r_-} \approx \dfrac{1}{r^2}\cdot\delta\cos\theta\). Con i numeri: \(r = 100\), passo 1 → \(1/100 - 1/101 = 0{,}0000990 \approx 1/100^2\). Il \(\cos\theta\) viene dall'ombra, il \(1/r^2\) dalla pendenza.</div></li>
+        <li><div><b>Il campo è la pendenza di V</b> (\(\vec E = -\nabla V\)). Derivare un \(1/r^2\) dà un \(1/r^3\).</div></li>
+      </ol>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:6px">
+        <svg viewBox="0 0 330 200" style="width:100%;max-width:420px;height:auto" role="img" aria-label="Le due linee verso P sono quasi parallele; la differenza di lunghezza è l'ombra di delta, delta cos theta">
+          <line x1="60" y1="190" x2="60" y2="20" stroke="var(--muted)" stroke-dasharray="4 4" stroke-width="1"/>
+          <line x1="60" y1="90" x2="185" y2="-15" stroke="var(--ink)" stroke-width="1.3"/>
+          <line x1="60" y1="150" x2="230" y2="7" stroke="var(--ink)" stroke-width="1.3"/>
+          <line x1="60" y1="90" x2="89.6" y2="125.2" stroke="var(--muted)" stroke-dasharray="3 3" stroke-width="1.2"/>
+          <line x1="60" y1="150" x2="89.6" y2="125.2" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M60 120 A30 30 0 0 1 83 130.7" fill="none" stroke="var(--muted)" stroke-width="1.2" transform="translate(0,0)"/>
+          <circle cx="60" cy="90" r="11" fill="var(--pos)"/><text x="60" y="95" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">+</text>
+          <circle cx="60" cy="150" r="11" fill="var(--neg)"/><text x="60" y="155" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">−</text>
+          <text x="44" y="125" text-anchor="end" font-size="14" font-style="italic" fill="var(--ink)">δ</text>
+          <text x="104" y="146" font-size="14" font-weight="600" fill="var(--accent)">δ cos θ</text>
+          <text x="70" y="112" font-size="13" font-style="italic" fill="var(--muted)">θ</text>
+          <text x="236" y="40" font-size="13" fill="var(--muted)">verso P,</text>
+          <text x="236" y="56" font-size="13" fill="var(--muted)">lontanissimo</text>
+        </svg>
+        <figcaption class="why">La linea da −q deve percorrere un tratto in più: l'ombra di δ sulla direzione di P.</figcaption>
+      </figure>
+      <p><b>In una frase:</b> il dipolo è una carica “+” e una “−” viste da distanze che differiscono di un'ombra \(\delta\cos\theta\); la differenza fra \(1/r_+\) e \(1/r_-\) è “pendenza di \(1/r\) × ombra”.</p>
+    </section>
+
+    <section>
+      <span class="tag">Metafora</span>
+      <p>Due altoparlanti vicinissimi che suonano la stessa nota, ma in controfase: quando uno spinge l'aria, l'altro la tira. Da lontano quasi si annullano. Si sente un residuo solo nelle direzioni in cui uno dei due è un po' più vicino a te, e niente sul piano di mezzo, dove sono alla stessa distanza.</p>
+      <p class="why"><b>Dove smette di funzionare:</b> il suono è un'onda che oscilla nel tempo; il dipolo elettrostatico è fermo. Qui conta solo la differenza di distanza, e il residuo non vibra.</p>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <h3>Dal potenziale al campo</h3>
+
+      <div class="step">
+        <span class="step-n">Passo 1 · Geometria e coordinate <span class="chip lez">a lezione</span></span>
+        <p>Origine nel centro del dipolo, asse z lungo \(\vec p\). Le cariche stanno in \((0,0,+\delta/2)\) e \((0,0,-\delta/2)\). Il punto è \(P = (x,y,z)\), con \(r = \sqrt{x^2+y^2+z^2}\).</p>
+        <p class="why"><b>Perché così:</b> con l'origine al centro e z lungo il dipolo la simmetria è massima. Ruotando attorno all'asse z nulla cambia, quindi conteranno solo r e \(\theta\).</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Passo 2 · Sovrapposizione dei potenziali <span class="chip lez">a lezione</span></span>
+        \[V(P) = \frac{q}{4\pi\varepsilon_0}\left[\frac{1}{r_+} - \frac{1}{r_-}\right],\qquad r_\pm^2 = x^2 + y^2 + \left(z \mp \tfrac{\delta}{2}\right)^2\]
+        <p class="why"><b>Perché V e non E:</b> V è uno scalare, si sommano due numeri. Il campo andrebbe sommato come vettore, componente per componente. È la lampadina della tua mappa: prima il potenziale, poi il gradiente.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Passo 3 · Sviluppare i quadrati <span class="chip lez">a lezione</span></span>
+        \[r_\pm^2 = r^2 \mp z\delta + \frac{\delta^2}{4} \;\approx\; r^2\left(1 \mp \frac{z\delta}{r^2}\right)\]
+        <p class="why"><b>Perché si butta \(\delta^2/4\):</b> è del secondo ordine in \(\delta\). Rispetto a \(z\delta\) è trascurabile quando \(r \gg \delta\).</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Passo 4 · Sviluppo al primo ordine, una carica alla volta <span class="chip lez">a lezione</span></span>
+        <p>Il simbolo \(\pm\) è un modo compatto per scrivere <b>due</b> formule: segno di sopra per \(+q\), di sotto per \(-q\). Le scrivo separate.</p>
+        <p><b>Per \(+q\).</b> Dal passo 3, \(r_+^2 \approx r^2\left(1 - \dfrac{z\delta}{r^2}\right)\). Allora:</p>
+        \[\begin{aligned}
+        \frac{1}{r_+} &= \left(r_+^2\right)^{-1/2} && \text{(radice al denominatore = potenza } -\tfrac12)\\
+        &= \left(r^2\right)^{-1/2}\left(1 - \frac{z\delta}{r^2}\right)^{-1/2} && \text{(potenza di un prodotto)}\\
+        &= \frac1r\left(1 - \frac{z\delta}{r^2}\right)^{-1/2} && \left((r^2)^{-1/2} = 1/r\right)
+        \end{aligned}\]
+        <p>Ora lo sviluppo \((1+x)^n \approx 1 + nx\), con \(x = -\dfrac{z\delta}{r^2}\) (piccolo, perché \(\delta \ll r\)) e \(n = -\dfrac12\):</p>
+        \[\left(1 - \frac{z\delta}{r^2}\right)^{-1/2} \approx 1 + \left(-\frac12\right)\left(-\frac{z\delta}{r^2}\right) = 1 + \frac{z\delta}{2r^2}\quad\Longrightarrow\quad \frac{1}{r_+} \approx \frac1r + \frac{z\delta}{2r^3}\]
+        <p><b>Per \(-q\)</b> tutto uguale, ma con \(x = +\dfrac{z\delta}{r^2}\):</p>
+        \[\frac{1}{r_-} \approx \frac1r - \frac{z\delta}{2r^3}\]
+        <p class="why"><b>Senso fisico:</b> se P sta in alto (\(z &gt; 0\)), \(+q\) è più vicina: \(1/r_+\) è un po' più grande di \(1/r\), \(1/r_-\) un po' più piccolo. ✓</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Passo 5 · La differenza e il risultato <span class="chip lez">a lezione</span></span>
+        <p><b>Sottraggo</b> le due formule del passo 4:</p>
+        \[\begin{aligned}
+        \frac{1}{r_+} - \frac{1}{r_-} &= \left[\frac1r + \frac{z\delta}{2r^3}\right] - \left[\frac1r - \frac{z\delta}{2r^3}\right]\\
+        &= \underbrace{\frac1r - \frac1r}_{0} + \frac{z\delta}{2r^3} + \frac{z\delta}{2r^3} = \frac{z\delta}{r^3}
+        \end{aligned}\]
+        <p class="why"><b>Da notare:</b> i due \(1/r\) si cancellano. È la traccia matematica della carica totale nulla. Le due metà invece si sommano.</p>
+        <p><b>Metto il risultato dentro V</b> (passo 2), poi faccio due sostituzioni, una alla volta:</p>
+        \[\begin{aligned}
+        V &= \frac{q}{4\pi\varepsilon_0}\cdot\frac{z\delta}{r^3} &&\\
+        &= \frac{q\delta\; r\cos\theta}{4\pi\varepsilon_0\, r^3} = \frac{q\delta\cos\theta}{4\pi\varepsilon_0\, r^2} && (z = r\cos\theta\text{, poi semplifico una } r)\\
+        &= \frac{p\cos\theta}{4\pi\varepsilon_0\, r^2} = \frac{\vec p\cdot\hat r}{4\pi\varepsilon_0\, r^2} && (q\delta = p\text{, e } p\cos\theta = \vec p\cdot\hat r)
+        \end{aligned}\]
+        <p class="why"><b>Perché \(z = r\cos\theta\):</b> la quota di P è la sua distanza dall'origine per il coseno dell'angolo con l'asse z. <b>Perché \(p\cos\theta = \vec p\cdot\hat r\):</b> è la definizione di prodotto scalare fra \(\vec p\) e il versore \(\hat r\) che punta verso P.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Passo 6 · Il campo: componente z, in tre mosse <span class="chip lez">a lezione</span></span>
+        <p><b>Obiettivo.</b> \(E_z = -\partial V/\partial z\): quanto cambia V salendo un poco, con x e y fermi (derivata parziale), con il segno meno davanti. Scrivo \(k = 1/4\pi\varepsilon_0\) e il potenziale con z al posto di \(\cos\theta\):</p>
+        \[V = k\,p\; z\; r^{-3},\qquad r = \sqrt{x^2+y^2+z^2}\]
+        <p><b>Mossa 1 · quanto cambia r salendo</b> (regola della catena):</p>
+        \[\frac{\partial r}{\partial z} = \frac12\left(x^2+y^2+z^2\right)^{-1/2}\cdot 2z = \frac{z}{r}\]
+        <p class="why"><b>Immagine:</b> sali di un passo dz. La tua distanza dall'origine cresce solo della parte del passo che va lungo il raggio: \(dz\cos\theta = dz\cdot z/r\). Sull'asse cresce di tutto dz, di lato quasi per niente.</p>
+        <p><b>Mossa 2 · regola del prodotto.</b> z compare due volte: nel fattore z e nascosto dentro r. Quindi \((f g)' = f'g + fg'\) con \(f = z\), \(g = r^{-3}\):</p>
+        \[\begin{aligned}
+        \frac{\partial}{\partial z}\left(z\, r^{-3}\right) &= \underbrace{1}_{\partial z/\partial z}\cdot r^{-3} \;+\; z\cdot\underbrace{\left(-3r^{-4}\right)\cdot\frac{z}{r}}_{\partial (r^{-3})/\partial z\ \text{(potenza, poi mossa 1)}}\\
+        &= \frac{1}{r^3} - \frac{3z^2}{r^5}
+        \end{aligned}\]
+        <p><b>Mossa 3 · segno meno e riordino.</b></p>
+        \[\begin{aligned}
+        E_z &= -\frac{\partial V}{\partial z} = k\,p\left(\frac{3z^2}{r^5} - \frac{1}{r^3}\right) && \text{(il meno cambia i segni)}\\
+        &= \frac{k\,p}{r^3}\left(\frac{3z^2}{r^2} - 1\right) && \text{(raccolgo } 1/r^3)\\
+        &= \frac{p}{4\pi\varepsilon_0\, r^3}\left(3\cos^2\theta - 1\right) && (z/r = \cos\theta)
+        \end{aligned}\]
+        <p class="why"><b>Controllo:</b> sull'asse (\(\theta = 0\)) \(E_z = 2kp/r^3\), positivo, lungo \(\vec p\); di lato (\(\theta = 90^\circ\)) \(E_z = -kp/r^3\), opposto a \(\vec p\). Torna con la verifica più sotto. ✓</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Passo 7 · Le altre componenti e la forma polare <span class="chip">approfondimento</span></span>
+        <p>Con lo stesso metodo (qui z compare solo una volta, quindi niente regola del prodotto):</p>
+        \[E_x = -\frac{\partial V}{\partial x} = -k\,p\,z\cdot(-3r^{-4})\cdot\frac{x}{r} = \frac{3k\,p\,xz}{r^5},\qquad E_y = \frac{3k\,p\,yz}{r^5}\]
+        <p><b>In coordinate polari \((r,\theta)\)</b> il conto è più corto. Ma attenzione a un dettaglio: il campo è “variazione di V <b>per metro</b>”.</p>
+        <ul>
+          <li><b>Lungo il raggio</b> ti sposti di dr, che è già una lunghezza: \(E_r = -\partial V/\partial r\).</li>
+          <li><b>Lungo l'angolo</b> ti sposti di dθ, che è un angolo, non una lunghezza. Lo spostamento vero è un arco: \(ds = r\,d\theta\). Quindi \(E_\theta = -\dfrac{\partial V}{\partial s} = -\dfrac1r\dfrac{\partial V}{\partial\theta}\).</li>
+        </ul>
+        <p class="why"><b>Immagine: le lancette dell'orologio.</b> Una lancetta lunga e una corta ruotano dello stesso angolo, ma la punta di quella lunga percorre più strada (arco = r × angolo). Dividere per r converte “per radiante” in “per metro”. <b>Controllo con le unità:</b> \(\partial V/\partial\theta\) è in volt, il campo in volt/metro: serve dividere per una lunghezza.</p>
+        <p>Parto da \(V = k\,p\cos\theta/r^2\) e derivo una variabile alla volta:</p>
+        \[\begin{aligned}
+        \frac{\partial V}{\partial r} &= k\,p\cos\theta\cdot\left(-\frac{2}{r^3}\right) && (\theta \text{ fermo; potenza } r^{-2})\\
+        E_r &= -\frac{\partial V}{\partial r} = \frac{2k\,p\cos\theta}{r^3}\\[4pt]
+        \frac{\partial V}{\partial\theta} &= \frac{k\,p}{r^2}\cdot(-\sin\theta) && (r \text{ fermo; } (\cos\theta)' = -\sin\theta)\\
+        E_\theta &= -\frac1r\cdot\left(-\frac{k\,p\sin\theta}{r^2}\right) = \frac{k\,p\sin\theta}{r^3}
+        \end{aligned}\]
+        <p>Tutto si riassume in un'unica formula vettoriale:</p>
+        \[\vec E = \frac{3(\vec p\cdot\hat r)\,\hat r - \vec p}{4\pi\varepsilon_0\, r^3},\qquad |\vec E| = \sqrt{E_r^2 + E_\theta^2} = \frac{p\sqrt{3\cos^2\theta + 1}}{4\pi\varepsilon_0\, r^3}\]
+        <p class="why"><b>A cosa serve:</b> \(E_r\) e \(E_\theta\) dicono subito dove il campo è radiale (sull'asse) e dove gira attorno al dipolo (sul piano equatoriale). Sul libro: Mencuccini cap. 1 §13 “Coordinate curvilinee ortogonali”, p. 55.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Verifica in due modi <span class="chip">approfondimento</span></span>
+        <p><b>Sull'asse</b> (\(\theta = 0\), \(r = z\)): la formula dà \(E = \dfrac{2p}{4\pi\varepsilon_0 z^3}\), lungo \(+z\). Con Coulomb diretto:</p>
+        \[E = \frac{q}{4\pi\varepsilon_0}\left[\frac{1}{(z-\delta/2)^2} - \frac{1}{(z+\delta/2)^2}\right] \approx \frac{q}{4\pi\varepsilon_0}\cdot\frac{2\delta}{z^3}\ \checkmark\]
+        <p><b>Sul piano equatoriale</b> (\(\theta = 90^\circ\)): la formula dà \(E_r = 0\) e \(\vec E = -\dfrac{\vec p}{4\pi\varepsilon_0 r^3}\), opposto a \(\vec p\). Con Coulomb diretto: le componenti orizzontali delle due cariche si annullano, quelle verticali puntano entrambe verso il basso e valgono ciascuna \(\dfrac{q}{4\pi\varepsilon_0 r^2}\cdot\dfrac{\delta/2}{r}\). Sommate: \(\dfrac{q\delta}{4\pi\varepsilon_0 r^3}\) ✓</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Laboratorio 1</span>
+      <h3>Guardalo e muovilo</h3>
+      <p>Trascina il punto <b>P</b>. Il colore è il potenziale (rosso positivo, blu negativo, bianco zero); le righe sottili sono le equipotenziali, quelle continue le linee di campo. Con il cursore ti allontani: guarda come crolla l'errore dell'approssimazione di dipolo.</p>
+      <div class="lab">
+        <canvas id="cv" width="600" height="600" aria-label="Mappa del potenziale e linee di campo del dipolo; trascina il punto P"></canvas>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--pos)"></span>V &gt; 0</span>
+          <span><span class="dot" style="background:var(--neg)"></span>V &lt; 0</span>
+          <span>freccia verde: \(\vec E\) in P</span>
+          <span>unità: q = 1, δ = 1, 1/4πε₀ = 1</span>
+        </div>
+        <div class="controls">
+          <label for="zoom">Distanza di osservazione <input id="zoom" type="range" min="0" max="100" value="22"></label>
+          <button class="btn" id="bAxis" type="button">P sull'asse</button>
+          <button class="btn" id="bEq" type="button">P sul piano equatoriale</button>
+        </div>
+        <dl class="readout" id="ro"></dl>
+      </div>
+      <details>
+        <summary>Tre cose da provare</summary>
+        <div>
+          <p>1. Metti P sul piano equatoriale: V vale 0, ma la freccia c'è. Verso dove punta rispetto a \(\vec p\)?</p>
+          <p>2. Avvicina P a una carica (r/δ ≈ 1): l'errore dell'approssimazione sale oltre il 10%. Lì le formule del dipolo non valgono.</p>
+          <p>3. Allontanati con il cursore: la figura diventa sempre più simmetrica e l'errore va verso zero. Questo è il “dipolo ideale”.</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT03</span><div>Il piano equatoriale è una superficie equipotenziale (V = 0). Infatti lì \(\vec E\) è perpendicolare al piano, come deve essere per ogni equipotenziale.</div></li>
+        <li><span>← MT02</span><div>Una sfera che racchiude il dipolo ha flusso nullo (\(q_{int} = 0\)), eppure il campo sulla sfera non è nullo. Flusso zero non vuol dire campo zero: vuol dire che tanto campo esce quanto ne entra.</div></li>
+        <li><span>→ Magnet.</span><div>Una spira percorsa da corrente, vista da lontano, produce un campo con la stessa forma: il dipolo magnetico, anche lui con \(1/r^3\).</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>V va come \(1/r^2\), E come \(1/r^3\). Non confonderli con la carica singola (\(1/r\) e \(1/r^2\)).</li>
+          <li>Sul piano equatoriale \(V = 0\) ma \(\vec E \neq 0\). Il valore di V non dice nulla sulla forza: conta come V cambia.</li>
+          <li>\(E_z = p(3\cos^2\theta - 1)/4\pi\varepsilon_0 r^3\) è una <b>componente</b>, non il modulo.</li>
+          <li>Le formule valgono solo per \(r \gg \delta\), e \(\theta\) si misura a partire da \(\vec p\).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Raddoppi la distanza dal dipolo, nella stessa direzione. Di quanto cambiano V e |E|?</summary>
+        <div><p>V diventa 4 volte più piccolo (\(1/r^2\)), |E| 8 volte (\(1/r^3\)). Per una carica singola sarebbero 2 e 4.</p></div>
+      </details>
+      <details>
+        <summary>Una carica di prova positiva, ferma sul piano equatoriale. Si muove? Dove?</summary>
+        <div><p>Sì. Lì V = 0 ma \(\vec E = -\vec p/4\pi\varepsilon_0 r^3\): la carica viene spinta parallelamente al dipolo, in verso opposto a \(\vec p\). Il campo dipende dalla pendenza di V, non dal suo valore.</p></div>
+      </details>
+      <details>
+        <summary>Raddoppi q e dimezzi δ. Cambia qualcosa da lontano? E da vicino?</summary>
+        <div><p>Da lontano no: \(p = q\delta\) resta uguale, e le formule dipendono solo da p. Da vicino sì, perché lì l'approssimazione non vale e conta com'è fatto davvero il sistema. È il senso dell'approssimazione di dipolo: da lontano un dipolo è descritto da un solo vettore, \(\vec p\).</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s2" data-min="28" type="button">Segna “2 · Potenziale e campo” come fatto</button>
+  </div>
+
+  <!-- ==================== 3 ==================== -->
+  <div class="part" id="s3" data-part="3 · Energia">
+    <div class="part-head">
+      <span class="part-n">3 / 5</span>
+      <h2>Energia del dipolo in un campo esterno</h2>
+      <span class="level">Livello pieno, corto · 15 minuti</span>
+    </div>
+
+    <section>
+      <p><b>La domanda guida.</b> Ora il dipolo non è più la sorgente: è immerso nel campo \(\vec E\) prodotto da altre cariche. Quanta energia ha, e come dipende da come è orientato?</p>
+    </section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>L'<b>energia potenziale di interazione</b> di un dipolo rigido di momento \(\vec p\), posto in un campo elettrostatico esterno \(\vec E\), è</p>
+        \[U = -\vec p\cdot\vec E = -pE\cos\theta,\]
+        <p>dove \(\theta\) è l'angolo fra \(\vec p\) ed \(\vec E\) e il campo è valutato nella posizione del dipolo. U è il lavoro che un agente esterno compie per portare il dipolo, con orientazione fissata, da una regione a campo nullo alla posizione considerata. Non comprende l'energia di formazione del dipolo (il lavoro per avvicinare \(+q\) e \(-q\)), che è costante e non influisce sulla dinamica.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Un ago di bussola nel campo terrestre. Lasciato libero, si gira e si ferma allineato: quella è la posizione di energia più bassa. Per girarlo al contrario devi spingerlo, cioè fare lavoro: l'energia sale.</p>
+      <p>Il dipolo fa lo stesso. Immagina U come una <b>valle</b> in funzione dell'angolo: il fondo è a \(\theta = 0\) (dipolo allineato al campo), la cima a \(\theta = 180^\circ\) (dipolo controcorrente).</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Energia di ogni carica.</b> Una carica in un punto a potenziale V ha energia \(qV\). Il dipolo ne ha due: \(U = qV(+) - qV(-)\).</div></li>
+        <li><div><b>Le due cariche sono quasi nello stesso punto</b>, quindi stanno a potenziali quasi uguali. Conta la piccola differenza fra il potenziale della testa e quello della coda.</div></li>
+        <li><div><b>Quella differenza</b> è “quanto cambia V spostandosi di \(\vec\delta\)”: \(\nabla V\cdot\vec\delta\).</div></li>
+        <li><div><b>Ma \(\nabla V = -\vec E\).</b> Quindi \(U = q\,(-\vec E\cdot\vec\delta) = -\vec p\cdot\vec E\).</div></li>
+      </ol>
+      <p><b>In una frase:</b> l'energia è bassa quando la testa positiva sta a potenziale più basso della coda negativa, cioè quando il dipolo punta lungo il campo.</p>
+    </section>
+
+    <section>
+      <span class="tag">Metafora</span>
+      <p>L'ago della bussola, appunto. Qui la metafora quasi non si rompe: anche l'ago è un dipolo, ma magnetico, e nel magnetismo troverai la formula gemella \(U = -\vec m\cdot\vec B\).</p>
+      <p class="why"><b>Dove smette di funzionare:</b> l'ago è fissato a un perno e può solo ruotare. Un dipolo libero, in un campo non uniforme, può anche spostarsi (sotto-argomento 4).</p>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Le due cariche <span class="chip lez">a lezione · Alessio foto 6</span></span>
+        <p>Coda \(-q\) nel punto dove il potenziale vale \(V_0\); testa \(+q\) spostata di \(\vec\delta = (\Delta x, \Delta y, \Delta z)\).</p>
+        \[U = -q\,V_0 + q\,V(+)\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Sviluppo di V al primo ordine <span class="chip lez">a lezione</span></span>
+        \[V(+) \approx V_0 + \frac{\partial V}{\partial x}\Delta x + \frac{\partial V}{\partial y}\Delta y + \frac{\partial V}{\partial z}\Delta z = V_0 + \nabla V\cdot\vec\delta\]
+        <p class="why"><b>Cos'è:</b> il caso 3 del richiamo di Analisi (la passeggiata in montagna): per un passo piccolo \(\vec\delta\), V cambia di “pendenze × passi” = \(\nabla V\cdot\vec\delta\). <b>Perché basta il primo ordine:</b> \(\delta\) è piccolo rispetto alla distanza su cui il campo cambia apprezzabilmente.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Il risultato <span class="chip lez">a lezione</span></span>
+        \[U = -qV_0 + q\left[V_0 - \vec E\cdot\vec\delta\right] = -\vec E\cdot q\vec\delta = -\vec p\cdot\vec E\]
+        <p class="why"><b>Da notare:</b> \(V_0\) si cancella, come gli “1” nel sotto-argomento 2. Di nuovo è la carica totale nulla: conta solo la differenza.</p>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Orientazione</th><th>θ</th><th>U</th><th>Significato</th></tr></thead>
+          <tbody>
+            <tr><td>\(\vec p\) parallelo a \(\vec E\)</td><td>0°</td><td>\(-pE\)</td><td>minimo</td></tr>
+            <tr><td>\(\vec p\) perpendicolare</td><td>90°</td><td>0</td><td>—</td></tr>
+            <tr><td>\(\vec p\) antiparallelo</td><td>180°</td><td>\(+pE\)</td><td>massimo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>Il segno meno: U è <b>minima</b> per dipolo allineato al campo.</li>
+          <li>\(\vec E\) è il campo <b>esterno</b>, non quello del dipolo stesso, ed è valutato dove sta il dipolo.</li>
+          <li>U = 0 a 90° è una scelta di riferimento: contano solo le differenze di U.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domanda di ragionamento</span>
+      <details>
+        <summary>In un campo uniforme ruoti lentamente un dipolo da θ = 0 a θ = 180°. Quanto lavoro fai?</summary>
+        <div><p>\(L_{est} = U_{fin} - U_{in} = pE - (-pE) = 2pE\). Positivo: devi faticare, perché porti il dipolo dal fondo della valle alla cima.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s3" data-min="15" type="button">Segna “3 · Energia” come fatto</button>
+  </div>
+
+  <!-- ==================== 4 ==================== -->
+  <div class="part" id="s4" data-part="4 · Forza e momento">
+    <div class="part-head">
+      <span class="part-n">4 / 5</span>
+      <h2>Forza, momento ed equilibrio</h2>
+      <span class="level">Livello pieno · 25 minuti</span>
+    </div>
+
+    <section>
+      <p><b>La domanda guida.</b> Il dipolo immerso in un campo si sposta, ruota, o tutte e due le cose? Dove si ferma?</p>
+    </section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Su un dipolo rigido in un campo elettrostatico esterno agiscono una <b>forza risultante</b> e un <b>momento</b>:</p>
+        \[\vec F = -\nabla U = \nabla(\vec p\cdot\vec E),\qquad \vec\tau = \vec p\times\vec E,\quad |\vec\tau| = pE\sin\theta.\]
+        <p>In un campo <b>uniforme</b> la forza risultante è nulla e il momento non dipende dal polo scelto: il dipolo può solo ruotare. Le posizioni di equilibrio sono \(\vec p\) parallelo a \(\vec E\) (<b>equilibrio stabile</b>, U minima) e \(\vec p\) antiparallelo (<b>equilibrio instabile</b>, U massima). In un campo <b>non uniforme</b> la forza è diversa da zero e il dipolo trasla.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p><b>Campo uniforme.</b> Le linee di campo sono parallele ed equidistanti. La testa \(+q\) è tirata lungo il campo, la coda \(-q\) al contrario, con la stessa intensità. Due mani che girano un volante: il volante ruota, ma non si sposta.</p>
+      <p><b>Campo non uniforme.</b> Le linee si infittiscono da una parte. Se il dipolo è allineato, la testa e la coda sentono campi diversi: chi sta dove il campo è più forte tira di più. Il dipolo, oltre a girarsi, viene trascinato <b>verso la zona di campo più intenso</b>. È così che un pettine strofinato attira i pezzetti di carta.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Due forze:</b> \(+q\vec E\) sulla testa, \(-q\vec E\) sulla coda, ciascuna calcolata nel punto in cui sta la carica.</div></li>
+        <li><div><b>Se il campo è uguale nei due punti</b> le forze sono uguali e opposte: somma zero. Ma non sono allineate (a meno che \(\vec p \parallel \vec E\)): formano una coppia, che fa ruotare.</div></li>
+        <li><div><b>Il momento della coppia</b> tende a portare \(\vec p\) verso \(\vec E\), cioè verso il fondo della valle di energia. Si annulla quando \(\sin\theta = 0\): a 0° e a 180°.</div></li>
+        <li><div><b>A 0° la valle ha il fondo:</b> se sposti un poco il dipolo, il momento lo riporta indietro. Stabile. <b>A 180° c'è la cima:</b> basta una spinta minima e il momento lo allontana ancora di più. Instabile.</div></li>
+        <li><div><b>Se il campo cambia da punto a punto</b>, le due forze non si cancellano più del tutto: resta una forza netta, che punta verso dove U diminuisce, \(\vec F = -\nabla U\).</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <span class="tag">Metafora</span>
+      <p>Una pallina sul fondo di una ciotola (0°) e una pallina in equilibrio sulla ciotola capovolta (180°). Entrambe ferme, ma solo la prima ci resta se la tocchi. E se la lasci andare da un lato della ciotola, oscilla avanti e indietro.</p>
+      <p class="why"><b>Dove smette di funzionare:</b> la pallina si muove nello spazio, il dipolo in campo uniforme ruota soltanto; la “posizione” è l'angolo θ.</p>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Il momento in campo uniforme <span class="chip lez">a lezione · Alessio foto 5</span></span>
+        <p>Scelgo come polo il centro del dipolo: la testa sta in \(+\vec\delta/2\), la coda in \(-\vec\delta/2\).</p>
+        \[\vec\tau = \frac{\vec\delta}{2}\times(q\vec E) + \left(-\frac{\vec\delta}{2}\right)\times(-q\vec E) = q\,\vec\delta\times\vec E = \vec p\times\vec E\]
+        <p class="why"><b>Il polo non conta:</b> a lezione il polo era la carica \(-q\): \(\vec\tau = \vec\delta\times(q\vec E)\), stesso risultato. Succede sempre quando la forza totale è nulla.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Momento ed energia sono la stessa informazione <span class="chip">approfondimento</span></span>
+        \[U = -pE\cos\theta\quad\Longrightarrow\quad \frac{dU}{d\theta} = pE\sin\theta = |\vec\tau|,\qquad \tau_\theta = -\frac{dU}{d\theta}\]
+        <p class="why"><b>Il senso:</b> il momento è la “pendenza” della valle di energia, come la forza è \(-\nabla U\). Spinge sempre verso U più bassa.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · La forza <span class="chip lez">a lezione</span></span>
+        <p>Il dipolo è un sistema conservativo, quindi \(\vec F = -\nabla U = -\nabla(-\vec p\cdot\vec E)\).</p>
+        <ul>
+          <li><b>Campo uniforme:</b> \(\vec E\) non dipende dalla posizione, quindi \(\nabla(\vec p\cdot\vec E) = 0\) e \(\vec F = 0\).</li>
+          <li><b>Campo non uniforme</b>, con \(\vec p\) fisso: \(\vec F = (\vec p\cdot\nabla)\vec E\) <span class="chip">approfondimento</span>. Per un dipolo lungo x: \(F_x = p\,\dfrac{\partial E_x}{\partial x}\). Conta la <b>variazione</b> del campo, non il suo valore.</li>
+        </ul>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Equilibrio e oscillazioni <span class="chip lez">a lezione</span></span>
+        <p>Equilibrio dove \(\tau = 0\): \(\theta = 0\) (stabile) e \(\theta = \pi\) (instabile). Un sistema meccanico che non viene lasciato con velocità nulla nella posizione di equilibrio stabile <b>oscilla</b> attorno a essa. Per piccoli angoli, con I momento d'inerzia del dipolo <span class="chip">approfondimento</span>:</p>
+        \[I\ddot\theta = -pE\sin\theta \approx -pE\,\theta\quad\Longrightarrow\quad \omega = \sqrt{\frac{pE}{I}}\]
+        <p class="why"><b>È l'equazione del pendolo</b> (Fisica 1), con pE al posto di mgl. Equilibrio <b>indifferente</b> significherebbe U costante attorno alla posizione: per un dipolo in un campo non nullo non succede mai.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Laboratorio 2</span>
+      <h3>Il dipolo nel campo uniforme</h3>
+      <p>Trascina il dipolo per ruotarlo, oppure usa il cursore. Sotto vedi la valle di energia \(U(\theta)\) e il punto in cui ti trovi. Premi “Lascia andare” per vedere il moto; con l'attrito il dipolo si ferma sul fondo.</p>
+      <div class="lab">
+        <canvas id="c2" width="600" height="340" aria-label="Dipolo in campo uniforme: trascina per ruotarlo"></canvas>
+        <canvas id="c3" width="600" height="230" aria-label="Grafico dell'energia U in funzione dell'angolo"></canvas>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--pos)"></span>forza su +q</span>
+          <span><span class="dot" style="background:var(--neg)"></span>forza su −q</span>
+          <span>arco verde: momento \(\vec\tau\)</span>
+        </div>
+        <div class="controls">
+          <label for="th">Angolo θ fra p ed E <input id="th" type="range" min="-180" max="180" value="60"></label>
+          <button class="btn" id="bGo" type="button">Lascia andare</button>
+          <label class="check" for="fr"><input id="fr" type="checkbox"> attrito</label>
+        </div>
+        <dl class="readout" id="ro2"></dl>
+      </div>
+      <details>
+        <summary>Tre cose da provare</summary>
+        <div>
+          <p>1. Metti θ = 90° e lascia andare senza attrito: il dipolo oscilla fra +90° e −90°, come un pendolo.</p>
+          <p>2. Metti θ = 179° e lascia andare: sembra fermo, poi “cade”. È l'equilibrio instabile.</p>
+          <p>3. Attiva l'attrito: qualunque sia la partenza, finisce a θ = 0, sul fondo della valle.</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← Fisica 1</span><div>Coppia di forze, momento, pendolo: stesse equazioni, con l'angolo del dipolo al posto di quello del pendolo.</div></li>
+        <li><span>→ MT06</span><div>Un dielettrico viene risucchiato dentro un condensatore perché le sue molecole sono dipoli in un campo non uniforme (bordi del condensatore). È la forza sul dielettrico dell'es. 19.2.</div></li>
+        <li><span>→ Magnet.</span><div>Una spira percorsa da corrente in un campo magnetico sente \(\vec\tau = \vec m\times\vec B\): è il principio del motore elettrico.</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>In campo uniforme \(\vec F = 0\) ma \(\vec\tau \neq 0\): forza nulla non significa “nessun effetto”.</li>
+          <li>Anche a 180° il momento è nullo: è equilibrio, ma <b>instabile</b>. All'esame vanno nominati entrambi.</li>
+          <li>La forza in campo non uniforme dipende da come il campo <b>varia</b>, non da quanto vale.</li>
+          <li>Verso di \(\vec\tau\): regola della mano destra su \(\vec p\times\vec E\), nell'ordine giusto.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Perché un pettine strofinato attira dei pezzetti di carta neutri?</summary>
+        <div><p>Il campo del pettine induce nella carta dei dipoli allineati al campo (sotto-argomento 1). Il campo del pettine non è uniforme: è più forte vicino al pettine. Un dipolo allineato viene spinto verso il campo più intenso, quindi verso il pettine. Senza non uniformità non ci sarebbe forza.</p></div>
+      </details>
+      <details>
+        <summary>Una carica Q &gt; 0 e un dipolo vicino con p rivolto verso Q. Attrazione o repulsione?</summary>
+        <div><p>Repulsione. Se \(\vec p\) punta verso Q, la testa \(+q\) è più vicina a Q e viene respinta più di quanto la coda venga attratta. Con l'energia: \(\vec p\) è antiparallelo a \(\vec E\), quindi \(U = +pQ/4\pi\varepsilon_0 r^2\), che diminuisce allontanandosi: la forza spinge via.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s4" data-min="25" type="button">Segna “4 · Forza e momento” come fatto</button>
+  </div>
+
+  <!-- ==================== 5 ==================== -->
+  <div class="part" id="s5" data-part="5 · Esercizio d'esame">
+    <div class="part-head">
+      <span class="part-n">5 / 5</span>
+      <h2>Esercizio d'esame: dipolo nel campo di una carica Q</h2>
+      <span class="level">Guida all'esercizio · 20-30 minuti</span>
+    </div>
+
+    <section>
+      <div class="task">
+        <span class="tag">Testo</span>
+        <p>Una carica puntiforme Q &gt; 0 è fissa nell'origine. Un dipolo di momento \(\vec p\) si trova nel punto A, a distanza \(r_1\) da Q, orientato lungo il campo di Q (\(\vec p\) radiale, verso l'esterno). Il dipolo viene poi portato nel punto B, a distanza \(r_2\), dove è orientato perpendicolarmente al campo.</p>
+        <p>a) Calcolare la forza che agisce sul dipolo in A. &nbsp; b) Calcolare il lavoro necessario per portarlo da A a B.</p>
+        <p class="sub" style="font-size:.9rem">Testo ricostruito dagli appunti di Alessio (foto 10): il testo esatto del professore non ce l'ho.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Prima di calcolare: classifica</span>
+      <p>Scrivi su un foglio quale Modello e quale Strategia useresti. Poi controlla.</p>
+      <details>
+        <summary>Classificazione</summary>
+        <div>
+          <p><b>Modello:</b> dipolo immerso in un campo non uniforme, quello della carica puntiforme \(E = Q/4\pi\varepsilon_0 r^2\).</p>
+          <p><b>Strategia:</b> tutto passa dall'energia. \(U = -\vec p\cdot\vec E\); la forza è \(\vec F = -\nabla U\); il lavoro dell'agente esterno è \(L = U_B - U_A\). Niente somme di forze sulle due cariche.</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Indizi, uno alla volta</span>
+      <details>
+        <summary>Indizio 1 · Quanto vale U in A?</summary>
+        <div><p>In A \(\vec p\) è parallelo a \(\vec E\), quindi \(\cos\theta = 1\): \(U_A = -\dfrac{pQ}{4\pi\varepsilon_0 r_1^2}\).</p></div>
+      </details>
+      <details>
+        <summary>Indizio 2 · Come ottengo la forza da U?</summary>
+        <div><p>Il dipolo resta sempre radiale mentre lo immagini spostato di poco lungo r, quindi U dipende solo da r: \(\vec F = -\dfrac{dU}{dr}\,\hat r\). Deriva \(-pQ/4\pi\varepsilon_0 r^2\) rispetto a r.</p></div>
+      </details>
+      <details>
+        <summary>Indizio 3 · Quanto vale U in B?</summary>
+        <div><p>In B \(\vec p \perp \vec E\), quindi \(\cos\theta = 0\) e \(U_B = 0\), qualunque sia \(r_2\).</p></div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Soluzione completa</span>
+      <details>
+        <summary>Apri solo dopo averci provato</summary>
+        <div>
+          <p><b>a)</b></p>
+          \[\vec F_A = -\frac{d}{dr}\left(-\frac{pQ}{4\pi\varepsilon_0 r^2}\right)\hat r = -\frac{2pQ}{4\pi\varepsilon_0 r_1^3}\,\hat r = -\frac{pQ}{2\pi\varepsilon_0 r_1^3}\,\hat r\]
+          <p>Il segno meno dice: forza verso Q, attrattiva. <b>Verifica fisica:</b> con \(\vec p\) verso l'esterno, la coda \(-q\) è più vicina a Q e viene attratta più di quanto la testa venga respinta. ✓ Nota che va come \(1/r^3\): più rapida di Coulomb.</p>
+          <p><b>b)</b> Spostamento lento, senza variazione di energia cinetica:</p>
+          \[L_{A\to B} = U_B - U_A = 0 - \left(-\frac{pQ}{4\pi\varepsilon_0 r_1^2}\right) = +\frac{pQ}{4\pi\varepsilon_0 r_1^2}\]
+          <p>Positivo: l'agente esterno deve faticare, perché porta il dipolo da una posizione di energia bassa (allineato, vicino a Q) a una di energia nulla. Il lavoro del campo è l'opposto, \(-pQ/4\pi\varepsilon_0 r_1^2\). Il risultato non dipende da \(r_2\) né dal percorso: la forza è conservativa.</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Errori tipici</span>
+      <div class="warnbox">
+        <ul>
+          <li>Confondere il lavoro dell'agente esterno (\(+\Delta U\)) con il lavoro del campo (\(-\Delta U\)). Leggi bene cosa chiede il testo.</li>
+          <li>Usare la forza di Coulomb \(pQ/r^2\) come se il dipolo fosse una carica: il dipolo ha carica totale zero.</li>
+          <li>Dimenticare di controllare il segno della forza con l'intuizione fisica.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Variante per allenarti</span>
+      <details>
+        <summary>Stesso esercizio, ma in B il dipolo è antiparallelo al campo e r₂ = 2r₁. Quanto vale il lavoro?</summary>
+        <div>
+          <p>\(U_B = +\dfrac{pQ}{4\pi\varepsilon_0 (2r_1)^2} = \dfrac{pQ}{16\pi\varepsilon_0 r_1^2}\), quindi</p>
+          \[L = U_B - U_A = \frac{pQ}{16\pi\varepsilon_0 r_1^2} + \frac{pQ}{4\pi\varepsilon_0 r_1^2} = \frac{5\,pQ}{16\pi\varepsilon_0 r_1^2}\]
+        </div>
+      </details>
+    </section>
+    <button class="done" data-sec="s5" data-min="25" type="button">Segna “5 · Esercizio d'esame” come fatto</button>
+  </div>
+
+  <!-- ==================== CHIUSURA ==================== -->
+  <div class="part" id="chiusura" data-part="Chiusura">
+    <div class="part-head">
+      <span class="part-n">fine</span>
+      <h2>Mappa, Dossier e libro</h2>
+    </div>
+
+    <section>
+      <span class="tag">Per la Mappa Tematica MT04</span>
+      <p>Una proposta di rami principali. Le parole chiave le scegli tu.</p>
+      <div class="flow">
+        <div><span>Definire</span><span>\(\vec p = q\vec\delta\), da − a +, C·m, dipolo ideale, H₂O</span></div>
+        <div><span>Sorgente</span><span>\(r \gg \delta\), prima V poi E, \(V \propto \cos\theta/r^2\), \(E \propto 1/r^3\)</span></div>
+        <div><span>Immerso</span><span>\(U = -\vec p\cdot\vec E\), valle di energia</span></div>
+        <div><span>Muoversi</span><span>uniforme: solo coppia, \(\vec\tau = \vec p\times\vec E\); non uniforme: \(\vec F = -\nabla U\)</span></div>
+        <div><span>Equilibrare</span><span>0° stabile, 180° instabile, oscillazioni come un pendolo</span></div>
+        <div><span>Collegare</span><span>MT03 (V, equipotenziali), MT06 (dielettrici), magnetismo (spira)</span></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Modello potenziale e campo · rami nel tuo metodo</span>
+      <div class="flow">
+        <div><span>Geometria</span><span>origine al centro, z lungo \(\vec p\), cariche in \(\pm\delta/2\)</span></div>
+        <div><span>Simmetrie</span><span>rotazione attorno a z: contano solo r e \(\theta\)</span></div>
+        <div><span>“Elemento”</span><span>nessun integrale: due cariche e sviluppo per \(r \gg \delta\)</span></div>
+        <div><span>Strategia</span><span>prima V (scalare), poi \(\vec E = -\nabla V\)</span></div>
+        <div><span>Risultato</span><span>\(V \propto \cos\theta/r^2\), \(E \propto 1/r^3\)</span></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Schede del Dossier</span>
+      <ul>
+        <li>D · Potenziale e campo del dipolo (sviluppo per \(\delta \ll r\)) → sotto-argomento 2</li>
+        <li>D · Dipolo in campo esterno: \(U = -\vec p\cdot\vec E\), forza, momento \(\vec\tau = \vec p\times\vec E\) → sotto-argomenti 3-4</li>
+        <li>M · Esercizio d'esame: dipolo nel campo di una carica Q → sotto-argomento 5</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Controlla sul libro · 5-10 minuti</span>
+      <p>Mencuccini-Silvestrini, cap. 1: §9 “Dipolo elettrico”, p. 38; §10 “Azioni meccaniche su dipoli elettrici in un campo elettrico esterno”, p. 41. Per curiosità, §11 “Sviluppo in serie di multipoli”, p. 45: spiega perché il dipolo è il termine che viene subito dopo la carica totale.</p>
+    </section>
+  </div>
+
+  <footer>Dispensa MT04, prima versione completa. Dimmi in chat cosa cambiare: tono, lunghezza, grafici, ordine dei blocchi.</footer>
+</main>
+</div>
+
+<div class="toolbar" id="toolbar" role="toolbar" aria-label="Sfoglia la dispensa">
+  <button class="tb-btn" id="bIdx" type="button" title="Vai all'indice">Indice</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn arrow" id="bPrev" type="button" aria-label="Pagina precedente">‹</button>
+  <span id="pgNum" aria-live="polite">pag. 1</span>
+  <button class="tb-btn arrow" id="bNext" type="button" aria-label="Pagina successiva">›</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn" id="bFlip" type="button" title="Quante pagine girare a ogni passo">sfoglia di 2</button>
+  <button class="tb-btn" id="bSmall" type="button" aria-label="Testo più piccolo">A−</button>
+  <button class="tb-btn" id="bBig" type="button" aria-label="Testo più grande">A+</button>
+  <span class="tb-sep"></span>
+  <span id="railSlot"></span>
+</div>
+
+<script>
+(function () {
+  const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const hex = h => { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)); };
+  function arrowOn(ctx, x0, y0, x1, y1, color, w) {
+    const ang = Math.atan2(y1 - y0, x1 - x0), hd = 9 + w * 2;
+    ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hd * Math.cos(ang - 0.4), y1 - hd * Math.sin(ang - 0.4));
+    ctx.lineTo(x1 - hd * Math.cos(ang + 0.4), y1 - hd * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fill();
+  }
+  const fmt = v => {
+    if (!isFinite(v)) return '—';
+    const a = Math.abs(v);
+    if (a !== 0 && (a < 1e-3 || a >= 1e4)) return v.toExponential(2).replace('e', '·10^');
+    return v.toPrecision(3);
+  };
+
+  /* ---------- Laboratorio 1: potenziale e campo ---------- */
+  (function () {
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+    const ro = document.getElementById('ro');
+    const zoom = document.getElementById('zoom');
+    const N = 600, RES = 200;
+    let span = 6;                 // semilarghezza della vista, in unità di δ
+    let P = { x: 1.93, z: 2.3 };  // r ≈ 3, θ ≈ 40°
+    let lines = [], map = null, dragging = false;
+
+    // campo e potenziale esatti: +1 in (0, 0.5), −1 in (0, −0.5)
+    function exact(x, z) {
+      const rp = Math.hypot(x, z - 0.5), rm = Math.hypot(x, z + 0.5);
+      return {
+        V: 1 / rp - 1 / rm,
+        Ex: x / rp ** 3 - x / rm ** 3,
+        Ez: (z - 0.5) / rp ** 3 - (z + 0.5) / rm ** 3
+      };
+    }
+    const toPx = (x, z) => [(x / span + 1) * N / 2, (1 - z / span) * N / 2];
+    const toW = (px, py) => ({ x: (px / (N / 2) - 1) * span, z: (1 - py / (N / 2)) * span });
+
+    function buildMap() {
+      const bg = hex(cssVar('--card')), pos = hex(cssVar('--pos')), neg = hex(cssVar('--neg')), ink = hex(cssVar('--ink'));
+      const off = document.createElement('canvas'); off.width = off.height = RES;
+      const oc = off.getContext('2d'), img = oc.createImageData(RES, RES);
+      for (let j = 0; j < RES; j++) for (let i = 0; i < RES; i++) {
+        const x = ((i + .5) / RES * 2 - 1) * span, z = (1 - (j + .5) / RES * 2) * span;
+        const t = Math.tanh(exact(x, z).V * span * 0.9);
+        const lev = t * 7, frac = Math.abs(lev - Math.round(lev));
+        const band = Math.round(lev) / 7;
+        const c = band >= 0 ? pos : neg, a = Math.min(1, Math.abs(band)) * 0.55;
+        let col = [0, 1, 2].map(k => bg[k] + (c[k] - bg[k]) * a);
+        if (frac < 0.05 && Math.abs(lev) > 0.2) col = col.map((cc, k) => cc + (ink[k] - cc) * 0.25);
+        const o = (j * RES + i) * 4;
+        img.data[o] = col[0]; img.data[o + 1] = col[1]; img.data[o + 2] = col[2]; img.data[o + 3] = 255;
+      }
+      oc.putImageData(img, 0, 0);
+      map = off;
+    }
+
+    function buildLines() {
+      lines = [];
+      const n = 16, h = span / 140;
+      const dir = (xx, zz) => { const e = exact(xx, zz), m = Math.hypot(e.Ex, e.Ez) || 1; return [e.Ex / m, e.Ez / m]; };
+      for (let k = 0; k < n; k++) {
+        const a = (k + 0.5) / n * 2 * Math.PI, r0 = Math.min(0.12, span / 60) + 0.02;
+        let x = r0 * Math.sin(a), z = 0.5 + r0 * Math.cos(a);
+        const pts = [[x, z]];
+        for (let s = 0; s < 2500; s++) {
+          const k1 = dir(x, z), k2 = dir(x + k1[0] * h / 2, z + k1[1] * h / 2);
+          x += k2[0] * h; z += k2[1] * h;
+          pts.push([x, z]);
+          if (Math.hypot(x, z + 0.5) < Math.max(1.5 * h, 0.05) || Math.abs(x) > span * 1.6 || Math.abs(z) > span * 1.6) break;
+        }
+        lines.push(pts);
+      }
+    }
+
+    function draw() {
+      const ink = cssVar('--ink'), muted = cssVar('--muted'), acc = cssVar('--accent');
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(map, 0, 0, N, N);
+      ctx.strokeStyle = ink; ctx.globalAlpha = 0.55; ctx.lineWidth = 1.3;
+      for (const pts of lines) {
+        ctx.beginPath();
+        pts.forEach((p, i) => { const [a, b] = toPx(p[0], p[1]); i ? ctx.lineTo(a, b) : ctx.moveTo(a, b); });
+        ctx.stroke();
+        const m = Math.floor(pts.length * 0.35);
+        if (pts[m + 1]) {
+          const [a, b] = toPx(...pts[m]), [c, d] = toPx(...pts[m + 1]);
+          const ang = Math.atan2(d - b, c - a);
+          ctx.fillStyle = ink; ctx.beginPath(); ctx.moveTo(c, d);
+          ctx.lineTo(c - 7 * Math.cos(ang - 0.45), d - 7 * Math.sin(ang - 0.45));
+          ctx.lineTo(c - 7 * Math.cos(ang + 0.45), d - 7 * Math.sin(ang + 0.45));
+          ctx.closePath(); ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.setLineDash([4, 5]); ctx.strokeStyle = muted; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(N / 2, 0); ctx.lineTo(N / 2, N); ctx.moveTo(0, N / 2); ctx.lineTo(N, N / 2); ctx.stroke();
+      ctx.setLineDash([]);
+      if (N / (2 * span) > 22) {
+        for (const [zc, col, s] of [[0.5, cssVar('--pos'), '+'], [-0.5, cssVar('--neg'), '−']]) {
+          const [a, b] = toPx(0, zc);
+          ctx.fillStyle = col; ctx.beginPath(); ctx.arc(a, b, 10, 0, 7); ctx.fill();
+          ctx.fillStyle = '#fff'; ctx.font = '600 15px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText(s, a, b + 1);
+        }
+      } else {
+        arrowOn(ctx, N / 2, N / 2 + 14, N / 2, N / 2 - 14, ink, 3);
+      }
+      const [px, py] = toPx(P.x, P.z);
+      ctx.strokeStyle = muted; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(N / 2, N / 2); ctx.lineTo(px, py); ctx.stroke();
+      const e = exact(P.x, P.z), m = Math.hypot(e.Ex, e.Ez);
+      arrowOn(ctx, px, py, px + e.Ex / m * 54, py - e.Ez / m * 54, acc, 3);
+      ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(px, py, 6, 0, 7); ctx.fill();
+      ctx.font = '600 16px system-ui'; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+      ctx.fillText('P', px + 9, py - 6);
+      readout();
+    }
+
+    function readout() {
+      const r = Math.hypot(P.x, P.z), th = Math.atan2(Math.abs(P.x), P.z);
+      const c = Math.cos(th), s = Math.sin(th);
+      const e = exact(P.x, P.z);
+      const Vd = c / (r * r), Ed = Math.sqrt(3 * c * c + 1) / r ** 3, Ee = Math.hypot(e.Ex, e.Ez);
+      const err = Math.abs(Ee - Ed) / Ee * 100;
+      const rows = [
+        ['r / δ', fmt(r)], ['θ', (th * 180 / Math.PI).toFixed(0) + '°'],
+        ['V esatto', fmt(e.V)], ['V dipolo', fmt(Vd)],
+        ['|E| esatto', fmt(Ee)], ['|E| dipolo', fmt(Ed)],
+        ['E_r dipolo', fmt(2 * c / r ** 3)], ['E_θ dipolo', fmt(s / r ** 3)],
+        ['errore su |E|', err < 0.01 ? '< 0,01 %' : fmt(err) + ' %', 'err']
+      ];
+      ro.innerHTML = rows.map(([k, v, cl]) => `<div${cl ? ' class="' + cl + '"' : ''}><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+    }
+
+    function clampP() {
+      const lim = span * 0.95;
+      P.x = Math.max(-lim, Math.min(lim, P.x)); P.z = Math.max(-lim, Math.min(lim, P.z));
+      if (Math.hypot(P.x, P.z - 0.5) < 0.2) P.z += 0.25;
+      if (Math.hypot(P.x, P.z + 0.5) < 0.2) P.z -= 0.25;
+    }
+    function rebuild() { buildMap(); buildLines(); clampP(); draw(); }
+    function setZoom() {
+      const old = span;
+      span = 2.5 * Math.pow(40 / 2.5, zoom.value / 100);   // da 2,5δ a 40δ
+      P.x *= span / old; P.z *= span / old;
+      rebuild();
+    }
+    function pointer(ev) {
+      const rc = cv.getBoundingClientRect();
+      P = toW((ev.clientX - rc.left) / rc.width * N, (ev.clientY - rc.top) / rc.height * N);
+      clampP(); draw();
+    }
+    cv.addEventListener('pointerdown', ev => { dragging = true; cv.setPointerCapture(ev.pointerId); pointer(ev); });
+    cv.addEventListener('pointermove', ev => { if (dragging) pointer(ev); });
+    cv.addEventListener('pointerup', () => { dragging = false; });
+    cv.addEventListener('pointercancel', () => { dragging = false; });
+    zoom.addEventListener('input', setZoom);
+    document.getElementById('bAxis').addEventListener('click', () => { P = { x: 0, z: span * 0.5 }; draw(); });
+    document.getElementById('bEq').addEventListener('click', () => { P = { x: span * 0.5, z: 0 }; draw(); });
+
+    span = 2.5 * Math.pow(40 / 2.5, zoom.value / 100);
+    rebuild();
+  })();
+
+  /* ---------- Laboratorio 2: dipolo in campo uniforme ---------- */
+  (function () {
+    const c2 = document.getElementById('c2'), g = c2.getContext('2d');
+    const c3 = document.getElementById('c3'), h = c3.getContext('2d');
+    const sl = document.getElementById('th'), bGo = document.getElementById('bGo'), fr = document.getElementById('fr');
+    const ro = document.getElementById('ro2');
+    const W = 600, H = 340, CX = 300, CY = 170, LP = 80;
+    const K = 9;                       // pE / I, in unità arbitrarie
+    let th = 60 * Math.PI / 180, om = 0, running = false, last = 0, dragging = false;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a <= -Math.PI) a += 2 * Math.PI; return a; };
+
+    function drawDipole() {
+      const ink = cssVar('--ink'), muted = cssVar('--muted'), acc = cssVar('--accent');
+      const pos = cssVar('--pos'), neg = cssVar('--neg'), card = cssVar('--card');
+      g.fillStyle = card; g.fillRect(0, 0, W, H);
+      // linee del campo uniforme
+      g.globalAlpha = 0.45;
+      for (let y = 40; y < H; y += 65) arrowOn(g, 20, y, W - 20, y, muted, 1.2);
+      g.globalAlpha = 1;
+      g.fillStyle = muted; g.font = '600 15px system-ui'; g.textAlign = 'right'; g.textBaseline = 'bottom';
+      g.fillText('E', W - 22, 36);
+      const dx = Math.cos(th), dy = -Math.sin(th);
+      const hx = CX + LP * dx, hy = CY + LP * dy, tx = CX - LP * dx, ty = CY - LP * dy;
+      // momento: arco verso θ = 0, ampiezza proporzionale a |sin θ|
+      const s = Math.sin(th);
+      if (Math.abs(s) > 0.02) {
+        const R = 115, sweep = 0.9 * Math.abs(s);
+        const a0 = -th, a1 = -th + Math.sign(th) * sweep;  // in canvas gli angoli crescono in senso orario
+        g.strokeStyle = acc; g.lineWidth = 3;
+        g.beginPath(); g.arc(CX, CY, R, Math.min(a0, a1), Math.max(a0, a1)); g.stroke();
+        const ex = CX + R * Math.cos(a1), ey = CY + R * Math.sin(a1);
+        const tang = a1 + Math.sign(th) * Math.PI / 2;
+        g.fillStyle = acc; g.beginPath(); g.moveTo(ex + 10 * Math.cos(tang), ey + 10 * Math.sin(tang));
+        g.lineTo(ex + 7 * Math.cos(tang + 2.2), ey + 7 * Math.sin(tang + 2.2));
+        g.lineTo(ex + 7 * Math.cos(tang - 2.2), ey + 7 * Math.sin(tang - 2.2));
+        g.closePath(); g.fill();
+        g.font = '600 16px system-ui'; g.textAlign = 'center'; g.textBaseline = 'middle';
+        g.fillText('τ', CX + (R + 16) * Math.cos(a1), CY + (R + 16) * Math.sin(a1));
+      }
+      // forze
+      arrowOn(g, hx, hy, hx + 62, hy, pos, 3);
+      arrowOn(g, tx, ty, tx - 62, ty, neg, 3);
+      // asta e p
+      g.strokeStyle = ink; g.lineWidth = 2; g.beginPath(); g.moveTo(tx, ty); g.lineTo(hx, hy); g.stroke();
+      arrowOn(g, CX - 30 * dx, CY - 30 * dy, CX + 30 * dx, CY + 30 * dy, ink, 3);
+      g.fillStyle = ink; g.font = 'italic 600 16px Georgia, serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText('p', CX + 30 * dx - 16 * dy, CY + 30 * dy + 16 * dx);
+      for (const [x, y, col, t] of [[hx, hy, pos, '+'], [tx, ty, neg, '−']]) {
+        g.fillStyle = col; g.beginPath(); g.arc(x, y, 12, 0, 7); g.fill();
+        g.fillStyle = '#fff'; g.font = '600 16px system-ui'; g.fillText(t, x, y + 1);
+      }
+    }
+
+    function drawPlot() {
+      const ink = cssVar('--ink'), muted = cssVar('--muted'), acc = cssVar('--accent'), rule = cssVar('--rule'), card = cssVar('--card');
+      const PW = 600, PH = 230, L = 56, R = 20, T = 18, B = 40;
+      const X = d => L + (d + 180) / 360 * (PW - L - R), Y = u => T + (1.2 - u) / 2.4 * (PH - T - B);
+      h.fillStyle = card; h.fillRect(0, 0, PW, PH);
+      h.strokeStyle = rule; h.lineWidth = 1;
+      h.font = '13px system-ui'; h.fillStyle = muted;
+      for (const d of [-180, -90, 0, 90, 180]) {
+        h.beginPath(); h.moveTo(X(d), T); h.lineTo(X(d), PH - B); h.stroke();
+        h.textAlign = 'center'; h.textBaseline = 'top'; h.fillText(d + '°', X(d), PH - B + 6);
+      }
+      for (const u of [-1, 0, 1]) {
+        h.beginPath(); h.moveTo(L, Y(u)); h.lineTo(PW - R, Y(u)); h.stroke();
+        h.textAlign = 'right'; h.textBaseline = 'middle'; h.fillText(u === 0 ? '0' : (u > 0 ? '+pE' : '−pE'), L - 8, Y(u));
+      }
+      h.textAlign = 'left'; h.textBaseline = 'top'; h.fillText('U(θ) = −pE cos θ', L + 6, T + 2);
+      h.strokeStyle = ink; h.lineWidth = 2.2; h.beginPath();
+      for (let d = -180; d <= 180; d += 2) { const u = -Math.cos(d * Math.PI / 180); d === -180 ? h.moveTo(X(d), Y(u)) : h.lineTo(X(d), Y(u)); }
+      h.stroke();
+      h.fillStyle = muted; h.textAlign = 'center'; h.textBaseline = 'bottom';
+      h.fillText('stabile', X(0), Y(-1) - 6);
+      h.textBaseline = 'middle'; h.fillText('instabile', X(-135), Y(0.25)); h.fillText('instabile', X(135), Y(0.25));
+      const d = th * 180 / Math.PI;
+      h.fillStyle = acc; h.beginPath(); h.arc(X(d), Y(-Math.cos(th)), 7, 0, 7); h.fill();
+    }
+
+    function readout() {
+      const d = th * 180 / Math.PI;
+      let st = 'il momento lo spinge verso θ = 0';
+      if (Math.abs(d) < 1.5) st = 'equilibrio stabile';
+      else if (Math.abs(d) > 178.5) st = 'equilibrio instabile';
+      const rows = [
+        ['θ', d.toFixed(0) + '°'],
+        ['U / pE', (-Math.cos(th)).toFixed(2)],
+        ['τ / pE', (-Math.sin(th)).toFixed(2)],
+        ['forza totale', '0']
+      ];
+      ro.innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('') +
+        `<div style="grid-column:1/-1"><dt>stato</dt><dd class="state">${st}</dd></div>`;
+    }
+
+    function render() { drawDipole(); drawPlot(); readout(); sl.value = Math.round(th * 180 / Math.PI); }
+
+    function stop() { running = false; bGo.classList.remove('on'); bGo.textContent = 'Lascia andare'; }
+    function step(ts) {
+      if (!running) return;
+      const dt = Math.min(0.033, (ts - (last || ts)) / 1000); last = ts;
+      const sub = 8;
+      for (let i = 0; i < sub; i++) {
+        const a = -K * Math.sin(th) - (fr.checked ? 1.6 * om : 0);
+        om += a * dt / sub; th = wrap(th + om * dt / sub);
+      }
+      render();
+      requestAnimationFrame(step);
+    }
+    bGo.addEventListener('click', () => {
+      if (running) { stop(); return; }
+      if (reduce) { th = 0; om = 0; render(); return; }
+      om = 0; running = true; last = 0; bGo.classList.add('on'); bGo.textContent = 'Ferma';
+      requestAnimationFrame(step);
+    });
+    sl.addEventListener('input', () => { stop(); om = 0; th = sl.value * Math.PI / 180; render(); });
+    function pointer(ev) {
+      const rc = c2.getBoundingClientRect();
+      const x = (ev.clientX - rc.left) / rc.width * W, y = (ev.clientY - rc.top) / rc.height * H;
+      th = Math.atan2(-(y - CY), x - CX); render();
+    }
+    c2.addEventListener('pointerdown', ev => { stop(); om = 0; dragging = true; c2.setPointerCapture(ev.pointerId); pointer(ev); });
+    c2.addEventListener('pointermove', ev => { if (dragging) pointer(ev); });
+    c2.addEventListener('pointerup', () => { dragging = false; });
+    c2.addEventListener('pointercancel', () => { dragging = false; });
+    render();
+  })();
+})();
+</script>
+<script>
+/* Avanzamento: pieno = parti segnate come fatte (pesate sui minuti), chiaro = dove sei arrivato a leggere.
+   Le spunte restano salvate solo in questo browser. */
+(function () {
+  const KEY = 'mt04-dispensa-fatto';
+  const btns = [...document.querySelectorAll('.done')];
+  const total = btns.reduce((a, b) => a + +b.dataset.min, 0);
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+  const fill = document.getElementById('pgFill'), read = document.getElementById('pgRead');
+  const pct = document.getElementById('pgPct'), mins = document.getElementById('pgMin'), list = document.getElementById('pgList');
+  btns.forEach(b => b.dataset.label = b.textContent.match(/“(.*)”/)[1]);
+  const target = sec => sec === 'intro' ? 'ripasso' : sec;
+  list.innerHTML = btns.map(b => `<li data-sec="${b.dataset.sec}"><a href="#${target(b.dataset.sec)}"><span class="ck"></span><span>${b.dataset.label}</span></a></li>`).join('');
+  const lis = [...list.children];
+  let cur = 'intro';
+
+  function paint() {
+    let m = 0;
+    btns.forEach((b, i) => {
+      const on = !!done[b.dataset.sec];
+      b.classList.toggle('is-done', on);
+      b.setAttribute('aria-pressed', on);
+      b.textContent = on ? '✓ ' + b.dataset.label + ' · fatto' : 'Segna “' + b.dataset.label + '” come fatto';
+      lis[i].classList.toggle('done', on);
+      lis[i].querySelector('.ck').textContent = on ? '✓' : '';
+      if (on) m += +b.dataset.min;
+    });
+    lis.forEach(li => li.classList.toggle('cur', li.dataset.sec === cur));
+    const p = Math.round(m / total * 100);
+    fill.style.width = p + '%';
+    pct.textContent = p + '%';
+    mins.textContent = p < 100 ? 'fatto · ~' + (total - m) + ' min' : 'fatto';
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    done[b.dataset.sec] = !done[b.dataset.sec];
+    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    paint();
+  }));
+
+  const parts = [...document.querySelectorAll('[data-part]')];
+  const secOf = id => (id === 'ripasso' || id === 'quadro') ? 'intro' : (/^s\d$/.test(id) ? id : null);
+  function onScroll() {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    read.style.height = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + '%';
+    let c = 'intro';
+    for (const el of parts) if (el.getBoundingClientRect().top < innerHeight * 0.35) c = secOf(el.id) || c;
+    if (c !== cur) { cur = c; paint(); }
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  paint(); onScroll();
+})();
+</script>
+
+<script>
+/* Modalità libro: la dispensa è divisa in colonne alte quanto lo schermo (le pagine); si sfoglia spostando la vista di una o due colonne. */
+(function () {
+  const main = document.querySelector('.sheet main');
+  document.getElementById('railSlot').appendChild(document.getElementById('prog'));
+  const num = document.getElementById('pgNum'), prev = document.getElementById('bPrev'), next = document.getElementById('bNext');
+  const flipBtn = document.getElementById('bFlip');
+  const KEY = 'mt04-libro';
+  let st = { fs: 16, flip: 2, frac: 0 };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let count = 2, gap = 72, step = 1, total = 1, idx = 0;
+
+  function measure() {
+    count = innerWidth >= 900 ? 2 : 1;
+    gap = count === 2 ? 72 : 40;
+    document.documentElement.style.setProperty('--fs', st.fs + 'px');
+    main.style.columnCount = count;
+    main.style.columnGap = gap + 'px';
+    const pw = (main.clientWidth - gap * (count - 1)) / count, ph = main.clientHeight;
+    document.querySelectorAll('.lab canvas').forEach(c => {
+      c.style.width = Math.max(160, Math.min(pw - 30, ph * 0.5 * c.width / c.height)) + 'px';
+    });
+    step = pw + gap;
+    total = Math.max(1, Math.round((main.scrollWidth + gap) / step));
+  }
+  const maxIdx = () => Math.max(0, total - count);
+  const align = () => { if (count === 2 && st.flip === 2) idx -= idx % 2; };
+  function show(anim) {
+    idx = Math.min(Math.max(0, idx), maxIdx());
+    const before = main.scrollLeft;
+    main.scrollLeft = Math.round(idx * step);
+    // effetto "pagina che gira": breve scivolata nella direzione in cui si sfoglia
+    if (anim && !reduce && main.animate && main.scrollLeft !== before) {
+      const dir = main.scrollLeft > before ? 1 : -1;
+      main.animate([{ opacity: 0.2, transform: 'translateX(' + (dir * 28) + 'px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 220, easing: 'ease-out' });
+    }
+    const a = idx + 1, b = Math.min(total, idx + count);
+    num.textContent = 'pag. ' + (a === b ? a : a + '–' + b) + ' di ' + total;
+    prev.disabled = idx <= 0;
+    next.disabled = idx >= maxIdx();
+    flipBtn.hidden = count !== 2;
+    flipBtn.textContent = st.flip === 2 ? 'sfoglia di 2' : 'sfoglia di 1';
+    st.frac = total > 1 ? idx / (total - 1) : 0;
+    save();
+  }
+  function layout() { measure(); idx = Math.round(st.frac * (total - 1)); align(); show(false); }
+  function relayout() { measure(); show(false); }
+  function turn(dir) { idx += dir * (count === 2 ? st.flip : 1); show(true); }
+  function pageOf(el) {
+    const r = el.getBoundingClientRect(), m = main.getBoundingClientRect();
+    return Math.floor((r.left - m.left + main.scrollLeft + 2) / step);
+  }
+
+  prev.addEventListener('click', () => turn(-1));
+  next.addEventListener('click', () => turn(1));
+  flipBtn.addEventListener('click', () => { st.flip = 3 - st.flip; align(); show(false); });
+  document.getElementById('bSmall').addEventListener('click', () => { st.fs = Math.max(13, st.fs - 1); layout(); });
+  document.getElementById('bBig').addEventListener('click', () => { st.fs = Math.min(24, st.fs + 1); layout(); });
+  document.getElementById('bIdx').addEventListener('click', () => { idx = pageOf(document.querySelector('nav')); align(); show(true); });
+
+  // link interni (indice, rimandi): vai alla pagina giusta invece di scorrere
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    idx = pageOf(t); align(); show(true);
+  });
+  // tastiera
+  addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, select')) return;
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); turn(1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); turn(-1); }
+  });
+  // swipe con il dito (iPad) o con il mouse trascinando
+  let sx = null, sy = 0;
+  main.addEventListener('pointerdown', e => {
+    sx = e.target.closest('canvas, input, button, summary, a, .lab') ? null : e.clientX; sy = e.clientY;
+  });
+  main.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) turn(dx < 0 ? 1 : -1);
+    sx = null;
+  });
+  // trackpad e rotella: un gesto = una pagina
+  let acc = 0, lastTurn = 0, accTimer = 0;
+  main.addEventListener('wheel', e => {
+    if (e.target.closest('mjx-container') && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    acc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    clearTimeout(accTimer); accTimer = setTimeout(() => { acc = 0; }, 200);
+    const now = Date.now();
+    if (Math.abs(acc) > 60 && now - lastTurn > 500) { turn(acc > 0 ? 1 : -1); acc = 0; lastTurn = now; }
+  }, { passive: false });
+  // se il browser sposta la vista da solo (es. passando con Tab), riallinea alla pagina
+  let scTimer = 0;
+  main.addEventListener('scroll', () => {
+    clearTimeout(scTimer);
+    scTimer = setTimeout(() => {
+      if (Math.abs(main.scrollLeft - idx * step) > 4) { idx = Math.round(main.scrollLeft / step); align(); show(false); }
+    }, 200);
+  });
+  // aprire o chiudere una risposta cambia il numero di pagine
+  document.addEventListener('toggle', relayout, true);
+  addEventListener('resize', layout);
+
+  layout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  addEventListener('load', () => {
+    const mj = window.MathJax;
+    if (mj && mj.startup && mj.startup.promise) mj.startup.promise.then(layout); else layout();
+  });
+})();
+</script>
