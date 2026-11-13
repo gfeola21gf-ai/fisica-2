@@ -1,0 +1,1825 @@
+<title>MT05 Conduttori e condensatori</title>
+<link rel="icon" href="icona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icona-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7a1d30">
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* Layout: una colonna da quaderno di studio (max ~68ch), blocchi etichettati come nel metodo dell'utente, laboratori a tutta colonna.
+   Tema unico chiaro, per scelta dell'utente: leggibile anche con il telefono in modalità scura. */
+:root {
+  --paper: #f5f7fa;
+  --card: #ffffff;
+  --ink: #18202e;
+  --muted: #5a6477;
+  --rule: #d8dee8;
+  --accent: #0f6e66;
+  --accent-soft: #e2f1ef;
+  --pos: #c43d2c;
+  --neg: #2563c9;
+  --formal: #eef1f7;
+  --warn: #9a5b00;
+  --warn-soft: #fbf1e1;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-label: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.62;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+main { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: 2.1rem; font-weight: 600; }
+h2 { font-size: 1.35rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+.part { display: flex; flex-direction: column; gap: 36px; padding-top: 28px; border-top: 2px solid var(--ink); scroll-margin-top: 12px; }
+.part-head { display: flex; flex-direction: column; gap: 8px; }
+.part-n { font-family: var(--f-mono); font-size: .9rem; color: var(--accent); }
+.level { font-family: var(--f-label); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.eyebrow, .tag, .chip, summary, .btn, .readout dt, .step-n, nav a, .level {
+  font-family: var(--f-label); letter-spacing: .04em;
+}
+.eyebrow { font-size: .8rem; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.sub { color: var(--muted); }
+.tag {
+  align-self: flex-start; font-size: .72rem; text-transform: uppercase; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent);
+}
+.chip { font-size: .72rem; font-weight: 600; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.chip.lez { border-color: var(--accent); color: var(--accent); }
+ul, ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+.formal { background: var(--formal); border-left: 3px solid var(--ink); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.warnbox { background: var(--warn-soft); border-left: 3px solid var(--warn); padding: 14px 18px; }
+.warnbox li::marker { color: var(--warn); }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: 2px; }
+nav ol { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule); }
+nav li { border-bottom: 1px solid var(--rule); }
+nav a { display: flex; gap: 12px; align-items: baseline; padding: 9px 2px; color: var(--ink); text-decoration: none; font-size: .95rem; }
+nav a:hover { color: var(--accent); }
+nav a span:first-child { font-family: var(--f-mono); color: var(--accent); min-width: 1.6em; }
+nav a span:nth-child(2) { flex: 1; min-width: 0; }
+nav a span:last-child { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.cover { list-style: none; padding: 0; gap: 8px; }
+.cover li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.cover li > span:first-child { flex: 1 1 16rem; min-width: 0; }
+.cover .grp { font-family: var(--f-label); font-weight: 600; font-size: .85rem; color: var(--muted); border: 0; padding: 8px 0 0; letter-spacing: .03em; }
+.chain { counter-reset: c; list-style: none; padding: 0; gap: 10px; }
+.chain li { counter-increment: c; display: grid; grid-template-columns: 1.8em 1fr; gap: 8px; }
+.chain li::before { content: counter(c); font-family: var(--f-mono); color: var(--accent); }
+.chain li > div { min-width: 0; }
+.step { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.step-n { font-size: .78rem; text-transform: uppercase; color: var(--muted); font-weight: 600; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.why { color: var(--muted); font-size: .95rem; }
+.why b { color: var(--accent); font-family: var(--f-label); font-weight: 600; letter-spacing: .03em; }
+details { border: 1px solid var(--rule); border-radius: 6px; background: var(--card); }
+summary { cursor: pointer; padding: 12px 14px; font-weight: 600; font-size: .95rem; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸ "; color: var(--accent); }
+details[open] summary::before { content: "▾ "; }
+details > div { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px; }
+.links { list-style: none; padding: 0; gap: 10px; }
+.links li { display: grid; grid-template-columns: 5em 1fr; gap: 10px; }
+.links li > span:first-child { font-family: var(--f-label); font-size: .8rem; color: var(--accent); font-weight: 600; padding-top: .2em; }
+.links li > div { min-width: 0; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-label); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+/* formulario finale */
+.fcard { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+.f-name { font-family: var(--f-label); font-size: .85rem; font-weight: 600; color: var(--accent); letter-spacing: .02em; }
+.f-eq { overflow-x: auto; transition: filter .2s; }
+.f-note { font-size: .88rem; color: var(--muted); }
+#formulario.quiz .f-eq { filter: blur(8px); cursor: pointer; }
+#formulario.quiz .f-eq.show { filter: none; }
+/* laboratori */
+.lab { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.lab canvas { width: 100%; height: auto; max-width: 100%; touch-action: none; border-radius: 4px; display: block; }
+#cv, #c2 { cursor: crosshair; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.controls label { font-family: var(--f-label); font-size: .85rem; color: var(--muted); display: flex; gap: 8px; align-items: center; flex: 1 1 14rem; min-width: 0; }
+.controls label.check { flex: 0 0 auto; }
+.controls input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.controls input[type=checkbox] { accent-color: var(--accent); width: 1.1em; height: 1.1em; }
+.btn { font-size: .85rem; font-weight: 600; padding: 6px 12px; border-radius: 4px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+.btn:hover { background: var(--accent-soft); }
+.btn.on { background: var(--accent); color: var(--card); }
+.btn:focus-visible, summary:focus-visible, input:focus-visible, nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 8px 16px; margin: 0; }
+.readout div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--rule); padding-bottom: 3px; }
+.readout dt { font-size: .82rem; color: var(--muted); }
+.readout dd { margin: 0; font-family: var(--f-mono); font-size: .88rem; font-variant-numeric: tabular-nums; }
+.readout .err dd { color: var(--accent); font-weight: 500; }
+.state { font-family: var(--f-label); font-weight: 600; color: var(--accent); }
+.legend { font-family: var(--f-label); font-size: .8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.dot { display: inline-block; width: .8em; height: .8em; border-radius: 50%; vertical-align: -1px; margin-right: 4px; }
+.flow { display: flex; flex-direction: column; gap: 6px; }
+.flow div { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.flow div > span:first-child { font-family: var(--f-label); font-weight: 600; font-size: .88rem; }
+.flow div > span:last-child { min-width: 0; }
+.task { background: var(--card); border: 1px solid var(--ink); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+/* Avanzamento: piccolo riquadro fisso in basso a destra, uguale su ogni schermo (scelta dell'utente). */
+.rail { position: fixed; z-index: 5; right: calc(12px + env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: 9rem; display: flex; flex-direction: column; gap: 5px; padding: 6px 10px 8px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--rule); box-shadow: 0 2px 8px rgb(24 32 46 / .10);
+  font-family: var(--f-label); letter-spacing: .03em; font-size: .72rem; color: var(--muted); }
+.rail-pct { display: flex; gap: 6px; align-items: baseline; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rail-pct b { color: var(--accent); font-size: .9rem; font-weight: 600; }
+.vbar { position: relative; height: 4px; border-radius: 2px; background: var(--rule); overflow: hidden; }
+.vbar .fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 2px; background: var(--accent); transition: width .4s ease; }
+.vbar .read, .rail-list { display: none; }
+@media (prefers-reduced-motion: reduce) { .vbar .fill { transition: none; } }
+.done { align-self: flex-start; font-family: var(--f-label); font-size: .9rem; font-weight: 600; letter-spacing: .03em; padding: 9px 16px; border-radius: 6px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); cursor: pointer; }
+.done:hover { background: var(--accent-soft); }
+.done.is-done { background: var(--accent); color: var(--card); }
+.done:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 16px; }
+@media (max-width: 30rem) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.7rem; }
+  .flow div, .links li { grid-template-columns: 1fr; gap: 2px; }
+}
+/* ===== Modalità libro: pagine fisse da sfogliare (Mac e iPad). Due pagine affiancate su schermo largo, una su schermo stretto. ===== */
+html { height: 100%; font-size: var(--fs, 16px); }
+body { height: 100%; overflow: hidden; padding: 0; font-size: calc(var(--fs, 16px) * 1.06); }
+.sheet { position: fixed; z-index: 1; top: calc(env(safe-area-inset-top, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 66px);
+  left: 50%; transform: translateX(-50%); width: min(1320px, calc(100vw - 28px)); box-sizing: border-box; padding: 28px 36px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 6px 24px rgb(24 32 46 / .08); }
+.sheet main { display: block; max-width: none; margin: 0; height: 100%; overflow: hidden; column-fill: auto; column-rule: 1px solid var(--rule); touch-action: pinch-zoom; }
+.sheet header { display: block !important; }
+.sheet .part, .sheet section, .sheet .part-head { display: block; }
+.sheet main > * { margin: 0; }
+.sheet main > * + * { margin-top: 30px; }
+.sheet .part > * + * { margin-top: 26px; }
+.sheet section > * + *, .sheet header > * + *, .sheet .part-head > * + * { margin-top: 12px; }
+.sheet .part { break-before: column; border-top: 0; padding-top: 0; }
+.sheet .part-head { border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.sheet h2, .sheet h3, .sheet .tag, .sheet .part-head, .sheet .step-n { break-after: avoid; }
+.sheet .formal, .sheet figure, .sheet .lab, .sheet details, .sheet .task, .sheet .warnbox, .sheet .tbl, .sheet mjx-container[display="true"],
+.sheet .fcard, .sheet .chain li, .sheet .cover li, .sheet .links li, .sheet .flow > div, .sheet .done, .sheet nav li { break-inside: avoid; }
+.sheet .lab canvas { margin: 0 auto; }
+.sheet .tag { display: table; }
+.toolbar { position: fixed; z-index: 6; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  font-family: var(--f-label); letter-spacing: .03em; background: var(--paper); }
+.tb-btn { height: 40px; min-width: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--card); color: var(--ink);
+  font-family: var(--f-label); font-size: 14px; font-weight: 600; cursor: pointer; }
+.tb-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.tb-btn:disabled { opacity: .35; cursor: default; }
+.tb-btn.arrow { font-size: 20px; color: var(--accent); min-width: 52px; }
+.tb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pgNum { min-width: 10em; text-align: center; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tb-sep { width: 1px; height: 26px; background: var(--rule); margin: 0 4px; }
+.toolbar .rail { position: static; width: auto; padding: 0; border: 0; background: none; box-shadow: none; flex-direction: row; align-items: center; gap: 8px; }
+.toolbar .rail-pct { font-size: 12px; }
+.toolbar .rail-pct b { font-size: 14px; }
+.toolbar .vbar { width: 56px; }
+</style>
+
+<div class="sheet">
+<main>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">MT05 · Lezioni 11, 13, 14 (+ 15, 19) · Dispensa</span>
+    <h1>Conduttori e condensatori</h1>
+    <p class="sub">Dalle cariche libere che si fermano, al condensatore che immagazzina energia e tira le sue armature. Tempo di studio: circa 3 ore e 20, da dividere in tre sessioni, più la mappa.</p>
+  </header>
+
+  <aside class="rail" id="prog" aria-label="Avanzamento della dispensa">
+    <div class="rail-pct"><b id="pgPct">0%</b><span id="pgMin"></span></div>
+    <div class="rail-body">
+      <div class="vbar" aria-hidden="true"><div class="read" id="pgRead"></div><div class="fill" id="pgFill"></div></div>
+      <ol class="rail-list" id="pgList"></ol>
+    </div>
+  </aside>
+
+  <nav aria-label="Indice">
+    <ol>
+      <li><a href="#ripasso"><span>·</span><span>Ripasso lampo</span><span>1 min</span></a></li>
+      <li><a href="#quadro"><span>·</span><span>Il quadro e la lista di copertura</span><span>6 min</span></a></li>
+      <li><a href="#s1"><span>1</span><span>Il conduttore in equilibrio</span><span>pieno</span></a></li>
+      <li><a href="#s2"><span>2</span><span>Conduttori cavi e gabbia di Faraday</span><span>pieno</span></a></li>
+      <li><a href="#s3"><span>3</span><span>Teorema di Coulomb ed effetto punte</span><span>pieno</span></a></li>
+      <li><a href="#s4"><span>4</span><span>Induzione completa e capacità</span><span>leggero</span></a></li>
+      <li><a href="#s5"><span>5</span><span>Condensatore piano, sferico, cilindrico</span><span>pieno</span></a></li>
+      <li><a href="#s6"><span>6</span><span>Energia e densità di energia</span><span>pieno</span></a></li>
+      <li><a href="#s7"><span>7</span><span>Serie, parallelo e collegamenti</span><span>pieno</span></a></li>
+      <li><a href="#s8"><span>8</span><span>Carica o tensione costante? Le forze</span><span>pieno</span></a></li>
+      <li><a href="#s9"><span>9</span><span>Esercizio guidato: sfera e guscio</span><span>guida</span></a></li>
+      <li><a href="#chiusura"><span>·</span><span>Mappa, Dossier e libro</span><span>chiusura</span></a></li>
+      <li><a href="#formulario"><span>·</span><span>Formulario da memorizzare</span><span>sempre</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- RIPASSO LAMPO -->
+  <section id="ripasso" data-part="Ripasso lampo">
+    <span class="tag">Ripasso lampo · MT02 e MT04 · 1 minuto</span>
+    <details>
+      <summary>Uno strato piano infinito con densità σ: quanto vale il campo? E fra due strati +σ e −σ?</summary>
+      <div><p>Strato singolo: \(E = \sigma/2\varepsilon_0\) da entrambe le parti. Doppio strato: fra i due strati i campi si sommano, \(E = \sigma/\varepsilon_0\); fuori si annullano. Ti servono tutti e due, nei sotto-argomenti 3 e 5.</p></div>
+    </details>
+    <details>
+      <summary>Un dipolo in un campo uniforme: c'è forza totale? C'è momento?</summary>
+      <div><p>Forza totale nulla, momento \(\vec\tau = \vec p\times\vec E\). Nel sotto-argomento 1 vedrai che un conduttore in un campo esterno si comporta un po' come un dipolo gigante: le cariche indotte si separano.</p></div>
+    </details>
+  </section>
+
+  <!-- QUADRO -->
+  <section id="quadro" data-part="Il quadro">
+    <span class="tag">Il quadro</span>
+    <h2>Cariche libere che decidono di fermarsi</h2>
+    <p>In un conduttore gli elettroni sono liberi di muoversi. Se c'è un campo, si muovono. L'elettrostatica dei conduttori studia la situazione <b>dopo</b> che si sono fermati: che forma deve avere il campo perché nessuna carica abbia più motivo di spostarsi? Da questa sola domanda discende tutto il resto.</p>
+    <ul>
+      <li><b>Sessione 1 · I conduttori</b> (1-3): campo nullo dentro, cariche solo in superficie, cavità schermate, campo forte sulle punte.</li>
+      <li><b>Sessione 2 · Il condensatore</b> (4-6): due conduttori che si “guardano” e accumulano carica; quanta (capacità) e con quanta energia.</li>
+      <li><b>Sessione 3 · Usarlo</b> (7-9): condensatori collegati fra loro, processi a carica o a tensione costante, forze tra le armature, l'esercizio d'esame.</li>
+    </ul>
+    <p>Il filo che lega tutto: <b>un conduttore in equilibrio è un volume equipotenziale</b>. Ogni risultato della mappa è questa frase vista da un lato diverso.</p>
+
+    <h3>Lista di copertura</h3>
+    <p class="sub">Fonti: le tue mappe delle lezioni 11 (seconda parte), 13 e 14; gli appunti di Alessio (foto 7-9, 14-20); la mappa della lezione 19 (es. 19.1); il programma ufficiale (“Campo elettrostatico nei conduttori. Condensatori. Energia immagazzinata in un condensatore. Densità di energia elettrostatica. Forze tra conduttori carichi”).</p>
+    <ul class="cover">
+      <li class="grp">1 · Il conduttore in equilibrio</li>
+      <li><span>Condizione di staticità: \(\vec E = 0\) nel volume, \(\rho = 0\), V costante, campo ⊥ alla superficie</span><span class="chip lez">lez. 11</span></li>
+      <li><span>Conduttore in un campo esterno: induzione, il campo delle cariche indotte annulla quello esterno</span><span class="chip lez">lez. 11</span></li>
+      <li><span>Dimostrazione di \(\vec E\) perpendicolare con la circuitazione</span><span class="chip">approfondimento</span></li>
+      <li class="grp">2 · Conduttori cavi</li>
+      <li><span>Cavità vuota: nessuna carica sulla superficie interna, campo nullo nella cavità (Gauss + circuitazione)</span><span class="chip lez">lez. 11, 13</span></li>
+      <li><span>Gabbia di Faraday e il suo “inverso”; messa a terra</span><span class="chip lez">lez. 11</span></li>
+      <li class="grp">3 · Teorema di Coulomb ed effetto punte</li>
+      <li><span>\(E = \sigma/\varepsilon_0\) vicino al conduttore, confronto con lo strato isolato (\(\sigma/2\varepsilon_0\))</span><span class="chip lez">lez. 13</span></li>
+      <li><span>σ media di una sfera; due sfere collegate: \(\sigma_1 R_1 = \sigma_2 R_2\); parafulmini</span><span class="chip lez">lez. 13</span></li>
+      <li class="grp">4 · Induzione completa e capacità</li>
+      <li><span>Induzione completa, \(\sigma_1 = -\sigma_2\); capacità \(C = q/V\); unità F</span><span class="chip lez">lez. 13</span></li>
+      <li><span>Capacità di una sfera isolata, \(4\pi\varepsilon_0 R\)</span><span class="chip">approfondimento</span></li>
+      <li class="grp">5 · I tre condensatori</li>
+      <li><span>Sferico, cilindrico, piano: Gauss → E → ΔV → C</span><span class="chip lez">lez. 13</span></li>
+      <li><span>Controlli: ognuno tende al condensatore piano quando le armature sono vicine</span><span class="chip">approfondimento</span></li>
+      <li class="grp">6 · Energia</li>
+      <li><span>\(U = \tfrac12 Q^2/C = \tfrac12 CV^2\) dal lavoro per spostare dq</span><span class="chip lez">lez. 14</span></li>
+      <li><span>Densità \(w = \tfrac12\varepsilon_0 E^2\) dal condensatore piano, \(U = \int w\,d\tau\), verifica sul condensatore sferico</span><span class="chip lez">lez. 14</span></li>
+      <li class="grp">7 · Sistemi di condensatori</li>
+      <li><span>Serie e parallelo, \(C_{eq}\)</span><span class="chip">persa a lezione · dal libro</span></li>
+      <li><span>Collegamento di condensatori carichi (es. 14.2, 14.3), energia persa</span><span class="chip lez">lez. 14</span></li>
+      <li><span>Esercizio per casa: il ponte di condensatori</span><span class="chip lez">lez. 14</span></li>
+      <li class="grp">8 · Processi e forze</li>
+      <li><span>Processo a carica costante (generatore staccato) e a tensione costante (generatore attaccato)</span><span class="chip lez">lez. 14-15 · Alessio</span></li>
+      <li><span>Forza tra le armature del condensatore piano</span><span class="chip lez">lez. 19 (es. 19.1)</span></li>
+      <li><span>Bilancio energetico con il generatore, \(L_{gen} = V\Delta Q\)</span><span class="chip">approfondimento</span></li>
+      <li class="grp">9 · Esercizio</li>
+      <li><span>Sfera conduttrice dentro un guscio conduttore: cariche indotte, E(r), velocità di una carica di prova</span><span class="chip lez">lez. 11</span></li>
+      <li class="grp">Fuori da MT05</li>
+      <li><span>Es. 14.1 (sfera e guscio a terra, ΔU) è inserito come domanda nel sotto-argomento 6.</span><span class="chip">nota</span></li>
+    </ul>
+
+    <h3>Prerequisiti</h3>
+    <ul>
+      <li><b>Legge di Gauss</b> (MT02, lez. 5-6): \(\Phi_S(\vec E) = q_{int}/\varepsilon_0\); in forma locale \(\nabla\cdot\vec E = \rho/\varepsilon_0\). Si sceglie una superficie dove E è costante o nullo.</li>
+      <li><b>Strato e doppio strato</b> (MT02, lez. 5-6): \(\sigma/2\varepsilon_0\) e \(\sigma/\varepsilon_0\).</li>
+      <li><b>Potenziale e campo</b> (MT03, lez. 8-9): \(V_A - V_B = \int_A^B \vec E\cdot d\vec l\); \(\vec E = -\nabla V\); campo conservativo, quindi \(\oint\vec E\cdot d\vec l = 0\) su ogni percorso chiuso.</li>
+      <li><b>Energia di una carica</b> (MT03, lez. 7): per spostare q da un punto a potenziale \(V_1\) a uno a \(V_2\) serve il lavoro \(q(V_2 - V_1)\).</li>
+      <li><b>Integrali e logaritmi</b> (Analisi 1): servono nei sotto-argomenti 5 e 6. Apri il richiamo qui sotto se non sono freschi.</li>
+    </ul>
+    <details>
+      <summary>Richiamo di Analisi · i due integrali e i logaritmi che servono</summary>
+      <div>
+        <p><b>L'idea dell'integrale.</b> \(\int_a^b f(r)\,dr\) somma tanti pezzetti \(f(r)\,dr\): è l'area sotto la curva di f fra a e b. Per calcolarlo si cerca una funzione F la cui derivata è f (una “primitiva”), poi si fa \(F(b) - F(a)\).</p>
+        <p><b>Integrale 1:</b> \(f(r) = 1/r^2\). Una primitiva è \(-1/r\), perché \(\dfrac{d}{dr}\left(-\dfrac1r\right) = -(-1)\,r^{-2} = \dfrac{1}{r^2}\) (regola della potenza). Quindi</p>
+        \[\int_{a}^{b}\frac{dr}{r^2} = \left[-\frac1r\right]_a^b = -\frac1b + \frac1a = \frac1a - \frac1b\]
+        <p>Esempio: \(\int_1^2 dr/r^2 = 1 - \tfrac12 = 0{,}5\).</p>
+        <p><b>Integrale 2:</b> \(f(r) = 1/r\). Una primitiva è \(\ln r\), perché \((\ln r)' = 1/r\). Quindi</p>
+        \[\int_{a}^{b}\frac{dr}{r} = \ln b - \ln a = \ln\frac{b}{a}\qquad\text{(proprietà: differenza di logaritmi = logaritmo del rapporto)}\]
+        <p>Esempio: \(\int_1^2 dr/r = \ln 2 \approx 0{,}693\).</p>
+        <p><b>Logaritmo vicino a 1:</b> se x è piccolo, \(\ln(1+x) \approx x\) (sviluppo al primo ordine: \(\ln 1 = 0\), pendenza in 1 uguale a 1). Esempio: \(\ln 1{,}01 = 0{,}00995 \approx 0{,}01\).</p>
+        <p><b>Integrale di una retta:</b> \(\int_0^Q \dfrac{q}{C}\,dq = \dfrac1C\left[\dfrac{q^2}{2}\right]_0^Q = \dfrac{Q^2}{2C}\): l'area di un triangolo di base Q e altezza Q/C.</p>
+      </div>
+    </details>
+    <button class="done" data-sec="intro" data-min="6" type="button">Segna “Ripasso e quadro” come fatto</button>
+  </section>
+
+  <!-- ==================== 1 ==================== -->
+  <div class="part" id="s1" data-part="1 · Conduttore in equilibrio">
+    <div class="part-head">
+      <span class="part-n">1 / 9 · sessione 1</span>
+      <h2>Il conduttore in equilibrio</h2>
+      <span class="level">Livello pieno · 15 minuti</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Le cariche libere di un conduttore si sono fermate. Che cosa deve valere il campo, dentro e fuori, perché nessuna si muova più?</p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Un <b>conduttore</b> è un materiale in cui una parte delle cariche (gli elettroni di conduzione nei metalli) è libera di muoversi nel volume. Si dice in <b>equilibrio elettrostatico</b> quando le cariche non si muovono più. Condizione necessaria è che il campo elettrostatico nel volume del conduttore sia nullo:</p>
+        \[\vec E_c = 0 \quad\text{nel volume del conduttore.}\]
+        <p>Ne seguono: la densità di carica nel volume è nulla, \(\rho = 0\), e l'eventuale carica in eccesso si distribuisce sulla superficie con densità \(\sigma(x,y,z)\); il potenziale è uniforme, \(V_c = \text{cost}\), quindi il conduttore è un volume equipotenziale; appena fuori dalla superficie il campo è perpendicolare alla superficie stessa.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Un mare di elettroni dentro un pezzo di metallo, liberi come palline in una vasca senza attrito. Se in un punto ci fosse anche un filo di campo, gli elettroni lì verrebbero spinti e scivolerebbero via. Si fermano solo quando, in ogni punto del metallo, non c'è più nessuna spinta. La quiete è possibile soltanto con campo zero.</p>
+      <p>Ora metti il metallo in un campo esterno, per esempio diretto verso destra. Gli elettroni corrono a sinistra e lasciano scoperte cariche positive a destra. Queste <b>cariche indotte</b> producono un loro campo, diretto verso sinistra, che dentro il metallo cresce finché non pareggia esattamente quello esterno. A quel punto la corsa si ferma. È tutto molto rapido: nei metalli dura una frazione minuscola di secondo.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Campo nullo dentro</b>, altrimenti le cariche libere si muoverebbero: è la definizione stessa di equilibrio.</div></li>
+        <li><div><b>Niente carica nel volume.</b> Gauss in forma locale: \(\nabla\cdot\vec E = \rho/\varepsilon_0\). Se \(\vec E = 0\) ovunque nel volume, anche la sua divergenza è zero, quindi \(\rho = 0\).</div></li>
+        <li><div><b>La carica in eccesso va in superficie.</b> Non può stare nel volume (punto 2) e non può uscire dal metallo: resta sul bordo, come uno strato sottilissimo σ.</div></li>
+        <li><div><b>Potenziale uniforme.</b> Fra due punti qualsiasi del volume \(V_A - V_B = \int_A^B\vec E\cdot d\vec l = 0\), perché E è nullo lungo tutto il percorso.</div></li>
+        <li><div><b>Campo perpendicolare fuori.</b> Se il campo appena fuori avesse un pezzo parallelo alla superficie, spingerebbe le cariche di superficie lungo il bordo: non sarebbero in quiete. Resta solo la parte perpendicolare. E del resto la superficie è equipotenziale, e il campo è sempre perpendicolare alle equipotenziali (MT03).</div></li>
+      </ol>
+      <p><b>In una frase:</b> le cariche si spostano finché non hanno cancellato ogni campo dentro il metallo; il prezzo è che restano tutte sulla pelle del conduttore.</p>
+    </section>
+
+    <section>
+      <span class="tag">Metafora</span>
+      <p>Una vasca d'acqua che si calma. Finché il fondo è inclinato l'acqua scorre; si ferma solo quando la superficie è perfettamente piatta, cioè alla stessa “quota” ovunque. Il potenziale del conduttore è quella quota: in equilibrio è la stessa in ogni punto.</p>
+      <p class="why"><b>Dove smette di funzionare:</b> l'acqua riempie tutta la vasca; le cariche in eccesso invece non stanno nel volume, ma solo sulla superficie.</p>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Niente carica nel volume, con Gauss in forma integrale <span class="chip lez">a lezione</span></span>
+        <p>Prendo una superficie chiusa \(S_G\) qualsiasi, tutta dentro il metallo. Su ogni suo punto \(\vec E = 0\), quindi il flusso è zero:</p>
+        \[\begin{aligned}
+        \Phi_{S_G}(\vec E) &= \oint_{S_G}\vec E\cdot\hat n\,dA = 0 && (\vec E = 0 \text{ su tutta } S_G)\\
+        \frac{q_{int}}{\varepsilon_0} &= 0 && \text{(legge di Gauss)}\\
+        q_{int} &= 0
+        \end{aligned}\]
+        <p class="why"><b>Perché basta:</b> la superficie si può scegliere piccola e ovunque nel volume, quindi in nessun pezzo di volume c'è carica netta.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Il volume è equipotenziale <span class="chip lez">a lezione</span></span>
+        \[\vec E_c = -\nabla V_c = 0 \quad\Longrightarrow\quad \frac{\partial V_c}{\partial x} = \frac{\partial V_c}{\partial y} = \frac{\partial V_c}{\partial z} = 0 \quad\Longrightarrow\quad V_c = \text{cost}\]
+        <p class="why"><b>Perché:</b> le tre derivate parziali dicono quanto cambia V spostandosi lungo x, y, z. Se sono tutte zero, V non cambia in nessuna direzione.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Campo perpendicolare alla superficie <span class="chip">approfondimento</span></span>
+        <p>Disegno un rettangolino a cavallo della superficie: un lato lungo l appena fuori, uno lungo l appena dentro, i lati corti trascurabili. Il campo è conservativo, quindi la circuitazione è nulla:</p>
+        \[\begin{aligned}
+        \oint\vec E\cdot d\vec l &= E_{t,\text{fuori}}\;l - E_{t,\text{dentro}}\;l = 0 && \text{(circuitazione nulla, MT03)}\\
+        E_{t,\text{fuori}}\;l &= 0 && (E_{\text{dentro}} = 0)\\
+        E_{t,\text{fuori}} &= 0 && \text{(componente tangente nulla)}
+        \end{aligned}\]
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT03</span><div>Equipotenziali e campo sempre perpendicolari: la superficie del conduttore è un'equipotenziale “materiale”.</div></li>
+        <li><span>→ 3</span><div>Il campo appena fuori è perpendicolare; quanto vale lo dice il teorema di Coulomb.</div></li>
+        <li><span>→ MT07</span><div>Quando un campo dentro un conduttore c'è (per esempio con un generatore collegato) le cariche non si fermano: è la corrente elettrica.</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>\(\vec E = 0\) <b>dentro</b> il metallo, non fuori: fuori il campo c'è ed è perpendicolare alla superficie.</li>
+          <li>V costante non significa V = 0: il conduttore ha un suo potenziale, uguale in tutti i punti.</li>
+          <li>In un campo esterno il conduttore resta neutro: le cariche indotte sono + e − in quantità uguali.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Una sfera di metallo carica ha più carica al centro o in superficie?</summary>
+        <div><p>Tutta in superficie. Al centro, come in ogni punto del volume, \(\rho = 0\).</p></div>
+      </details>
+      <details>
+        <summary>Un conduttore neutro in un campo esterno uniforme: che forza totale sente?</summary>
+        <div><p>Nessuna. Le cariche indotte sono uguali e opposte, in un campo uniforme le forze su di esse si bilanciano. È come un dipolo in campo uniforme (MT04). In un campo non uniforme invece viene attratto verso la zona di campo più forte.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s1" data-min="15" type="button">Segna “1 · Conduttore in equilibrio” come fatto</button>
+  </div>
+
+  <!-- ==================== 2 ==================== -->
+  <div class="part" id="s2" data-part="2 · Conduttori cavi">
+    <div class="part-head">
+      <span class="part-n">2 / 9 · sessione 1</span>
+      <h2>Conduttori cavi e gabbia di Faraday</h2>
+      <span class="level">Livello pieno · 20 minuti</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Se il conduttore ha un buco dentro, la carica può sistemarsi sulla parete del buco? E cosa succede a chi sta nel buco?</p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>In un conduttore in equilibrio con una <b>cavità vuota</b> (senza cariche al suo interno), la superficie della cavità non porta carica e il campo nella cavità è nullo, qualunque siano le cariche e i campi all'esterno del conduttore: la cavità è <b>schermata</b> (<b>gabbia di Faraday</b>).</p>
+        <p>Se nella cavità si trova una carica \(q\), sulla superficie della cavità si induce una carica \(-q\) e, se il conduttore è isolato e inizialmente neutro, sulla superficie esterna compare una carica \(+q\) (<b>induzione completa</b>). Collegando il conduttore a terra la carica esterna viene neutralizzata e il campo esterno dovuto a q si annulla.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Una scatola di metallo con dentro una stanza vuota. Fuori infuria un temporale elettrico: campi forti, cariche che vanno e vengono. Il metallo si ricopre di cariche indotte sulla sua faccia esterna e annulla il campo nel suo spessore. Dentro la stanza, silenzio: nessun campo. È per questo che in auto sei protetto da un fulmine e il telefono in un ascensore perde il segnale.</p>
+      <p>Ora rovescia la scena: metti una carica +q dentro la stanza. Le sue linee di campo partono verso le pareti e finiscono su cariche −q che si radunano sulla parete interna. Il metallo però era neutro: la carica +q “avanzata” va sulla faccia esterna, e fuori si vede di nuovo un campo. Per far sparire anche quello, colleghi la scatola a terra.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Gauss nel metallo.</b> Una superficie chiusa tutta dentro il metallo, che circonda la cavità, ha flusso zero. Quindi la carica totale sulla parete della cavità è zero.</div></li>
+        <li><div><b>Ma potrebbero esserci + da una parte e − dall'altra</b> con somma zero? Allora ci sarebbero linee di campo nella cavità, da un punto A (dove c'è +) a un punto B (dove c'è −), e \(V_A \neq V_B\).</div></li>
+        <li><div><b>Impossibile:</b> A e B stanno sulla parete del conduttore, che è equipotenziale. Quindi \(V_A = V_B\): niente linee di campo, niente cariche sulla parete, campo nullo nella cavità.</div></li>
+        <li><div><b>Con una carica q nella cavità</b>, la superficie di Gauss nel metallo deve racchiudere carica totale zero: sulla parete compare \(-q\). Per neutralità, \(+q\) va sulla faccia esterna.</div></li>
+        <li><div><b>Messa a terra:</b> la Terra è un serbatoio enorme di cariche. Collegata, fornisce elettroni che neutralizzano la carica esterna: fuori il campo sparisce.</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Nessuna carica sulla parete della cavità <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \Phi_{S_G}(\vec E_c) &= 0 = \frac{q_{int}}{\varepsilon_0} && (S_G \text{ nel metallo, attorno alla cavità})\\
+        \int_A^B\vec E\cdot d\vec l &= V_A - V_B = 0 && (A, B \text{ sulla parete: stesso conduttore})
+        \end{aligned}\]
+        <p class="why"><b>Perché servono tutte e due:</b> Gauss dice solo che la <b>somma</b> delle cariche sulla parete è zero. La circuitazione esclude che ci siano cariche + e − separate: se ci fossero, una linea di campo da A a B darebbe \(\int_A^B \vec E\cdot d\vec l &gt; 0\).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Carica nella cavità: induzione completa <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        q_{int}(S_G) &= q + q_{i-} = 0 && \text{(Gauss nel metallo)}\\
+        q_{i-} &= -q && \text{(parete interna)}\\
+        q_{i+} &= +q && \text{(faccia esterna, conduttore neutro)}
+        \end{aligned}\]
+        <p class="why"><b>Da notare:</b> \(|q_{i+}| = |q_{i-}| = |q|\). La distribuzione sulla faccia esterna dipende solo dalla forma esterna del conduttore, non da dove sta q dentro la cavità: il metallo “nasconde” la posizione della carica.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT03</span><div>Circuitazione nulla del campo elettrostatico: è lei a vietare le cariche separate sulla parete.</div></li>
+        <li><span>→ 4-5</span><div>Una sfera dentro un guscio è proprio una carica in una cavità: è il condensatore sferico, con induzione completa.</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>La gabbia scherma l'<b>interno</b> dall'esterno sempre; l'<b>esterno</b> dall'interno solo con la messa a terra.</li>
+          <li>Con la messa a terra il potenziale del conduttore diventa quello della Terra (di solito V = 0); la carica esterna non è “fissata”, la decide la Terra.</li>
+          <li>La carica sulla parete interna è \(-q\) anche se il conduttore era carico in partenza: la sua carica iniziale finisce tutta sulla faccia esterna.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Un guscio conduttore ha carica totale +5 μC. Nella cavità metti una carica −2 μC. Quanto vale la carica su ogni faccia?</summary>
+        <div><p>Parete interna: \(+2\) μC (opposta alla carica interna). Faccia esterna: \(5 - 2 = +3\) μC, così il totale del guscio resta +5 μC.</p></div>
+      </details>
+      <details>
+        <summary>Perché in auto durante un temporale sei al sicuro, anche se l'auto non è chiusa del tutto?</summary>
+        <div><p>La carrozzeria metallica fa da gabbia di Faraday: le cariche del fulmine corrono sulla superficie esterna e il campo all'interno resta (quasi) nullo. Non serve una gabbia perfetta: basta una rete di metallo con maglie piccole rispetto alla scala del campo.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s2" data-min="20" type="button">Segna “2 · Conduttori cavi” come fatto</button>
+  </div>
+
+  <!-- ==================== 3 ==================== -->
+  <div class="part" id="s3" data-part="3 · Coulomb ed effetto punte">
+    <div class="part-head">
+      <span class="part-n">3 / 9 · sessione 1</span>
+      <h2>Teorema di Coulomb ed effetto punte</h2>
+      <span class="level">Livello pieno · 20 minuti</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Appena fuori dal conduttore il campo è perpendicolare. Ma quanto vale? E perché il fulmine cade sulle punte?</p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p><b>Teorema di Coulomb.</b> In un punto immediatamente esterno alla superficie di un conduttore in equilibrio, dove la densità superficiale di carica vale \(\sigma(x,y,z)\), il campo elettrostatico è perpendicolare alla superficie e vale</p>
+        \[\vec E = \frac{\sigma(x,y,z)}{\varepsilon_0}\,\hat n,\]
+        <p>con \(\hat n\) normale uscente. Il valore è doppio rispetto a quello di uno strato piano isolato con la stessa σ. Poiché su un conduttore isolato la densità σ è maggiore dove il raggio di curvatura è minore, il campo è più intenso in prossimità delle punte (<b>effetto punte</b>).</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Fai un “mega zoom” su un pezzetto della superficie: a quell'ingrandimento la superficie sembra piana e σ sembra uniforme. Sotto c'è il metallo, con campo zero; sopra c'è l'aria, con il campo che esce dritto. Tutto il flusso esce da una parte sola.</p>
+      <p>Ora due sfere di metallo, una grande e una piccola, collegate da un filo lungo. Sono un unico conduttore: stesso potenziale. Per avere lo stesso potenziale, la sfera piccola deve stringere la sua carica su una superficie minuscola: σ diventa grande, e con lui il campo. Una punta è una “sfera piccolissima”: lì il campo può strappare elettroni all'aria e farla diventare conduttrice. È così che funziona il parafulmine.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Cilindretto a cavallo della superficie</b>, con le basi parallele alla superficie, una dentro e una fuori.</div></li>
+        <li><div><b>Base interna:</b> il campo è zero nel metallo, flusso nullo. <b>Superficie laterale:</b> il campo è perpendicolare alla superficie del conduttore, quindi parallelo alle pareti del cilindretto, flusso nullo.</div></li>
+        <li><div><b>Resta solo la base esterna:</b> flusso \(E\cdot\Delta A\). La carica dentro il cilindretto è \(\sigma\,\Delta A\). Gauss fa il resto.</div></li>
+        <li><div><b>Perché il doppio dello strato isolato?</b> Uno strato isolato manda il flusso metà sopra e metà sotto: \(\sigma/2\varepsilon_0\) per parte. Qui sotto non può andare nulla, e tutto il flusso esce sopra.</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:6px">
+        <svg viewBox="0 0 340 170" style="width:100%;max-width:440px;height:auto" role="img" aria-label="Cilindretto gaussiano a cavallo della superficie del conduttore: flusso solo dalla base esterna">
+          <rect x="0" y="95" width="340" height="75" fill="var(--formal)"/>
+          <text x="12" y="155" font-size="13" fill="var(--muted)">metallo: E = 0</text>
+          <text x="12" y="30" font-size="13" fill="var(--muted)">aria</text>
+          <line x1="0" y1="95" x2="340" y2="95" stroke="var(--ink)" stroke-width="2"/>
+          <text x="300" y="88" font-size="13" fill="var(--pos)" font-weight="600">σ</text>
+          <g fill="var(--pos)" font-size="12" font-weight="600"><text x="40" y="92">+</text><text x="80" y="92">+</text><text x="230" y="92">+</text><text x="270" y="92">+</text></g>
+          <rect x="130" y="60" width="70" height="70" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="150" y1="60" x2="150" y2="14" stroke="var(--ink)" stroke-width="1.8"/><path d="M150 10 l-5 9 h10z" fill="var(--ink)"/>
+          <line x1="180" y1="60" x2="180" y2="14" stroke="var(--ink)" stroke-width="1.8"/><path d="M180 10 l-5 9 h10z" fill="var(--ink)"/>
+          <text x="210" y="36" font-size="13" fill="var(--ink)">E⊥ esce solo da qui</text>
+          <text x="210" y="70" font-size="12" fill="var(--accent)">base esterna ΔA</text>
+          <text x="210" y="125" font-size="12" fill="var(--accent)">base interna: flusso 0</text>
+        </svg>
+        <figcaption class="why">Il cilindretto di Gauss: flusso solo dalla base esterna, carica racchiusa σΔA.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Teorema di Coulomb <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \Phi(\vec E) &= \underbrace{E\,\Delta A}_{\text{base esterna}} + \underbrace{0}_{\text{base interna}} + \underbrace{0}_{\text{laterale}} && \text{(flusso pezzo per pezzo)}\\
+        \frac{q_{int}}{\varepsilon_0} &= \frac{\sigma\,\Delta A}{\varepsilon_0} && \text{(carica nel cilindretto)}\\
+        E\,\Delta A &= \frac{\sigma\,\Delta A}{\varepsilon_0} && \text{(legge di Gauss)}\\
+        E &= \frac{\sigma}{\varepsilon_0} && (\text{divido per } \Delta A)
+        \end{aligned}\]
+        <p class="why"><b>Perché il cilindretto è “piccolo”:</b> la base \(\Delta A\) è così piccola che σ ed E sono costanti su di essa. Per questo il risultato vale punto per punto: σ e E sono “locali”, \(\sigma(x,y,z)\).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Controllo sulla sfera: σ media <span class="chip lez">a lezione</span></span>
+        <p>Una sfera conduttrice di raggio R con carica q: la carica si distribuisce uniformemente, \(\sigma = q/4\pi R^2\). Con Gauss (MT02) il campo appena fuori è \(E = q/4\pi\varepsilon_0 R^2\). Confronto:</p>
+        \[\frac{\sigma}{\varepsilon_0} = \frac{q}{4\pi R^2\,\varepsilon_0} = \frac{q}{4\pi\varepsilon_0 R^2}\ \checkmark\]
+        <p class="why"><b>Nota:</b> nella foto 20 di Alessio la ε₀ non è stata semplificata: \(\sigma = E\,\varepsilon_0 = q/4\pi R^2\), senza ε₀.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Effetto punte: due sfere collegate <span class="chip lez">a lezione</span></span>
+        <p>Due sfere lontane fra loro (così ognuna non disturba l'altra), raggi \(R_1 &gt; R_2\), collegate da un filo: sono un solo conduttore, quindi hanno lo stesso potenziale.</p>
+        \[\begin{aligned}
+        \frac{q_1}{4\pi\varepsilon_0 R_1} &= \frac{q_2}{4\pi\varepsilon_0 R_2} && \text{(stesso V; V di una sfera, MT03)}\\
+        \frac{q_1}{R_1} &= \frac{q_2}{R_2} && (\text{semplifico } 4\pi\varepsilon_0)\\
+        \frac{\sigma_1\,4\pi R_1^2}{R_1} &= \frac{\sigma_2\,4\pi R_2^2}{R_2} && (q = \sigma\cdot 4\pi R^2)\\
+        \sigma_1 R_1 &= \sigma_2 R_2 && (\text{semplifico } 4\pi \text{ e una } R)\\
+        \sigma_2 &= \sigma_1\,\frac{R_1}{R_2}
+        \end{aligned}\]
+        <p class="why"><b>Con i numeri:</b> \(R_1 = 10\) cm, \(R_2 = 1\) cm: la sfera piccola ha σ (e quindi campo E = σ/ε₀) <b>10 volte</b> più grande, pur avendo meno carica. L'aria si ionizza quando E supera circa \(3\cdot10^6\) V/m (rigidità dielettrica dell'aria): sulle punte ci si arriva molto prima. Il parafulmine offre al fulmine questa via, e la scarica va a terra lungo il suo filo.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Il campo appena fuori, visto in due pezzi <span class="chip">approfondimento</span></span>
+        <p>Il pezzetto di superficie vicino a te produce, come ogni strato, \(\sigma/2\varepsilon_0\) da entrambe le parti. Tutte le altre cariche del conduttore producono, in quel punto, un altro \(\sigma/2\varepsilon_0\), diretto verso l'esterno. Dentro i due contributi si annullano (\(E = 0\)); fuori si sommano (\(\sigma/\varepsilon_0\)). Ecco da dove viene il “doppio”.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>Conduttore: \(\sigma/\varepsilon_0\). Strato isolato: \(\sigma/2\varepsilon_0\). Sono situazioni diverse, non confonderle.</li>
+          <li>Il teorema vale <b>appena fuori</b> dalla superficie, non a distanza.</li>
+          <li>Effetto punte: la sfera piccola ha meno carica ma più σ. Si confrontano le densità, non le cariche.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Le due sfere collegate hanno lo stesso campo sulla superficie?</summary>
+        <div><p>No: \(E = \sigma/\varepsilon_0\) e \(\sigma_2 = \sigma_1 R_1/R_2\), quindi il campo è più intenso sulla sfera piccola. Hanno lo stesso <b>potenziale</b>, non lo stesso campo.</p></div>
+      </details>
+      <details>
+        <summary>Perché le antenne e i pali dell'alta tensione evitano spigoli vivi, e certi elettrodi sono arrotondati a sfera?</summary>
+        <div><p>Per evitare l'effetto punte: uno spigolo ha raggio di curvatura piccolo, lì il campo sale oltre la rigidità dielettrica dell'aria e si hanno scariche (effetto corona) che disperdono carica ed energia.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s3" data-min="20" type="button">Segna “3 · Coulomb ed effetto punte” come fatto</button>
+  </div>
+
+  <!-- ==================== 4 ==================== -->
+  <div class="part" id="s4" data-part="4 · Capacità">
+    <div class="part-head">
+      <span class="part-n">4 / 9 · sessione 2</span>
+      <h2>Induzione completa e capacità</h2>
+      <span class="level">Livello leggero · 8 minuti</span>
+    </div>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Due conduttori sono in <b>induzione completa</b> quando tutte le linee di campo che partono da uno terminano sull'altro: le cariche affacciate sono uguali e opposte, \(+q\) e \(-q\). Un sistema di due conduttori in induzione completa si chiama <b>condensatore</b>; i conduttori sono le <b>armature</b>.</p>
+        <p>Si definisce <b>capacità</b> del condensatore il rapporto fra la carica di un'armatura e la differenza di potenziale (tensione) fra le armature:</p>
+        \[C = \frac{q}{\Delta V},\]
+        <p>che dipende solo dalla geometria (forma, dimensioni, distanza) e dal mezzo fra le armature. Unità SI: il farad, 1 F = 1 C/V. Di conseguenza \(\varepsilon_0\) si misura in F/m.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Due conduttori affacciati che “acchiappano” tutte le linee di campo l'uno dell'altro. Metti +q su uno: le sue linee vanno tutte sull'altro e lì richiamano −q. La capacità è la <b>bravura</b> di questa coppia ad accumulare carica: un buon condensatore tiene tanta carica con una tensione piccola.</p>
+      <p>Per avere un'idea della scala: anche una sfera grande come la Terra, da sola, ha una capacità di meno di un millifarad. Il farad è un'unità enorme; i condensatori reali stanno fra i picofarad (pF, \(10^{-12}\) F) e i microfarad (μF, \(10^{-6}\) F).</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Il campo è proporzionale alla carica</b> (legge di Coulomb e sovrapposizione): se raddoppi q, raddoppia E ovunque.</div></li>
+        <li><div><b>La tensione è un integrale del campo</b>, \(\Delta V = \int\vec E\cdot d\vec l\): raddoppia anche lei.</div></li>
+        <li><div><b>Quindi q/ΔV non cambia</b> con la carica: è un numero che dipende solo da come sono fatti e disposti i conduttori. Quel numero è C.</div></li>
+      </ol>
+      <p class="why"><b>Approfondimento:</b> un conduttore isolato ha capacità \(C = q/V\), con V riferito all'infinito. Per una sfera \(V = q/4\pi\varepsilon_0 R\), quindi \(C = 4\pi\varepsilon_0 R\). Per la Terra (\(R = 6{,}4\cdot10^6\) m): \(C \approx 7\cdot10^{-4}\) F.</p>
+    </section>
+
+    <section>
+      <span class="tag">Domanda di ragionamento</span>
+      <details>
+        <summary>Se raddoppi la carica di un condensatore, la capacità raddoppia?</summary>
+        <div><p>No. Raddoppia la tensione, e il rapporto q/ΔV resta lo stesso. La capacità cambia solo se cambi la geometria (o il materiale fra le armature, MT06).</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s4" data-min="8" type="button">Segna “4 · Capacità” come fatto</button>
+  </div>
+
+  <!-- ==================== 5 ==================== -->
+  <div class="part" id="s5" data-part="5 · I tre condensatori">
+    <div class="part-head">
+      <span class="part-n">5 / 9 · sessione 2</span>
+      <h2>Condensatore piano, sferico, cilindrico</h2>
+      <span class="level">Livello pieno · 30 minuti</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Data la forma delle armature, come si calcola la capacità? La risposta è sempre la stessa ricetta in quattro passi; cambia solo la superficie di Gauss.</p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame · la strategia</span>
+      <div class="formal">
+        <p>Per calcolare la capacità di un condensatore: (1) si pone la carica \(+q\) su un'armatura e \(-q\) sull'altra; (2) con la legge di Gauss si calcola il campo nello spazio fra le armature; (3) si calcola la tensione \(\Delta V = \int_+^-\vec E\cdot d\vec l\) lungo un percorso dall'armatura positiva alla negativa; (4) si ricava \(C = q/\Delta V\), nella quale q si semplifica.</p>
+        \[C_{\text{piano}} = \frac{\varepsilon_0 A}{d},\qquad C_{\text{sferico}} = \frac{4\pi\varepsilon_0 R_1R_2}{R_2 - R_1},\qquad C_{\text{cilindrico}} = \frac{2\pi\varepsilon_0 L}{\ln(R_2/R_1)}\]
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p><b>Sferico:</b> una palla di metallo dentro un guscio di metallo, come un nocciolo dentro una pesca vuota. <b>Cilindrico:</b> un filo grosso dentro un tubo, come un cavo coassiale dell'antenna TV. <b>Piano:</b> due lastre affacciate, molto larghe rispetto alla loro distanza, come due fette di pane con niente in mezzo. In tutti e tre, il campo vive solo nello spazio fra le armature.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Dentro le armature il campo è zero</b> (sono conduttori). <b>Fuori dal sistema</b> il campo è zero anche lui, se l'armatura esterna è a terra o se le cariche totali si compensano (induzione completa).</div></li>
+        <li><div><b>Fra le armature</b> il campo dipende solo dalla carica dell'armatura interna (Gauss), e ha la simmetria della forma: radiale per sfera e cilindro, uniforme per il piano.</div></li>
+        <li><div><b>La tensione</b> è la somma dei pezzetti \(E\,dr\) attraversando lo spazio vuoto: è proporzionale a q.</div></li>
+        <li><div><b>C = q/ΔV</b>: q se ne va, resta solo geometria. Più le armature sono vicine e grandi, più la capacità è alta.</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+
+      <div class="step">
+        <span class="step-n">Condensatore sferico · raggi \(R_1\) (sfera interna) e \(R_2\) (guscio) <span class="chip lez">a lezione</span></span>
+        <p><b>Campo.</b> Superficie di Gauss: sfera di raggio r con \(R_1 &lt; r &lt; R_2\). Il campo è radiale e uguale su tutta la sfera:</p>
+        \[\begin{aligned}
+        E(r)\cdot 4\pi r^2 &= \frac{q}{\varepsilon_0} && \text{(Gauss: flusso = } E\times\text{area)}\\
+        E(r) &= \frac{q}{4\pi\varepsilon_0 r^2}
+        \end{aligned}\]
+        <p><b>Tensione.</b> Vado da \(R_1\) a \(R_2\) lungo un raggio (\(d\vec l = \hat r\,dr\)):</p>
+        \[\begin{aligned}
+        \Delta V &= \int_{R_1}^{R_2}\frac{q}{4\pi\varepsilon_0 r^2}\,dr = \frac{q}{4\pi\varepsilon_0}\int_{R_1}^{R_2}\frac{dr}{r^2} && \text{(costanti fuori)}\\
+        &= \frac{q}{4\pi\varepsilon_0}\left(\frac{1}{R_1} - \frac{1}{R_2}\right) && \text{(integrale 1 del richiamo)}\\
+        &= \frac{q}{4\pi\varepsilon_0}\cdot\frac{R_2 - R_1}{R_1R_2} && \text{(denominatore comune)}
+        \end{aligned}\]
+        <p><b>Capacità.</b></p>
+        \[C = \frac{q}{\Delta V} = \frac{4\pi\varepsilon_0 R_1R_2}{R_2 - R_1}\]
+        <p class="why"><b>Controlli:</b> se \(R_2 \to \infty\), \(C \to 4\pi\varepsilon_0 R_1\), la sfera isolata ✓. Se le armature sono vicinissime (\(R_2 - R_1 = d\) piccolo, \(R_1 \approx R_2 \approx R\)): \(C \approx 4\pi\varepsilon_0 R^2/d = \varepsilon_0 A/d\), il condensatore piano con \(A = 4\pi R^2\) ✓.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Condensatore cilindrico · raggi \(R_1\), \(R_2\), lunghezza L <span class="chip lez">a lezione</span></span>
+        <p><b>Ipotesi:</b> \(L \gg R_2\), così si trascurano gli effetti ai bordi. <b>Campo.</b> Superficie di Gauss: cilindro coassiale di raggio r e lunghezza L. Le basi hanno flusso nullo (campo radiale, parallelo alle basi); conta solo la superficie laterale \(2\pi rL\):</p>
+        \[\begin{aligned}
+        E(r)\cdot 2\pi r L &= \frac{q}{\varepsilon_0} && \text{(Gauss, solo superficie laterale)}\\
+        E(r) &= \frac{q}{2\pi\varepsilon_0 L\, r}
+        \end{aligned}\]
+        <p><b>Tensione:</b></p>
+        \[\begin{aligned}
+        \Delta V &= \frac{q}{2\pi\varepsilon_0 L}\int_{R_1}^{R_2}\frac{dr}{r} && \text{(costanti fuori)}\\
+        &= \frac{q}{2\pi\varepsilon_0 L}\,\ln\frac{R_2}{R_1} && \text{(integrale 2 del richiamo)}
+        \end{aligned}\]
+        <p><b>Capacità:</b></p>
+        \[C = \frac{q}{\Delta V} = \frac{2\pi\varepsilon_0 L}{\ln(R_2/R_1)}\]
+        <p class="why"><b>Controlli:</b> unità: \(\varepsilon_0\) in F/m per una lunghezza dà F ✓ (lo hai scritto anche tu nella mappa). Armature vicine, \(R_2 = R_1 + d\): \(\ln(1 + d/R_1) \approx d/R_1\), quindi \(C \approx 2\pi\varepsilon_0 L R_1/d = \varepsilon_0 A/d\) con \(A = 2\pi R_1 L\) ✓.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-n">Condensatore piano · area A, distanza d <span class="chip lez">a lezione</span></span>
+        <p><b>Ipotesi:</b> \(\sqrt A \gg d\) (lastre larghe rispetto alla distanza): si trascurano i bordi e si trattano le armature come piani infiniti. <b>Campo:</b> due strati \(+\sigma\) e \(-\sigma\), con \(\sigma = q/A\). Fra le lastre i campi dei due strati si sommano (doppio strato, MT02):</p>
+        \[E = \frac{\sigma}{2\varepsilon_0} + \frac{\sigma}{2\varepsilon_0} = \frac{\sigma}{\varepsilon_0} = \frac{q}{\varepsilon_0 A}\]
+        <p class="why"><b>Stesso risultato con Coulomb:</b> appena fuori dall'armatura positiva, verso l'interno, \(E = \sigma/\varepsilon_0\) ✓.</p>
+        <p><b>Tensione e capacità:</b> il campo è uniforme, quindi l'integrale è un prodotto:</p>
+        \[\begin{aligned}
+        \Delta V &= E\,d = \frac{q\,d}{\varepsilon_0 A} && \text{(campo costante per distanza)}\\
+        C &= \frac{q}{\Delta V} = \frac{\varepsilon_0 A}{d}
+        \end{aligned}\]
+        <p class="why"><b>Con i numeri</b> (dati dell'esercizio di Alessio, foto 18): \(A = 1\) cm² \(= 10^{-4}\) m², \(d = 0{,}1\) mm \(= 10^{-4}\) m: \(C = 8{,}85\cdot10^{-12}\cdot10^{-4}/10^{-4} = 8{,}85\) pF.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT02</span><div>Gli stessi conti di Gauss che facevi per sfera, cilindro e doppio strato: qui li usi due volte, per E e poi per ΔV.</div></li>
+        <li><span>← 2</span><div>Il condensatore sferico è una carica in una cavità: induzione completa.</div></li>
+        <li><span>→ MT06</span><div>Riempiendo lo spazio fra le armature con un isolante, la capacità cresce di un fattore \(\varepsilon_r\).</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>Il campo fra le armature dipende solo dalla carica <b>dell'armatura interna</b> (quella racchiusa dalla superficie di Gauss).</li>
+          <li>\(\ln(R_2/R_1)\), non \(\ln(R_2 - R_1)\): il logaritmo del rapporto.</li>
+          <li>Piano: E = σ/ε₀ fra le lastre (non σ/2ε₀) e zero fuori.</li>
+          <li>Ogni formula ha un'ipotesi: \(\sqrt A \gg d\) per il piano, \(L \gg R_2\) per il cilindro.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Condensatore piano: raddoppi l'area e raddoppi la distanza. Cosa succede a C?</summary>
+        <div><p>Niente: \(C = \varepsilon_0 A/d\), raddoppiano numeratore e denominatore.</p></div>
+      </details>
+      <details>
+        <summary>Perché tutti e tre diventano “piani” quando le armature sono vicinissime?</summary>
+        <div><p>Perché visto da vicino ogni pezzetto di superficie curva sembra piano (il “mega zoom” del sotto-argomento 3). Se la distanza fra le armature è molto più piccola dei raggi di curvatura, il campo nello spazio sottile è praticamente uniforme come fra due lastre.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s5" data-min="30" type="button">Segna “5 · I tre condensatori” come fatto</button>
+  </div>
+
+  <!-- ==================== 6 ==================== -->
+  <div class="part" id="s6" data-part="6 · Energia">
+    <div class="part-head">
+      <span class="part-n">6 / 9 · sessione 2</span>
+      <h2>Energia del condensatore e densità di energia</h2>
+      <span class="level">Livello pieno · 25 minuti</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Caricare un condensatore costa lavoro. Quanto? E dove finisce quell'energia: nelle cariche o nello spazio fra le armature?</p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>L'<b>energia elettrostatica</b> immagazzinata in un condensatore di capacità C con carica Q e tensione V è uguale al lavoro necessario per caricarlo:</p>
+        \[U = \frac12\frac{Q^2}{C} = \frac12 C V^2 = \frac12 Q V.\]
+        <p>Tale energia si può attribuire al campo elettrostatico, con <b>densità di energia</b> (energia per unità di volume)</p>
+        \[w = \frac12\varepsilon_0 E^2,\qquad U = \int_\tau w\,d\tau,\]
+        <p>dove l'integrale si estende a tutto il volume in cui il campo è diverso da zero.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p>Carichi il condensatore un cucchiaino alla volta: prendi un pizzico di carica dq dall'armatura negativa e lo porti sulla positiva. Il primo cucchiaino è gratis: le armature sono scariche, tensione zero. Ma ogni cucchiaino rende la salita più ripida per il successivo, perché la tensione cresce. L'ultimo cucchiaino lo porti su per tutta la tensione V.</p>
+      <p>In media hai portato la carica su per <b>metà</b> della tensione finale. Ecco il ½.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Stato intermedio:</b> carica q, tensione \(v = q/C\), che cresce in proporzione a q.</div></li>
+        <li><div><b>Un cucchiaino:</b> spostare dq attraverso la tensione v costa \(dL = v\,dq\) (MT03: lavoro = carica × differenza di potenziale).</div></li>
+        <li><div><b>Sommando tutti i cucchiaini</b> da 0 a Q si ottiene l'area sotto la retta \(v(q)\): un triangolo di base Q e altezza V, cioè \(\tfrac12 QV\).</div></li>
+        <li><div><b>Dove sta l'energia?</b> Nel condensatore piano il campo riempie uniformemente il volume \(A\,d\). Dividendo U per quel volume si trova una quantità che contiene solo E: è l'energia per metro cubo del campo stesso.</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:6px">
+        <svg viewBox="0 0 320 190" style="width:100%;max-width:400px;height:auto" role="img" aria-label="Grafico tensione in funzione della carica: una retta; l'energia è l'area del triangolo, un mezzo di Q per V">
+          <line x1="40" y1="160" x2="300" y2="160" stroke="var(--ink)" stroke-width="1.5"/>
+          <line x1="40" y1="160" x2="40" y2="15" stroke="var(--ink)" stroke-width="1.5"/>
+          <polygon points="40,160 260,160 260,40" fill="var(--accent-soft)"/>
+          <line x1="40" y1="160" x2="260" y2="40" stroke="var(--accent)" stroke-width="2.5"/>
+          <line x1="260" y1="40" x2="260" y2="160" stroke="var(--muted)" stroke-dasharray="4 4"/>
+          <rect x="150" y="100" width="12" height="60" fill="var(--pos)" opacity=".55"/>
+          <text x="156" y="178" text-anchor="middle" font-size="12" fill="var(--pos)">dq</text>
+          <text x="172" y="96" font-size="12" fill="var(--pos)">v = q/C</text>
+          <text x="260" y="178" text-anchor="middle" font-size="13" fill="var(--ink)">Q</text>
+          <text x="30" y="44" text-anchor="end" font-size="13" fill="var(--ink)">V</text>
+          <line x1="36" y1="40" x2="44" y2="40" stroke="var(--ink)"/>
+          <text x="295" y="152" text-anchor="end" font-size="12" fill="var(--muted)">carica q</text>
+          <text x="46" y="22" font-size="12" fill="var(--muted)">tensione v</text>
+          <text x="200" y="140" text-anchor="middle" font-size="13" font-weight="600" fill="var(--accent)">U = ½ Q V</text>
+        </svg>
+        <figcaption class="why">Ogni striscia rossa è il lavoro di un cucchiaino, v·dq. L'area di tutte le strisce è il triangolo.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Energia dal lavoro di carica <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        dL &= v\,dq = \frac{q}{C}\,dq && \text{(lavoro per un dq; } v = q/C)\\
+        U &= \int_0^Q \frac{q}{C}\,dq = \frac1C\left[\frac{q^2}{2}\right]_0^Q && \text{(integrale di una retta)}\\
+        &= \frac{Q^2}{2C} && \\
+        &= \frac{(CV)^2}{2C} = \frac12 CV^2 && (Q = CV)\\
+        &= \frac12 QV && (CV = Q)
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Densità di energia dal condensatore piano <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        U &= \frac12 C V^2 = \frac12\cdot\frac{\varepsilon_0 A}{d}\cdot(E\,d)^2 && (C = \varepsilon_0 A/d,\ V = E d)\\
+        &= \frac12\varepsilon_0 E^2\cdot\frac{A\,d^2}{d} = \frac12\varepsilon_0 E^2\cdot A\,d && \text{(semplifico una } d)\\
+        w &= \frac{U}{A\,d} = \frac12\varepsilon_0 E^2 && (A\,d = \text{volume fra le armature})
+        \end{aligned}\]
+        <p class="why"><b>Il salto concettuale:</b> il risultato non contiene più né A, né d, né Q: solo il campo. Si assume (e si verifica in ogni caso) che valga ovunque ci sia campo: \(U = \int w\,d\tau\).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Verifica sul condensatore sferico, con i gusci <span class="chip lez">a lezione</span></span>
+        <p><b>Elemento di volume:</b> un guscio sferico sottile di raggio r e spessore dr. Il suo volume è area per spessore: \(d\tau = 4\pi r^2\,dr\). Nel guscio il campo è costante, \(E = q/4\pi\varepsilon_0 r^2\).</p>
+        \[\begin{aligned}
+        w &= \frac12\varepsilon_0\left(\frac{q}{4\pi\varepsilon_0 r^2}\right)^2 = \frac{q^2}{32\pi^2\varepsilon_0 r^4} && \text{(potenza di un quoziente)}\\
+        dU &= w\,d\tau = \frac{q^2}{32\pi^2\varepsilon_0 r^4}\cdot 4\pi r^2\,dr = \frac{q^2}{8\pi\varepsilon_0}\cdot\frac{dr}{r^2} && \text{(semplifico } 4\pi \text{ e } r^2)\\
+        U &= \frac{q^2}{8\pi\varepsilon_0}\int_{R_1}^{R_2}\frac{dr}{r^2} = \frac{q^2}{8\pi\varepsilon_0}\left(\frac1{R_1} - \frac1{R_2}\right) && \text{(integrale 1)}
+        \end{aligned}\]
+        <p><b>Confronto con \(Q^2/2C\):</b> dal sotto-argomento 5, \(\dfrac1C = \dfrac{1}{4\pi\varepsilon_0}\left(\dfrac1{R_1} - \dfrac1{R_2}\right)\), quindi \(\dfrac{q^2}{2C} = \dfrac{q^2}{8\pi\varepsilon_0}\left(\dfrac1{R_1} - \dfrac1{R_2}\right)\) ✓. Stesso risultato in due modi.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT03</span><div>Lavoro per spostare una carica = q per la differenza di potenziale.</div></li>
+        <li><span>→ 8</span><div>Dall'energia si ricava la forza fra le armature, come \(\vec F = -\nabla U\) per il dipolo (MT04).</div></li>
+        <li><span>→ Onde</span><div>Che l'energia stia nel campo diventa evidente con le onde elettromagnetiche: trasportano energia nel vuoto, senza cariche.</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>Il ½ non è un dettaglio: \(U = \tfrac12 QV\), non QV.</li>
+          <li>Scegli la forma giusta: \(Q^2/2C\) se Q è fissa, \(\tfrac12CV^2\) se V è fissa. Il sotto-argomento 8 si basa su questo.</li>
+          <li>\(U = \int w\,d\tau\) va esteso a <b>tutto</b> il volume dove c'è campo, anche fuori dal condensatore se lì il campo non è nullo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Es. 14.1: una sfera carica +Q dentro un guscio conduttore neutro (raggio interno R₂, esterno R₃). Colleghi il guscio a terra. Di quanto cambia l'energia?</summary>
+        <div><p>Prima: sulla faccia esterna del guscio c'è +Q e fuori (r &gt; R₃) c'è il campo \(Q/4\pi\varepsilon_0 r^2\). Dopo la messa a terra quella carica se ne va e il campo esterno sparisce. L'energia persa è quella che stava fuori:</p>
+        \[|\Delta U| = U_{est} = \int_{R_3}^{\infty}\frac12\varepsilon_0\left(\frac{Q}{4\pi\varepsilon_0 r^2}\right)^2 4\pi r^2\,dr = \frac{Q^2}{8\pi\varepsilon_0 R_3}\]
+        <p>Lo stesso conto del passo 3, con \(R_1 \to R_3\) e \(R_2 \to \infty\) (il “R₃ → ∞” della tua mappa).</p></div>
+      </details>
+      <details>
+        <summary>Il condensatore piano dell'esempio (8,85 pF) è caricato a 10 V. Quanta energia contiene, e quanto vale w?</summary>
+        <div><p>\(U = \tfrac12\cdot8{,}85\cdot10^{-12}\cdot10^2 = 4{,}4\cdot10^{-10}\) J. Il campo è \(E = V/d = 10/10^{-4} = 10^5\) V/m, quindi \(w = \tfrac12\cdot8{,}85\cdot10^{-12}\cdot10^{10} = 0{,}044\) J/m³. Controllo: \(w\cdot A d = 0{,}044\cdot10^{-8} = 4{,}4\cdot10^{-10}\) J ✓.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s6" data-min="25" type="button">Segna “6 · Energia” come fatto</button>
+  </div>
+
+  <!-- ==================== 7 ==================== -->
+  <div class="part" id="s7" data-part="7 · Serie e parallelo">
+    <div class="part-head">
+      <span class="part-n">7 / 9 · sessione 3</span>
+      <h2>Serie, parallelo e collegamenti</h2>
+      <span class="level">Livello pieno · 25 minuti · la parte persa della lezione 14</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Collegando più condensatori con dei fili, si ottiene un condensatore “equivalente”. Quanto vale la sua capacità? E se i condensatori erano già carichi?</p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Due condensatori sono in <b>parallelo</b> quando le loro armature sono collegate a due a due: hanno la stessa tensione e la carica totale è la somma. Sono in <b>serie</b> quando sono collegati uno dopo l'altro, con le armature intermedie isolate dal resto: hanno la stessa carica e la tensione totale è la somma. La capacità equivalente vale</p>
+        \[C_{\parallel} = C_1 + C_2,\qquad \frac{1}{C_{serie}} = \frac1{C_1} + \frac1{C_2}.\]
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p><b>Parallelo:</b> due condensatori piani affiancati e collegati è come un unico condensatore con le lastre più larghe. L'area si somma, e con lei la capacità.</p>
+      <p><b>Serie:</b> due condensatori piani uno sopra l'altro, collegati dall'armatura di mezzo, è come un unico condensatore con le lastre più distanti. La distanza si somma, e la capacità cala. Per questo in serie “vince” il condensatore più piccolo, in parallelo il più grande.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Parallelo, stessa tensione:</b> le armature collegate da un filo sono un unico conduttore, quindi sono allo stesso potenziale (sotto-argomento 1).</div></li>
+        <li><div><b>Serie, stessa carica:</b> le due armature intermedie formano un conduttore isolato e neutro. Se su una compare −Q per induzione, sull'altra deve comparire +Q. La carica si trasmette identica lungo la catena.</div></li>
+        <li><div><b>Collegare condensatori già carichi</b> (es. 14.2, 14.3): il sistema è isolato, quindi la carica totale si conserva; dopo il collegamento le armature unite hanno lo stesso potenziale. Due equazioni, due incognite.</div></li>
+        <li><div><b>Nei collegamenti si perde energia:</b> le cariche corrono nei fili e la differenza di energia si dissipa (effetto Joule, MT07, e un po' di radiazione).</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:6px">
+        <svg viewBox="0 0 340 120" style="width:100%;max-width:440px;height:auto" role="img" aria-label="Schema di due condensatori in parallelo e due in serie">
+          <g stroke="var(--ink)" stroke-width="2" fill="none">
+            <path d="M10 60 H30 V25 H62 M74 25 H100 V60 H120"/>
+            <path d="M30 60 V95 H62 M74 95 H100 V60"/>
+            <path d="M62 12 V38 M74 12 V38 M62 82 V108 M74 82 V108"/>
+            <path d="M190 60 H222 M234 60 H262 M274 60 H320"/>
+            <path d="M222 47 V73 M234 47 V73 M262 47 V73 M274 47 V73"/>
+          </g>
+          <text x="68" y="9" text-anchor="middle" font-size="12" fill="var(--ink)">C₁</text>
+          <text x="68" y="119" text-anchor="middle" font-size="12" fill="var(--ink)">C₂</text>
+          <text x="65" y="64" text-anchor="middle" font-size="12" fill="var(--accent)">stessa V</text>
+          <text x="228" y="42" text-anchor="middle" font-size="12" fill="var(--ink)">C₁</text>
+          <text x="268" y="42" text-anchor="middle" font-size="12" fill="var(--ink)">C₂</text>
+          <text x="248" y="92" text-anchor="middle" font-size="12" fill="var(--accent)">stessa Q</text>
+          <text x="248" y="106" text-anchor="middle" font-size="11" fill="var(--muted)">armature di mezzo isolate</text>
+          <text x="65" y="78" text-anchor="middle" font-size="11" fill="var(--muted)">parallelo</text>
+          <text x="248" y="20" text-anchor="middle" font-size="11" fill="var(--muted)">serie</text>
+        </svg>
+      </figure>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Parallelo <span class="chip">dal libro, §3 p. 84</span></span>
+        \[\begin{aligned}
+        Q &= Q_1 + Q_2 && \text{(la carica totale è la somma)}\\
+        &= C_1 V + C_2 V && \text{(stessa V per entrambi, } Q_i = C_i V)\\
+        &= (C_1 + C_2)\,V && \text{(raccolgo V)}\\
+        C_\parallel &= \frac{Q}{V} = C_1 + C_2
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Serie <span class="chip">dal libro, §3 p. 84</span></span>
+        \[\begin{aligned}
+        V &= V_1 + V_2 && \text{(le tensioni si sommano lungo la catena)}\\
+        &= \frac{Q}{C_1} + \frac{Q}{C_2} && \text{(stessa Q per entrambi, } V_i = Q/C_i)\\
+        &= Q\left(\frac1{C_1} + \frac1{C_2}\right) && \text{(raccolgo Q)}\\
+        \frac{1}{C_{serie}} &= \frac{V}{Q} = \frac1{C_1} + \frac1{C_2}
+        \end{aligned}\]
+        <p class="why"><b>Controlli:</b> due condensatori uguali in serie danno \(C/2\) (come raddoppiare d) ✓; in parallelo \(2C\) (come raddoppiare A) ✓. In serie \(C_{serie}\) è sempre <b>minore</b> del più piccolo: con \(C_1 = 2\) μF e \(C_2 = 1\) μF, \(C_{serie} = 2/3\) μF.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Collegare un condensatore carico a uno scarico (es. 14.2) <span class="chip lez">a lezione</span></span>
+        <p>Dati dell'esercizio di Alessio (foto 19): \(C_1 = 4\) μF caricato a \(V_1 = 300\) V, poi isolato e collegato in parallelo a \(C_2\) scarico. Il valore di \(C_2\) non è negli appunti: uso \(C_2 = 2\) μF per l'esempio.</p>
+        \[\begin{aligned}
+        Q_0 &= C_1 V_1 = 4\cdot10^{-6}\cdot300 = 1{,}2\cdot10^{-3}\ \text{C} && \text{(carica iniziale)}\\
+        Q_1' + Q_2' &= Q_0 && \text{(sistema isolato: carica conservata)}\\
+        \frac{Q_1'}{C_1} &= \frac{Q_2'}{C_2} = V' && \text{(dopo: stesso potenziale)}\\
+        V' &= \frac{Q_0}{C_1 + C_2} = \frac{1{,}2\cdot10^{-3}}{6\cdot10^{-6}} = 200\ \text{V} && \text{(parallelo: } C_\parallel = C_1 + C_2)
+        \end{aligned}\]
+        <p><b>Energia prima e dopo:</b></p>
+        \[\begin{aligned}
+        U_i &= \tfrac12 C_1 V_1^2 = \tfrac12\cdot4\cdot10^{-6}\cdot9\cdot10^4 = 0{,}18\ \text{J}\\
+        U_f &= \tfrac12 (C_1 + C_2) V'^2 = \tfrac12\cdot6\cdot10^{-6}\cdot4\cdot10^4 = 0{,}12\ \text{J}\\
+        \Delta U &= -0{,}06\ \text{J} \lt 0
+        \end{aligned}\]
+        <p class="why"><b>Dove va l'energia:</b> si perde un terzo dell'energia, dissipata nei fili mentre la carica scorre (lo vedrai con la resistenza nell'es. 19.5, MT07). Conta solo che la carica si conservi, non l'energia.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Collegamento “neutralizzante” (es. 14.3) <span class="chip lez">a lezione</span></span>
+        <p>Si collega l'armatura positiva di uno alla negativa dell'altro. Le cariche di segno opposto si compensano: la carica che resta da dividere è \(q_{tot} = |q_1| - |q_2|\). Poi tutto come nel passo 3: stesso potenziale, \(V' = q_{tot}/(C_1 + C_2)\). Come hai scritto nella mappa: la differenza sta solo nella carica totale.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Esercizio per casa della lezione 14 · il ponte</span>
+      <div class="task">
+        <p>Fra A e B ci sono due rami in parallelo: sopra \(C_1 = 2\) μF e \(C_2 = 1\) μF in serie (punto di mezzo C), sotto \(C_4\) e \(C_3 = 1{,}25\) μF in serie (punto di mezzo D). Il sistema è carico. Quanto deve valere \(C_4\) perché \(V_C = V_D\)?</p>
+      </div>
+      <details>
+        <summary>Indizio 1 · Cosa vuol dire V_C = V_D?</summary>
+        <div><p>Che le tensioni “a sinistra” sono uguali: \(\Delta V_{AC} = \Delta V_{AD}\), e quelle “a destra” pure: \(\Delta V_{CB} = \Delta V_{DB}\) (lo avevi già scritto nella foto). Quindi anche i loro rapporti sono uguali.</p></div>
+      </details>
+      <details>
+        <summary>Indizio 2 · In un ramo in serie, come si dividono le tensioni?</summary>
+        <div><p>Stessa carica Q nel ramo, quindi \(V = Q/C\): il condensatore più piccolo prende più tensione. \(\dfrac{\Delta V_{AC}}{\Delta V_{CB}} = \dfrac{Q/C_1}{Q/C_2} = \dfrac{C_2}{C_1}\).</p></div>
+      </details>
+      <details>
+        <summary>Soluzione</summary>
+        <div>
+          \[\begin{aligned}
+          \frac{\Delta V_{AC}}{\Delta V_{CB}} &= \frac{C_2}{C_1},\qquad \frac{\Delta V_{AD}}{\Delta V_{DB}} = \frac{C_3}{C_4} && \text{(rapporti nei due rami)}\\
+          \frac{C_2}{C_1} &= \frac{C_3}{C_4} && (V_C = V_D)\\
+          C_4 &= \frac{C_1 C_3}{C_2} = \frac{2\cdot1{,}25}{1} = 2{,}5\ \mu\text{F}
+          \end{aligned}\]
+          <p><b>Controllo:</b> ramo sopra \(C_2/C_1 = 1/2\); ramo sotto \(C_3/C_4 = 1{,}25/2{,}5 = 1/2\) ✓.</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>Per i condensatori la serie si fa con gli <b>inversi</b> e il parallelo con la somma: il contrario delle resistenze (MT07).</li>
+          <li>Collegando condensatori carichi si conserva la <b>carica</b>, non l'energia.</li>
+          <li>Prima di applicare le formule, controlla che due condensatori siano davvero in serie (nessun'altra connessione nel punto di mezzo) o in parallelo (stessi due nodi).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domanda di ragionamento</span>
+      <details>
+        <summary>Nell'esempio del passo 3, perché l'energia finale è minore anche se la carica non è cambiata?</summary>
+        <div><p>Perché la stessa carica ora sta su una capacità più grande: \(U = Q^2/2C\) con Q uguale e C più grande dà U più piccola. La carica “si è sparpagliata” su più armature e la tensione è scesa da 300 a 200 V.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s7" data-min="25" type="button">Segna “7 · Serie e parallelo” come fatto</button>
+  </div>
+
+  <!-- ==================== 8 ==================== -->
+  <div class="part" id="s8" data-part="8 · Processi e forze">
+    <div class="part-head">
+      <span class="part-n">8 / 9 · sessione 3</span>
+      <h2>Carica o tensione costante? Le forze tra le armature</h2>
+      <span class="level">Livello pieno · 25 minuti · concetto chiave d'esame</span>
+    </div>
+
+    <section><p><b>La domanda guida.</b> Allontano le armature di un condensatore piano. Cosa succede a carica, tensione, campo, energia? Dipende da una sola domanda, quella che hai scritto nel riquadro della lezione 19: <b>il generatore è attaccato o staccato?</b></p></section>
+
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>In un <b>processo a carica costante</b> il condensatore è isolato (generatore staccato): la carica Q sulle armature non può cambiare. In un <b>processo a tensione costante</b> il condensatore è collegato a un generatore che mantiene fissa la differenza di potenziale V, scambiando carica con le armature.</p>
+        <p>Le armature di un condensatore piano si attraggono con una forza</p>
+        \[F = \frac{Q^2}{2\varepsilon_0 A} = \frac{\sigma^2}{2\varepsilon_0}A,\]
+        <p>uguale al prodotto della carica di un'armatura per il campo \(\sigma/2\varepsilon_0\) prodotto dall'altra; la pressione corrispondente \(F/A = \tfrac12\varepsilon_0 E^2\) coincide con la densità di energia.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Immagina</span>
+      <p><b>Generatore staccato:</b> il condensatore è una scatola chiusa con dentro una quantità fissa di carica. Allontani le lastre: la carica resta lì, σ resta uguale, quindi il campo fra le lastre (σ/ε₀) <b>non cambia</b>. Ma ora il campo riempie uno spazio più grande: c'è più energia, e la tensione (campo per distanza) sale.</p>
+      <p><b>Generatore attaccato:</b> il generatore è una pompa che tiene sempre la stessa “differenza di livello” V. Allontani le lastre: con la stessa tensione su una distanza maggiore, il campo si indebolisce; serve meno carica sulle armature, e la carica in eccesso viene risucchiata indietro nel generatore.</p>
+      <p>In entrambi i casi le armature si attraggono (cariche opposte): per allontanarle devi <b>tirare</b>.</p>
+    </section>
+
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Cosa resta fisso?</b> Staccato: Q. Attaccato: V. Tutto il resto si ricava da qui con \(C = \varepsilon_0A/d\), \(Q = CV\), \(E = V/d = \sigma/\varepsilon_0\).</div></li>
+        <li><div><b>Quale formula dell'energia?</b> Usa quella che contiene la grandezza fissa: \(U = Q^2/2C\) a carica costante, \(U = \tfrac12 CV^2\) a tensione costante.</div></li>
+        <li><div><b>Staccato:</b> d cresce → C cala → \(U = Q^2/2C\) cresce. Il lavoro che fai tu diventa tutto energia del campo.</div></li>
+        <li><div><b>Attaccato:</b> d cresce → C cala → \(U = \tfrac12CV^2\) <b>cala</b>! Eppure tu hai tirato e fatto lavoro positivo. Dove va? Al generatore: la carica che rientra viene “ripompata” dentro di lui, che si ricarica.</div></li>
+        <li><div><b>La forza</b> si legge dall'energia a carica costante: tirando di dx fai il lavoro \(F\,dx\), che diventa \(dU\). Quindi \(F = dU/dx\).</div></li>
+      </ol>
+    </section>
+
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Tabella dei due processi, d → d' &gt; d <span class="chip lez">a lezione · Alessio foto 18</span></span>
+        <div class="tbl">
+          <table>
+            <thead><tr><th></th><th>Staccato (Q fissa)</th><th>Attaccato (V fissa)</th></tr></thead>
+            <tbody>
+              <tr><td>C = ε₀A/d</td><td>cala</td><td>cala</td></tr>
+              <tr><td>Q</td><td>uguale</td><td>cala (Q = CV)</td></tr>
+              <tr><td>V</td><td>sale (V = Q/C)</td><td>uguale</td></tr>
+              <tr><td>E</td><td>uguale (E = σ/ε₀)</td><td>cala (E = V/d)</td></tr>
+              <tr><td>U</td><td>sale (Q²/2C)</td><td>cala (½CV²)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · La forza dall'energia, a carica costante <span class="chip lez">a lezione · es. 19.1</span></span>
+        <p>Con x la distanza fra le armature:</p>
+        \[\begin{aligned}
+        U(x) &= \frac{Q^2}{2C} = \frac{Q^2}{2}\cdot\frac{x}{\varepsilon_0 A} = \frac{Q^2 x}{2\varepsilon_0 A} && (1/C = x/\varepsilon_0 A)\\
+        F &= \frac{dU}{dx} = \frac{Q^2}{2\varepsilon_0 A} && \text{(derivata di una retta in x)}
+        \end{aligned}\]
+        <p class="why"><b>Perché F = dU/dx e non −dU/dx:</b> qui F è la forza che <b>tu</b> devi fare per allontanare le armature (lavoro tuo = aumento di U). La forza elettrica fra le armature è uguale e opposta: attrattiva. <b>Da notare:</b> F non dipende da x.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Controllo: la forza con i campi <span class="chip">approfondimento</span></span>
+        <p>Un'armatura non sente il campo totale σ/ε₀ (metà è il suo): sente solo quello dell'altra, \(\sigma/2\varepsilon_0\).</p>
+        \[F = Q\cdot\frac{\sigma}{2\varepsilon_0} = \sigma A\cdot\frac{\sigma}{2\varepsilon_0} = \frac{\sigma^2 A}{2\varepsilon_0} = \frac{Q^2}{2\varepsilon_0 A}\ \checkmark\qquad \frac{F}{A} = \frac{\sigma^2}{2\varepsilon_0} = \frac12\varepsilon_0 E^2 = w\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Bilancio energetico con il generatore attaccato <span class="chip">approfondimento</span></span>
+        \[\begin{aligned}
+        L_{tuo} + L_{gen} &= \Delta U && \text{(conservazione dell'energia)}\\
+        \Delta U &= \tfrac12 V\,\Delta Q && (U = \tfrac12 QV,\ V \text{ fissa})\\
+        L_{gen} &= V\,\Delta Q = 2\,\Delta U && \text{(il generatore sposta } \Delta Q \text{ attraverso } V)\\
+        L_{tuo} &= \Delta U - 2\Delta U = -\Delta U
+        \end{aligned}\]
+        <p class="why"><b>Lettura:</b> allontanando le armature \(\Delta Q &lt; 0\) e \(\Delta U &lt; 0\): \(L_{tuo} = -\Delta U &gt; 0\) (fai fatica, giusto), \(L_{gen} = 2\Delta U &lt; 0\) (il generatore riceve energia: si ricarica). Il tuo lavoro più l'energia ceduta dal campo finiscono entrambi nel generatore.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Laboratorio</span>
+      <h3>Allontana le armature</h3>
+      <p>Trascina l'armatura superiore (o usa il cursore) e guarda cosa cambia. Prova la stessa mossa con il generatore attaccato e staccato. Dati iniziali: A = 1 cm², d = 0,1 mm, V = 10 V (gli stessi del passo 1).</p>
+      <div class="lab">
+        <canvas id="cap" width="600" height="360" aria-label="Condensatore piano: trascina l'armatura superiore per cambiare la distanza"></canvas>
+        <div class="controls">
+          <label for="dd">Distanza d <input id="dd" type="range" min="25" max="300" value="100"></label>
+          <button class="btn on" id="bGen" type="button">Generatore attaccato</button>
+          <button class="btn" id="bReset" type="button">Riparti da d = 0,1 mm</button>
+        </div>
+        <dl class="readout" id="roCap"></dl>
+      </div>
+      <details>
+        <summary>Tre cose da provare</summary>
+        <div>
+          <p>1. Generatore <b>staccato</b>: allontana le armature. Le righe del campo restano fitte uguali (E costante), la tensione sale, l'energia sale.</p>
+          <p>2. <b>Riparti</b>, generatore <b>attaccato</b>: stessa mossa. Spariscono cariche, il campo si dirada, l'energia scende.</p>
+          <p>3. Guarda la forza: a carica costante non cambia con d; a tensione costante cala come \(1/d^2\).</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT04</span><div>Forza come derivata dell'energia: lo stesso \(\vec F = -\nabla U\) del dipolo.</div></li>
+        <li><span>→ MT06</span><div>Inserire un dielettrico è un altro “cambio di configurazione”: la stessa domanda (Q o V fissa?) decide tutto negli es. 19.2 e 19.3.</div></li>
+        <li><span>→ MT07</span><div>Il generatore è la pompa di cariche: la forza elettromotrice.</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox">
+        <ul>
+          <li>Prima di scrivere una formula, chiediti: <b>Q fissa o V fissa?</b> È la domanda della tua mappa della lezione 19.</li>
+          <li>A carica costante, allontanando le armature E <b>non cambia</b>: cambia V.</li>
+          <li>Forza: \(Q\cdot\sigma/2\varepsilon_0\), non \(Q\cdot\sigma/\varepsilon_0\). Un'armatura non si spinge da sola.</li>
+          <li>Con il generatore attaccato U cala, ma il tuo lavoro è positivo: l'energia va al generatore.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details>
+        <summary>Generatore staccato, d raddoppia. Di quanto cambiano V, E e U?</summary>
+        <div><p>C dimezza, Q fissa: V raddoppia, E resta uguale, \(U = Q^2/2C\) raddoppia. Con i dati del laboratorio: V da 10 a 20 V, U da 0,44 a 0,89 nJ.</p></div>
+      </details>
+      <details>
+        <summary>Generatore attaccato, d raddoppia. Di quanto cambiano Q, E e U?</summary>
+        <div><p>C dimezza, V fissa: Q dimezza, E = V/d dimezza, \(U = \tfrac12CV^2\) dimezza (da 0,44 a 0,22 nJ).</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s8" data-min="25" type="button">Segna “8 · Processi e forze” come fatto</button>
+  </div>
+
+  <!-- ==================== 9 ==================== -->
+  <div class="part" id="s9" data-part="9 · Esercizio sfera e guscio">
+    <div class="part-head">
+      <span class="part-n">9 / 9 · sessione 3</span>
+      <h2>Esercizio guidato: sfera e guscio conduttore</h2>
+      <span class="level">Guida all'esercizio · 25 minuti</span>
+    </div>
+
+    <section>
+      <div class="task">
+        <span class="tag">Testo</span>
+        <p>Una sfera conduttrice piena di raggio \(R_1 = 5\) cm ha carica \(q_1 = 10\) μC. È concentrica a un guscio sferico conduttore di raggio interno \(R_2 = 10\) cm e raggio esterno \(R_3 = 12\) cm. Sulla superficie esterna del guscio la carica è \(q_3 = 15\) μC.</p>
+        <p>1) Quanto vale la carica \(q_2\) sulla superficie interna del guscio? &nbsp; 2) Calcolare \(\vec E(r)\) in tutto lo spazio. &nbsp; 3) Una piccola carica \(q_p = 10^{-12}\) C, di massa m, parte ferma dalla superficie della sfera interna e, attraversando il guscio attraverso un piccolo foro, arriva a distanza d dal centro, fuori dal guscio. Con che velocità?</p>
+        <p class="sub" style="font-size:.9rem">Testo ricostruito dalla tua lezione 11 e dagli appunti di Alessio (foto 15): la massa e la distanza d non sono negli appunti, quindi restano simboliche.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Prima di calcolare: classifica</span>
+      <details>
+        <summary>Classificazione</summary>
+        <div>
+          <p><b>Modello:</b> conduttori concentrici in induzione completa (sotto-argomenti 1-2), simmetria sferica.</p>
+          <p><b>Strategia:</b> (1) Gauss in una superficie dentro il metallo del guscio; (2) Gauss a zone, una sfera per ogni regione; (3) conservazione dell'energia, \(-\Delta U = \Delta T\), con i potenziali ricavati da \(V = \int_P^\infty\vec E\cdot d\vec l\).</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Indizi, uno alla volta</span>
+      <details>
+        <summary>Indizio 1 · Dove metto la superficie di Gauss per trovare q₂?</summary>
+        <div><p>Dentro il metallo del guscio (\(R_2 &lt; r &lt; R_3\)): lì E = 0, quindi la carica racchiusa è zero: \(q_1 + q_2 = 0\).</p></div>
+      </details>
+      <details>
+        <summary>Indizio 2 · Quante zone ci sono per E(r)?</summary>
+        <div><p>Quattro: dentro la sfera, fra sfera e guscio, nel metallo del guscio, fuori. In ognuna conta solo la carica racchiusa dalla sfera di Gauss.</p></div>
+      </details>
+      <details>
+        <summary>Indizio 3 · Come imposto la velocità?</summary>
+        <div><p>Il campo è conservativo: \(\tfrac12 m v^2 = q_p\,[V(R_1) - V(d)]\). Calcola i potenziali partendo da fuori (V = 0 all'infinito) e venendo verso il centro.</p></div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Soluzione completa</span>
+      <details>
+        <summary>Apri solo dopo averci provato</summary>
+        <div>
+          <p><b>1)</b> Gauss nel metallo del guscio: \(q_1 + q_2 = 0\), quindi \(q_2 = -q_1 = -10\) μC. Il guscio ha carica totale \(q_2 + q_3 = +5\) μC.</p>
+          <p><b>2)</b> \(k = 1/4\pi\varepsilon_0 \approx 8{,}99\cdot10^9\) N·m²/C².</p>
+          \[\vec E(r) = \begin{cases}
+          0 & r \lt R_1 \quad\text{(metallo della sfera)}\\[2pt]
+          \dfrac{k\,q_1}{r^2}\,\hat r & R_1 \lt r \lt R_2 \quad\text{(racchiude } q_1)\\[6pt]
+          0 & R_2 \lt r \lt R_3 \quad\text{(metallo del guscio)}\\[2pt]
+          \dfrac{k\,q_3}{r^2}\,\hat r & r \gt R_3 \quad\text{(racchiude } q_1 + q_2 + q_3 = q_3)
+          \end{cases}\]
+          <p><b>3) Potenziali</b>, dall'esterno verso l'interno:</p>
+          \[\begin{aligned}
+          V(d) &= \frac{k\,q_3}{d} && (d \gt R_3\text{: come una carica } q_3)\\
+          V(R_3) &= \frac{k\,q_3}{R_3} = \frac{8{,}99\cdot10^9\cdot15\cdot10^{-6}}{0{,}12} \approx 1{,}12\cdot10^6\ \text{V} && \text{(guscio: tutto a questo potenziale)}\\
+          V(R_1) &= V(R_2) + \int_{R_1}^{R_2}\frac{k\,q_1}{r^2}\,dr = V(R_3) + k\,q_1\left(\frac1{R_1} - \frac1{R_2}\right) && (V(R_2) = V(R_3)\text{; integrale 1})\\
+          &= 1{,}12\cdot10^6 + 8{,}99\cdot10^9\cdot10^{-5}\cdot(20 - 10) \approx 2{,}02\cdot10^6\ \text{V}
+          \end{aligned}\]
+          <p><b>Energia:</b></p>
+          \[\frac12 m v^2 = q_p\left[V(R_1) - \frac{k\,q_3}{d}\right]\quad\Longrightarrow\quad v = \sqrt{\frac{2\,q_p}{m}\left[V(R_1) - \frac{k\,q_3}{d}\right]}\]
+          <p><b>Verifica fisica:</b> \(q_p &gt; 0\) va da potenziale alto a potenziale più basso: guadagna energia cinetica, la parentesi è positiva ✓.</p>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <span class="tag">Errori tipici</span>
+      <div class="warnbox">
+        <ul>
+          <li>Mettere \(q_3\) sulla faccia esterna come “carica totale del guscio”: qui \(q_3\) è già la carica della sola faccia esterna.</li>
+          <li>Dimenticare che il guscio ha lo stesso potenziale su tutto il suo spessore: \(V(R_2) = V(R_3)\).</li>
+          <li>Scrivere \(V(R_1) = k q_1/R_1\): sbagliato, al potenziale della sfera contribuiscono anche le cariche del guscio.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Variante per allenarti</span>
+      <details>
+        <summary>Ora colleghi il guscio a terra. Cosa cambia in q₂, q₃ ed E(r)?</summary>
+        <div><p>\(q_2 = -10\) μC resta (Gauss nel metallo), \(q_3\) va a zero (la Terra neutralizza la faccia esterna). Il campo resta \(kq_1/r^2\) fra sfera e guscio e diventa zero fuori. Potenziali: \(V(R_3) = 0\), \(V(R_1) = kq_1(1/R_1 - 1/R_2) \approx 9{,}0\cdot10^5\) V.</p></div>
+      </details>
+    </section>
+    <button class="done" data-sec="s9" data-min="25" type="button">Segna “9 · Esercizio sfera e guscio” come fatto</button>
+  </div>
+
+  <!-- ==================== CHIUSURA ==================== -->
+  <div class="part" id="chiusura" data-part="Chiusura">
+    <div class="part-head">
+      <span class="part-n">fine</span>
+      <h2>Mappa, Dossier e libro</h2>
+    </div>
+
+    <section>
+      <span class="tag">Per la Mappa Tematica MT05</span>
+      <p>Una proposta di rami principali. Le parole chiave le scegli tu.</p>
+      <div class="flow">
+        <div><span>Fermarsi</span><span>E = 0 dentro, ρ = 0, V costante, carica in superficie, E ⊥</span></div>
+        <div><span>Schermare</span><span>cavità vuota: niente carica, E = 0; carica dentro: −q / +q; messa a terra</span></div>
+        <div><span>Pungere</span><span>Coulomb σ/ε₀, σ₁R₁ = σ₂R₂, punte, parafulmini</span></div>
+        <div><span>Accumulare</span><span>induzione completa, C = q/ΔV, farad</span></div>
+        <div><span>Calcolare C</span><span>Gauss → E → ΔV → C: piano, sferico, cilindrico</span></div>
+        <div><span>Immagazzinare</span><span>U = ½Q²/C = ½CV², w = ½ε₀E²</span></div>
+        <div><span>Collegare</span><span>serie (1/C), parallelo (+), carica conservata, energia persa</span></div>
+        <div><span>Tirare</span><span>Q fissa o V fissa?, F = Q²/2ε₀A, bilancio con il generatore</span></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Modello condensatore sferico · rami nel tuo metodo</span>
+      <div class="flow">
+        <div><span>Geometria</span><span>sfera R₁ (+q) dentro guscio R₂ (−q), origine al centro</span></div>
+        <div><span>Simmetrie</span><span>sferica: E radiale, dipende solo da r</span></div>
+        <div><span>Elemento</span><span>per E: sfera di Gauss di raggio r; per U: guscio 4πr²dr</span></div>
+        <div><span>Variabile</span><span>r da R₁ a R₂</span></div>
+        <div><span>Risultato</span><span>C = 4πε₀R₁R₂/(R₂ − R₁)</span></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">Schede del Dossier (già nel registro)</span>
+      <ul>
+        <li>D · Conduttore in equilibrio · D · Conduttore cavo · D · Teorema di Coulomb → sotto-argomenti 1-3</li>
+        <li>M · Gabbia di Faraday e suo inverso · M · Sfera dentro guscio conduttore → 2 e 9</li>
+        <li>M · Condensatore piano / sferico / cilindrico (capacità + energia) → 5-6</li>
+        <li>D · Energia del condensatore · D · Densità di energia → 6</li>
+        <li>M · Serie e parallelo · M · Es. 14.1 · M · Es. 14.2 + 14.3 → 6-7</li>
+        <li>M · d → d' a carica e a tensione costante · D · Forza tra le armature → 8</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="tag">Controlla sul libro · 10 minuti</span>
+      <p>Mencuccini-Silvestrini, cap. 2: §1 “Campo elettrostatico e distribuzioni di carica nei conduttori”, p. 69; §2 “Capacità elettrica”, p. 75; §3 “Sistemi di condensatori”, p. 84 (la parte persa a lezione); §4 “Energia del campo elettrostatico”, p. 88; §5 “Azioni meccaniche di natura elettrostatica nei conduttori”, p. 94.</p>
+    </section>
+  </div>
+
+  <div class="part" id="formulario" data-part="Formulario">
+    <div class="part-head"><span class="part-n">fine</span><h2>Formulario da memorizzare</h2></div>
+    <p>Le formule da sapere a memoria. Per allenarti premi <b>Mettiti alla prova</b>: le formule si sfocano, prova a scriverle e tocca per controllare.</p>
+    <button class="tb-btn" id="bQuiz" type="button">Mettiti alla prova</button>
+    <section>
+      <span class="tag">1 · Conduttore in equilibrio</span>
+      <div class="fcard">
+        <div class="f-name">Campo e carica dentro il conduttore</div>
+        <div class="f-eq">\[\vec E_{int} = 0,\qquad \rho_{int} = 0\]</div>
+        <div class="f-note">conduttore in equilibrio elettrostatico · la carica sta solo sulla superficie, con densità σ · → §1</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Potenziale del conduttore</div>
+        <div class="f-eq">\[V = \text{costante in tutto il conduttore}\]</div>
+        <div class="f-note">superficie equipotenziale, quindi \(\vec E\) appena fuori è perpendicolare alla superficie · → §1</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">2 · Conduttori cavi</span>
+      <div class="fcard">
+        <div class="f-name">Carica dentro la cavità</div>
+        <div class="f-eq">\[q_{\text{cavità}} = -q,\qquad q_{\text{esterna}} = Q + q\]</div>
+        <div class="f-note">q = carica posta nella cavità, Q = carica propria del conduttore (0 se neutro); cavità vuota: niente carica sulle pareti e \(\vec E = 0\) dentro · → §2</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">3 · Coulomb ed effetto punte</span>
+      <div class="fcard">
+        <div class="f-name">Teorema di Coulomb</div>
+        <div class="f-eq">\[\vec E = \frac{\sigma}{\varepsilon_0}\,\hat n\]</div>
+        <div class="f-note">appena fuori dalla superficie di un conduttore · \(\hat n\) normale uscente · da non confondere con lo strato isolato, \(\sigma/2\varepsilon_0\) · → §3</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Sfera conduttrice</div>
+        <div class="f-eq">\[\sigma = \frac{q}{4\pi R^2},\qquad V = \frac{q}{4\pi\varepsilon_0 R}\]</div>
+        <div class="f-note">sfera di raggio R con carica q, potenziale riferito all'infinito · → §3</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Due sfere collegate (effetto punte)</div>
+        <div class="f-eq">\[\sigma_1 R_1 = \sigma_2 R_2\]</div>
+        <div class="f-note">stesso potenziale; la sfera piccola ha σ e campo maggiori · → §3</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">4 · Capacità</span>
+      <div class="fcard">
+        <div class="f-name">Capacità</div>
+        <div class="f-eq">\[C = \frac{q}{\Delta V}\]</div>
+        <div class="f-note">q = carica di un'armatura, ΔV tra le armature · unità farad, 1 F = 1 C/V · → §4</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Sfera isolata</div>
+        <div class="f-eq">\[C = 4\pi\varepsilon_0 R\]</div>
+        <div class="f-note">conduttore isolato, V riferito all'infinito · approfondimento · → §4</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">5 · I tre condensatori</span>
+      <div class="fcard">
+        <div class="f-name">Condensatore piano</div>
+        <div class="f-eq">\[C = \frac{\varepsilon_0 A}{d},\qquad E = \frac{\sigma}{\varepsilon_0} = \frac{V}{d}\]</div>
+        <div class="f-note">A area delle armature, d distanza, effetti di bordo trascurati (d piccolo rispetto ai lati) · → §5</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Condensatore sferico</div>
+        <div class="f-eq">\[C = \frac{4\pi\varepsilon_0 R_1 R_2}{R_2 - R_1}\]</div>
+        <div class="f-note">R₁ raggio interno, R₂ esterno · se R₂ → ∞ torna la sfera isolata · → §5</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Condensatore cilindrico</div>
+        <div class="f-eq">\[C = \frac{2\pi\varepsilon_0 L}{\ln(R_2/R_1)}\]</div>
+        <div class="f-note">lunghezza L molto maggiore dei raggi R₁ < R₂ · → §5</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">6 · Energia</span>
+      <div class="fcard">
+        <div class="f-name">Energia del condensatore</div>
+        <div class="f-eq">\[U = \frac12\frac{Q^2}{C} = \frac12 C V^2 = \frac12 Q V\]</div>
+        <div class="f-note">il ½ viene dalla carica portata contro una tensione che cresce da 0 a V · → §6</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Densità di energia del campo</div>
+        <div class="f-eq">\[w = \frac12\varepsilon_0 E^2,\qquad U = \int_\tau w\,d\tau\]</div>
+        <div class="f-note">vale per qualsiasi campo elettrostatico nel vuoto; w in J/m³ · → §6</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">7 · Serie e parallelo</span>
+      <div class="fcard">
+        <div class="f-name">Parallelo</div>
+        <div class="f-eq">\[C_\parallel = C_1 + C_2\]</div>
+        <div class="f-note">stessa tensione V, le cariche si sommano · → §7</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Serie</div>
+        <div class="f-eq">\[\frac{1}{C_{serie}} = \frac1{C_1} + \frac1{C_2}\]</div>
+        <div class="f-note">stessa carica Q, le tensioni si sommano · → §7</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Condensatori carichi collegati</div>
+        <div class="f-eq">\[V' = \frac{Q_{tot}}{C_1 + C_2}\]</div>
+        <div class="f-note">carica totale conservata; armature opposte collegate: \(Q_{tot} = |q_1| - |q_2|\); l'energia finale è minore di quella iniziale · → §7</div>
+      </div>
+    </section>
+    <section>
+      <span class="tag">8 · Processi e forze</span>
+      <div class="fcard">
+        <div class="f-name">Forza tra le armature</div>
+        <div class="f-eq">\[F = \frac{Q^2}{2\varepsilon_0 A} = \frac{\sigma^2 A}{2\varepsilon_0}\]</div>
+        <div class="f-note">attrattiva · ogni armatura sente solo il campo dell'altra, \(\sigma/2\varepsilon_0\) · → §8</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Pressione elettrostatica</div>
+        <div class="f-eq">\[\frac{F}{A} = \frac12\varepsilon_0 E^2\]</div>
+        <div class="f-note">coincide con la densità di energia w · → §8</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Forza dall'energia</div>
+        <div class="f-eq">\[F = \frac{dU}{dx}\quad (Q\ \text{costante})\]</div>
+        <div class="f-note">F = forza che devi fare tu per allontanare le armature; la forza elettrica è uguale e opposta · → §8</div>
+      </div>
+      <div class="fcard">
+        <div class="f-name">Lavoro del generatore</div>
+        <div class="f-eq">\[L_{gen} = V\,\Delta Q = 2\,\Delta U\]</div>
+        <div class="f-note">a tensione V costante (generatore attaccato) · approfondimento · → §8</div>
+      </div>
+    </section>
+  </div>
+
+  <footer>Dispensa MT05, prima versione. Dimmi in chat cosa cambiare, e mandami gli screenshot dei passaggi che non ti tornano.</footer>
+</main>
+</div>
+
+<div class="toolbar" id="toolbar" role="toolbar" aria-label="Sfoglia la dispensa">
+  <button class="tb-btn" id="bIdx" type="button" title="Vai all'indice">Indice</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn arrow" id="bPrev" type="button" aria-label="Pagina precedente">‹</button>
+  <span id="pgNum" aria-live="polite">pag. 1</span>
+  <button class="tb-btn arrow" id="bNext" type="button" aria-label="Pagina successiva">›</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn" id="bFlip" type="button" title="Quante pagine girare a ogni passo">sfoglia di 2</button>
+  <button class="tb-btn" id="bSmall" type="button" aria-label="Testo più piccolo">A−</button>
+  <button class="tb-btn" id="bBig" type="button" aria-label="Testo più grande">A+</button>
+  <span class="tb-sep"></span>
+  <span id="railSlot"></span>
+</div>
+
+
+<!-- Formulario: "Mettiti alla prova" sfoca le formule, un tocco ne scopre una -->
+<script>
+(function () {
+  const box = document.getElementById('formulario'), b = document.getElementById('bQuiz');
+  if (!box || !b) return;
+  b.addEventListener('click', () => {
+    const on = box.classList.toggle('quiz');
+    box.querySelectorAll('.f-eq.show').forEach(e => e.classList.remove('show'));
+    b.textContent = on ? 'Mostra tutte le formule' : 'Mettiti alla prova';
+  });
+  box.addEventListener('click', ev => {
+    const e = ev.target.closest('.f-eq');
+    if (e && box.classList.contains('quiz')) e.classList.toggle('show');
+  });
+})();
+</script>
+
+<!-- Funzioni comuni per i laboratori (canvas): cssVar, hex, arrowOn, fmt -->
+<script>
+/* incollare dentro lo script dei laboratori */
+(function () {
+  const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const hex = h => { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)); };
+  function arrowOn(ctx, x0, y0, x1, y1, color, w) {
+    const ang = Math.atan2(y1 - y0, x1 - x0), hd = 9 + w * 2;
+    ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - hd * Math.cos(ang - 0.4), y1 - hd * Math.sin(ang - 0.4));
+    ctx.lineTo(x1 - hd * Math.cos(ang + 0.4), y1 - hd * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fill();
+  }
+  const fmt = v => {
+    if (!isFinite(v)) return '—';
+    const a = Math.abs(v);
+    if (a !== 0 && (a < 1e-3 || a >= 1e4)) return v.toExponential(2).replace('e', '·10^');
+    return v.toPrecision(3);
+  };
+
+  /* ---------- Laboratorio: condensatore piano a carica o tensione costante ---------- */
+  (function () {
+    const cv = document.getElementById('cap'), g = cv.getContext('2d');
+    const sl = document.getElementById('dd'), bGen = document.getElementById('bGen'), bReset = document.getElementById('bReset');
+    const ro = document.getElementById('roCap');
+    const W = 600, H = 360, X0 = 150, X1 = 470, YB = 310;
+    const EPS = 8.854e-12, A = 1e-4, V0 = 10, D0 = 1e-4;
+    const C0 = EPS * A / D0, Q0 = C0 * V0, E0 = V0 / D0, U0 = Q0 * Q0 / (2 * C0), F0 = Q0 * Q0 / (2 * EPS * A);
+    let d = D0, attached = true, Qfix = Q0, dragging = false;
+
+    const gapPx = dd => 30 + (dd - 25e-6) / 275e-6 * 220;           // 25 μm → 30 px, 300 μm → 250 px
+    const dFromGap = gp => Math.min(300e-6, Math.max(25e-6, 25e-6 + (gp - 30) / 220 * 275e-6));
+
+    function state() {
+      const C = EPS * A / d;
+      const Q = attached ? C * V0 : Qfix;
+      const V = Q / C;
+      return { C, Q, V, E: V / d, U: Q * Q / (2 * C), F: Q * Q / (2 * EPS * A) };
+    }
+
+    function draw() {
+      const s = state();
+      const ink = cssVar('--ink'), muted = cssVar('--muted'), acc = cssVar('--accent');
+      const pos = cssVar('--pos'), neg = cssVar('--neg'), card = cssVar('--card');
+      g.fillStyle = card; g.fillRect(0, 0, W, H);
+      const yT = YB - gapPx(d);
+      // linee di campo: quante più fitte quanto più E è grande
+      const nE = Math.max(1, Math.min(30, Math.round(8 * s.E / E0)));
+      g.globalAlpha = 0.55;
+      for (let i = 0; i < nE; i++) {
+        const x = X0 + (i + 0.5) * (X1 - X0) / nE;
+        arrowOn(g, x, yT + 10, x, YB - 6, acc, 1.4);
+      }
+      g.globalAlpha = 1;
+      // armature
+      g.fillStyle = ink;
+      g.fillRect(X0, yT - 8, X1 - X0, 8);
+      g.fillRect(X0, YB, X1 - X0, 8);
+      // cariche: quante più quanto più Q è grande
+      const nQ = Math.max(1, Math.min(30, Math.round(10 * s.Q / Q0)));
+      g.font = '600 14px system-ui'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      for (let i = 0; i < nQ; i++) {
+        const x = X0 + (i + 0.5) * (X1 - X0) / nQ;
+        g.fillStyle = pos; g.fillText('+', x, yT - 18);
+        g.fillStyle = neg; g.fillText('−', x, YB + 20);
+      }
+      // generatore e fili
+      g.strokeStyle = muted; g.lineWidth = 2;
+      const xb = 60, ym = (yT + YB) / 2;
+      g.beginPath(); g.moveTo(X0, yT - 4); g.lineTo(xb, yT - 4); g.lineTo(xb, ym - 14); g.stroke();
+      g.beginPath(); g.moveTo(X0, YB + 4); g.lineTo(xb, YB + 4); g.lineTo(xb, ym + 14); g.stroke();
+      if (attached) {
+        g.strokeStyle = ink; g.lineWidth = 3;
+        g.beginPath(); g.moveTo(xb - 16, ym - 6); g.lineTo(xb + 16, ym - 6); g.stroke();
+        g.lineWidth = 6; g.beginPath(); g.moveTo(xb - 8, ym + 6); g.lineTo(xb + 8, ym + 6); g.stroke();
+        g.fillStyle = ink; g.font = '600 13px system-ui'; g.textAlign = 'left';
+        g.fillText('10 V', xb + 20, ym);
+      } else {
+        g.fillStyle = muted; g.font = '13px system-ui'; g.textAlign = 'left';
+        g.fillStyle = card; g.fillRect(xb - 4, ym - 14, 8, 28);
+        g.fillStyle = muted; g.fillText('staccato', xb + 12, ym);
+      }
+      // forze di attrazione
+      const L = Math.min(80, 18 + 30 * s.F / F0);
+      arrowOn(g, X1 + 40, yT - 4, X1 + 40, yT - 4 + L, ink, 2.5);
+      arrowOn(g, X1 + 40, YB + 4, X1 + 40, YB + 4 - L, ink, 2.5);
+      g.fillStyle = ink; g.font = 'italic 600 15px Georgia, serif'; g.textAlign = 'left';
+      g.fillText('F', X1 + 52, (yT + YB) / 2);
+      // quota d
+      g.fillStyle = muted; g.font = '13px system-ui'; g.textAlign = 'right';
+      g.fillText('d = ' + (d * 1e3).toFixed(3).replace('.', ',') + ' mm', X1, 24);
+      g.textAlign = 'left'; g.fillText('trascina l\'armatura in alto', X0, 24);
+      readout(s);
+    }
+
+    const num = (v, k) => v.toFixed(k).replace('.', ',');
+    const fac = (v, v0) => '×' + num(v / v0, 2);
+    function readout(s) {
+      const rows = [
+        ['C', num(s.C * 1e12, 2) + ' pF', fac(s.C, C0)],
+        ['Q', num(s.Q * 1e12, 1) + ' pC', fac(s.Q, Q0)],
+        ['V', num(s.V, 1) + ' V', fac(s.V, V0)],
+        ['E', num(s.E / 1e3, 1) + ' kV/m', fac(s.E, E0)],
+        ['U', num(s.U * 1e9, 3) + ' nJ', fac(s.U, U0)],
+        ['F', num(s.F * 1e6, 2) + ' μN', fac(s.F, F0)]
+      ];
+      ro.innerHTML = rows.map(([k, v, f]) => `<div><dt>${k}</dt><dd>${v} <span style="color:var(--muted)">${f}</span></dd></div>`).join('') +
+        `<div style="grid-column:1/-1"><dt>fisso</dt><dd class="state">${attached ? 'V = 10 V (generatore attaccato)' : 'Q = ' + num(Qfix * 1e12, 1) + ' pC (generatore staccato)'}</dd></div>`;
+      sl.value = Math.round(d * 1e6);
+    }
+
+    sl.addEventListener('input', () => { d = sl.value * 1e-6; draw(); });
+    bGen.addEventListener('click', () => {
+      if (attached) { Qfix = state().Q; attached = false; bGen.textContent = 'Generatore staccato'; bGen.classList.remove('on'); }
+      else { attached = true; bGen.textContent = 'Generatore attaccato'; bGen.classList.add('on'); }
+      draw();
+    });
+    bReset.addEventListener('click', () => {
+      d = D0; attached = true; Qfix = Q0; bGen.textContent = 'Generatore attaccato'; bGen.classList.add('on'); draw();
+    });
+    function pointer(ev) {
+      const rc = cv.getBoundingClientRect();
+      const y = (ev.clientY - rc.top) / rc.height * H;
+      d = dFromGap(YB - y); draw();
+    }
+    cv.addEventListener('pointerdown', ev => { dragging = true; cv.setPointerCapture(ev.pointerId); pointer(ev); });
+    cv.addEventListener('pointermove', ev => { if (dragging) pointer(ev); });
+    cv.addEventListener('pointerup', () => { dragging = false; });
+    cv.addEventListener('pointercancel', () => { dragging = false; });
+    draw();
+  })();
+})();
+</script>
+
+<script>
+/* Avanzamento: pieno = parti segnate come fatte (pesate sui minuti), chiaro = dove sei arrivato a leggere.
+   Le spunte restano salvate solo in questo browser. */
+(function () {
+  const KEY = 'mt05-dispensa-fatto';
+  const btns = [...document.querySelectorAll('.done')];
+  const total = btns.reduce((a, b) => a + +b.dataset.min, 0);
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+  const fill = document.getElementById('pgFill'), read = document.getElementById('pgRead');
+  const pct = document.getElementById('pgPct'), mins = document.getElementById('pgMin'), list = document.getElementById('pgList');
+  btns.forEach(b => b.dataset.label = b.textContent.match(/“(.*)”/)[1]);
+  const target = sec => sec === 'intro' ? 'ripasso' : sec;
+  list.innerHTML = btns.map(b => `<li data-sec="${b.dataset.sec}"><a href="#${target(b.dataset.sec)}"><span class="ck"></span><span>${b.dataset.label}</span></a></li>`).join('');
+  const lis = [...list.children];
+  let cur = 'intro';
+
+  function paint() {
+    let m = 0;
+    btns.forEach((b, i) => {
+      const on = !!done[b.dataset.sec];
+      b.classList.toggle('is-done', on);
+      b.setAttribute('aria-pressed', on);
+      b.textContent = on ? '✓ ' + b.dataset.label + ' · fatto' : 'Segna “' + b.dataset.label + '” come fatto';
+      lis[i].classList.toggle('done', on);
+      lis[i].querySelector('.ck').textContent = on ? '✓' : '';
+      if (on) m += +b.dataset.min;
+    });
+    lis.forEach(li => li.classList.toggle('cur', li.dataset.sec === cur));
+    const p = Math.round(m / total * 100);
+    fill.style.width = p + '%';
+    pct.textContent = p + '%';
+    mins.textContent = p < 100 ? 'fatto · ~' + (total - m) + ' min' : 'fatto';
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    done[b.dataset.sec] = !done[b.dataset.sec];
+    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    paint();
+  }));
+
+  const parts = [...document.querySelectorAll('[data-part]')];
+  const secOf = id => (id === 'ripasso' || id === 'quadro') ? 'intro' : (/^s\d$/.test(id) ? id : null);
+  function onScroll() {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    read.style.height = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + '%';
+    let c = 'intro';
+    for (const el of parts) if (el.getBoundingClientRect().top < innerHeight * 0.35) c = secOf(el.id) || c;
+    if (c !== cur) { cur = c; paint(); }
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  paint(); onScroll();
+})();
+</script>
+<script>
+/* Modalità libro: la dispensa è divisa in colonne alte quanto lo schermo (le pagine); si sfoglia spostando la vista di una o due colonne. */
+(function () {
+  const main = document.querySelector('.sheet main');
+  document.getElementById('railSlot').appendChild(document.getElementById('prog'));
+  const num = document.getElementById('pgNum'), prev = document.getElementById('bPrev'), next = document.getElementById('bNext');
+  const flipBtn = document.getElementById('bFlip');
+  const KEY = 'mt05-libro';
+  let st = { fs: 16, flip: 2, frac: 0 };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let count = 2, gap = 72, step = 1, total = 1, idx = 0;
+
+  function measure() {
+    count = innerWidth >= 900 ? 2 : 1;
+    gap = count === 2 ? 72 : 40;
+    document.documentElement.style.setProperty('--fs', st.fs + 'px');
+    main.style.columnCount = count;
+    main.style.columnGap = gap + 'px';
+    const pw = (main.clientWidth - gap * (count - 1)) / count, ph = main.clientHeight;
+    document.querySelectorAll('.lab canvas').forEach(c => {
+      c.style.width = Math.max(160, Math.min(pw - 30, ph * 0.5 * c.width / c.height)) + 'px';
+    });
+    step = pw + gap;
+    total = Math.max(1, Math.round((main.scrollWidth + gap) / step));
+  }
+  const maxIdx = () => Math.max(0, total - count);
+  const align = () => { if (count === 2 && st.flip === 2) idx -= idx % 2; };
+  function show(anim) {
+    idx = Math.min(Math.max(0, idx), maxIdx());
+    const before = main.scrollLeft;
+    main.scrollLeft = Math.round(idx * step);
+    // effetto "pagina che gira": breve scivolata nella direzione in cui si sfoglia
+    if (anim && !reduce && main.animate && main.scrollLeft !== before) {
+      const dir = main.scrollLeft > before ? 1 : -1;
+      main.animate([{ opacity: 0.2, transform: 'translateX(' + (dir * 28) + 'px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 220, easing: 'ease-out' });
+    }
+    const a = idx + 1, b = Math.min(total, idx + count);
+    num.textContent = 'pag. ' + (a === b ? a : a + '–' + b) + ' di ' + total;
+    prev.disabled = idx <= 0;
+    next.disabled = idx >= maxIdx();
+    flipBtn.hidden = count !== 2;
+    flipBtn.textContent = st.flip === 2 ? 'sfoglia di 2' : 'sfoglia di 1';
+    st.frac = total > 1 ? idx / (total - 1) : 0;
+    save();
+  }
+  function layout() { measure(); idx = Math.round(st.frac * (total - 1)); align(); show(false); }
+  function relayout() { measure(); show(false); }
+  function turn(dir) { idx += dir * (count === 2 ? st.flip : 1); show(true); }
+  function pageOf(el) {
+    const r = el.getBoundingClientRect(), m = main.getBoundingClientRect();
+    return Math.floor((r.left - m.left + main.scrollLeft + 2) / step);
+  }
+
+  prev.addEventListener('click', () => turn(-1));
+  next.addEventListener('click', () => turn(1));
+  flipBtn.addEventListener('click', () => { st.flip = 3 - st.flip; align(); show(false); });
+  document.getElementById('bSmall').addEventListener('click', () => { st.fs = Math.max(13, st.fs - 1); layout(); });
+  document.getElementById('bBig').addEventListener('click', () => { st.fs = Math.min(24, st.fs + 1); layout(); });
+  document.getElementById('bIdx').addEventListener('click', () => { idx = pageOf(document.querySelector('nav')); align(); show(true); });
+
+  // link interni (indice, rimandi): vai alla pagina giusta invece di scorrere
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    idx = pageOf(t); align(); show(true);
+  });
+  // tastiera
+  addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, select')) return;
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); turn(1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); turn(-1); }
+  });
+  // swipe con il dito (iPad) o con il mouse trascinando
+  let sx = null, sy = 0;
+  main.addEventListener('pointerdown', e => {
+    sx = e.target.closest('canvas, input, button, summary, a, .lab') ? null : e.clientX; sy = e.clientY;
+  });
+  main.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) turn(dx < 0 ? 1 : -1);
+    sx = null;
+  });
+  // trackpad e rotella: un gesto = una pagina
+  let acc = 0, lastTurn = 0, accTimer = 0;
+  main.addEventListener('wheel', e => {
+    if (e.target.closest('mjx-container') && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    acc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    clearTimeout(accTimer); accTimer = setTimeout(() => { acc = 0; }, 200);
+    const now = Date.now();
+    if (Math.abs(acc) > 60 && now - lastTurn > 500) { turn(acc > 0 ? 1 : -1); acc = 0; lastTurn = now; }
+  }, { passive: false });
+  // se il browser sposta la vista da solo (es. passando con Tab), riallinea alla pagina
+  let scTimer = 0;
+  main.addEventListener('scroll', () => {
+    clearTimeout(scTimer);
+    scTimer = setTimeout(() => {
+      if (Math.abs(main.scrollLeft - idx * step) > 4) { idx = Math.round(main.scrollLeft / step); align(); show(false); }
+    }, 200);
+  });
+  // aprire o chiudere una risposta cambia il numero di pagine
+  document.addEventListener('toggle', relayout, true);
+  addEventListener('resize', layout);
+
+  layout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  addEventListener('load', () => {
+    const mj = window.MathJax;
+    if (mj && mj.startup && mj.startup.promise) mj.startup.promise.then(layout); else layout();
+  });
+})();
+</script>

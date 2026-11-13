@@ -1,0 +1,1519 @@
+<meta charset="utf-8">
+<title>MT07 Correnti e circuiti RC</title>
+<link rel="icon" href="icona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icona-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7a1d30">
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* Layout: una colonna da quaderno di studio (max ~68ch), blocchi etichettati come nel metodo dell'utente, laboratori a tutta colonna.
+   Tema unico chiaro, per scelta dell'utente: leggibile anche con il telefono in modalità scura. */
+:root {
+  --paper: #f5f7fa;
+  --card: #ffffff;
+  --ink: #18202e;
+  --muted: #5a6477;
+  --rule: #d8dee8;
+  --accent: #0f6e66;
+  --accent-soft: #e2f1ef;
+  --pos: #c43d2c;
+  --neg: #2563c9;
+  --formal: #eef1f7;
+  --warn: #9a5b00;
+  --warn-soft: #fbf1e1;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-label: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.62;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+main { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: 2.1rem; font-weight: 600; }
+h2 { font-size: 1.35rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+.part { display: flex; flex-direction: column; gap: 36px; padding-top: 28px; border-top: 2px solid var(--ink); scroll-margin-top: 12px; }
+.part-head { display: flex; flex-direction: column; gap: 8px; }
+.part-n { font-family: var(--f-mono); font-size: .9rem; color: var(--accent); }
+.level { font-family: var(--f-label); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.eyebrow, .tag, .chip, summary, .btn, .readout dt, .step-n, nav a, .level {
+  font-family: var(--f-label); letter-spacing: .04em;
+}
+.eyebrow { font-size: .8rem; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.sub { color: var(--muted); }
+.tag {
+  align-self: flex-start; font-size: .72rem; text-transform: uppercase; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent);
+}
+.chip { font-size: .72rem; font-weight: 600; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.chip.lez { border-color: var(--accent); color: var(--accent); }
+ul, ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+.formal { background: var(--formal); border-left: 3px solid var(--ink); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.warnbox { background: var(--warn-soft); border-left: 3px solid var(--warn); padding: 14px 18px; }
+.warnbox li::marker { color: var(--warn); }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: 2px; }
+nav ol { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule); }
+nav li { border-bottom: 1px solid var(--rule); }
+nav a { display: flex; gap: 12px; align-items: baseline; padding: 9px 2px; color: var(--ink); text-decoration: none; font-size: .95rem; }
+nav a:hover { color: var(--accent); }
+nav a span:first-child { font-family: var(--f-mono); color: var(--accent); min-width: 1.6em; }
+nav a span:nth-child(2) { flex: 1; min-width: 0; }
+nav a span:last-child { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.cover { list-style: none; padding: 0; gap: 8px; }
+.cover li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.cover li > span:first-child { flex: 1 1 16rem; min-width: 0; }
+.cover .grp { font-family: var(--f-label); font-weight: 600; font-size: .85rem; color: var(--muted); border: 0; padding: 8px 0 0; letter-spacing: .03em; }
+.chain { counter-reset: c; list-style: none; padding: 0; gap: 10px; }
+.chain li { counter-increment: c; display: grid; grid-template-columns: 1.8em 1fr; gap: 8px; }
+.chain li::before { content: counter(c); font-family: var(--f-mono); color: var(--accent); }
+.chain li > div { min-width: 0; }
+.step { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.step-n { font-size: .78rem; text-transform: uppercase; color: var(--muted); font-weight: 600; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.why { color: var(--muted); font-size: .95rem; }
+.why b { color: var(--accent); font-family: var(--f-label); font-weight: 600; letter-spacing: .03em; }
+details { border: 1px solid var(--rule); border-radius: 6px; background: var(--card); }
+summary { cursor: pointer; padding: 12px 14px; font-weight: 600; font-size: .95rem; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸ "; color: var(--accent); }
+details[open] summary::before { content: "▾ "; }
+details > div { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px; }
+.links { list-style: none; padding: 0; gap: 10px; }
+.links li { display: grid; grid-template-columns: 5em 1fr; gap: 10px; }
+.links li > span:first-child { font-family: var(--f-label); font-size: .8rem; color: var(--accent); font-weight: 600; padding-top: .2em; }
+.links li > div { min-width: 0; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-label); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+/* formulario finale */
+.fcard { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
+.f-name { font-family: var(--f-label); font-size: .85rem; font-weight: 600; color: var(--accent); letter-spacing: .02em; }
+.f-eq { overflow-x: auto; transition: filter .2s; }
+.f-note { font-size: .88rem; color: var(--muted); }
+#formulario.quiz .f-eq { filter: blur(8px); cursor: pointer; }
+#formulario.quiz .f-eq.show { filter: none; }
+/* laboratori */
+.lab { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.lab canvas { width: 100%; height: auto; max-width: 100%; touch-action: none; border-radius: 4px; display: block; }
+#cv, #c2 { cursor: crosshair; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.controls label { font-family: var(--f-label); font-size: .85rem; color: var(--muted); display: flex; gap: 8px; align-items: center; flex: 1 1 14rem; min-width: 0; }
+.controls label.check { flex: 0 0 auto; }
+.controls input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.controls input[type=checkbox] { accent-color: var(--accent); width: 1.1em; height: 1.1em; }
+.btn { font-size: .85rem; font-weight: 600; padding: 6px 12px; border-radius: 4px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+.btn:hover { background: var(--accent-soft); }
+.btn.on { background: var(--accent); color: var(--card); }
+.btn:focus-visible, summary:focus-visible, input:focus-visible, nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 8px 16px; margin: 0; }
+.readout div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--rule); padding-bottom: 3px; }
+.readout dt { font-size: .82rem; color: var(--muted); }
+.readout dd { margin: 0; font-family: var(--f-mono); font-size: .88rem; font-variant-numeric: tabular-nums; }
+.readout .err dd { color: var(--accent); font-weight: 500; }
+.state { font-family: var(--f-label); font-weight: 600; color: var(--accent); }
+.legend { font-family: var(--f-label); font-size: .8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.dot { display: inline-block; width: .8em; height: .8em; border-radius: 50%; vertical-align: -1px; margin-right: 4px; }
+.flow { display: flex; flex-direction: column; gap: 6px; }
+.flow div { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.flow div > span:first-child { font-family: var(--f-label); font-weight: 600; font-size: .88rem; }
+.flow div > span:last-child { min-width: 0; }
+.task { background: var(--card); border: 1px solid var(--ink); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+/* Avanzamento: piccolo riquadro fisso in basso a destra, uguale su ogni schermo (scelta dell'utente). */
+.rail { position: fixed; z-index: 5; right: calc(12px + env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: 9rem; display: flex; flex-direction: column; gap: 5px; padding: 6px 10px 8px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--rule); box-shadow: 0 2px 8px rgb(24 32 46 / .10);
+  font-family: var(--f-label); letter-spacing: .03em; font-size: .72rem; color: var(--muted); }
+.rail-pct { display: flex; gap: 6px; align-items: baseline; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rail-pct b { color: var(--accent); font-size: .9rem; font-weight: 600; }
+.vbar { position: relative; height: 4px; border-radius: 2px; background: var(--rule); overflow: hidden; }
+.vbar .fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 2px; background: var(--accent); transition: width .4s ease; }
+.vbar .read, .rail-list { display: none; }
+@media (prefers-reduced-motion: reduce) { .vbar .fill { transition: none; } }
+.done { align-self: flex-start; font-family: var(--f-label); font-size: .9rem; font-weight: 600; letter-spacing: .03em; padding: 9px 16px; border-radius: 6px; border: 1.5px solid var(--accent); background: var(--card); color: var(--accent); cursor: pointer; }
+.done:hover { background: var(--accent-soft); }
+.done.is-done { background: var(--accent); color: var(--card); }
+.done:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 16px; }
+@media (max-width: 30rem) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.7rem; }
+  .flow div, .links li { grid-template-columns: 1fr; gap: 2px; }
+}
+/* ===== Modalità libro: pagine fisse da sfogliare (Mac e iPad). Due pagine affiancate su schermo largo, una su schermo stretto. ===== */
+html { height: 100%; font-size: var(--fs, 16px); }
+body { height: 100%; overflow: hidden; padding: 0; font-size: calc(var(--fs, 16px) * 1.06); }
+.sheet { position: fixed; z-index: 1; top: calc(env(safe-area-inset-top, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 66px);
+  left: 50%; transform: translateX(-50%); width: min(1320px, calc(100vw - 28px)); box-sizing: border-box; padding: 28px 36px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 6px 24px rgb(24 32 46 / .08); }
+.sheet main { display: block; max-width: none; margin: 0; height: 100%; overflow: hidden; column-fill: auto; column-rule: 1px solid var(--rule); touch-action: pinch-zoom; }
+.sheet header { display: block !important; }
+.sheet .part, .sheet section, .sheet .part-head { display: block; }
+.sheet main > * { margin: 0; }
+.sheet main > * + * { margin-top: 30px; }
+.sheet .part > * + * { margin-top: 26px; }
+.sheet section > * + *, .sheet header > * + *, .sheet .part-head > * + * { margin-top: 12px; }
+.sheet .part { break-before: column; border-top: 0; padding-top: 0; }
+.sheet .part-head { border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.sheet h2, .sheet h3, .sheet .tag, .sheet .part-head, .sheet .step-n { break-after: avoid; }
+.sheet .formal, .sheet figure, .sheet .lab, .sheet details, .sheet .task, .sheet .warnbox, .sheet .tbl, .sheet mjx-container[display="true"],
+.sheet .fcard, .sheet .chain li, .sheet .cover li, .sheet .links li, .sheet .flow > div, .sheet .done, .sheet nav li { break-inside: avoid; }
+.sheet .lab canvas { margin: 0 auto; }
+.sheet .tag { display: table; }
+.toolbar { position: fixed; z-index: 6; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  font-family: var(--f-label); letter-spacing: .03em; background: var(--paper); }
+.tb-btn { height: 40px; min-width: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--card); color: var(--ink);
+  font-family: var(--f-label); font-size: 14px; font-weight: 600; cursor: pointer; }
+.tb-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.tb-btn:disabled { opacity: .35; cursor: default; }
+.tb-btn.arrow { font-size: 20px; color: var(--accent); min-width: 52px; }
+.tb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pgNum { min-width: 10em; text-align: center; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tb-sep { width: 1px; height: 26px; background: var(--rule); margin: 0 4px; }
+.toolbar .rail { position: static; width: auto; padding: 0; border: 0; background: none; box-shadow: none; flex-direction: row; align-items: center; gap: 8px; }
+.toolbar .rail-pct { font-size: 12px; }
+.toolbar .rail-pct b { font-size: 14px; }
+.toolbar .vbar { width: 56px; }
+</style>
+
+<div class="sheet">
+<main>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">MT07 · Lezioni 17 (dal min. 36) – 21 · Dispensa</span>
+    <h1>Correnti stazionarie e circuiti RC</h1>
+    <p class="sub">Le cariche si mettono in moto: chi le spinge, che cosa le frena, dove va l'energia e quanto tempo serve a un condensatore per caricarsi o scaricarsi. Scritta sulle registrazioni delle lezioni. Tempo di studio: circa 3 ore in 3 sessioni, più la mappa.</p>
+  </header>
+
+  <aside class="rail" id="prog" aria-label="Avanzamento della dispensa">
+    <div class="rail-pct"><b id="pgPct">0%</b><span id="pgMin"></span></div>
+    <div class="rail-body">
+      <div class="vbar" aria-hidden="true"><div class="read" id="pgRead"></div><div class="fill" id="pgFill"></div></div>
+      <ol class="rail-list" id="pgList"></ol>
+    </div>
+  </aside>
+
+  <nav aria-label="Indice">
+    <ol>
+      <li><a href="#ripasso"><span>·</span><span>Ripasso lampo</span><span>1 min</span></a></li>
+      <li><a href="#quadro"><span>·</span><span>Il quadro e la lista di copertura</span><span>6 min</span></a></li>
+      <li><a href="#s1"><span>1</span><span>Perché serve un generatore</span><span>leggero</span></a></li>
+      <li><a href="#s2"><span>2</span><span>Corrente e densità di corrente J</span><span>pieno</span></a></li>
+      <li><a href="#s3"><span>3</span><span>Conservazione della carica e regime stazionario</span><span>pieno</span></a></li>
+      <li><a href="#s4"><span>4</span><span>Le leggi di Ohm e la resistività</span><span>pieno</span></a></li>
+      <li><a href="#s5"><span>5</span><span>Effetto Joule</span><span>leggero</span></a></li>
+      <li><a href="#s6"><span>6</span><span>Serie, parallelo e legge dei nodi</span><span>pieno</span></a></li>
+      <li><a href="#s7"><span>7</span><span>F.e.m., generatore reale, legge delle maglie</span><span>pieno</span></a></li>
+      <li><a href="#s8"><span>8</span><span>Scarica del condensatore</span><span>pieno</span></a></li>
+      <li><a href="#s9"><span>9</span><span>Carica del condensatore ed energia</span><span>pieno</span></a></li>
+      <li><a href="#s10"><span>10</span><span>Due condensatori collegati da una resistenza</span><span>pieno</span></a></li>
+      <li><a href="#s11"><span>11</span><span>Esercizio guidato: C, 2C, C</span><span>guida</span></a></li>
+      <li><a href="#chiusura"><span>·</span><span>Mappa, Dossier e libro</span><span>chiusura</span></a></li>
+      <li><a href="#formulario"><span>·</span><span>Formulario da memorizzare</span><span>sempre</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- RIPASSO LAMPO -->
+  <section id="ripasso" data-part="Ripasso lampo">
+    <span class="tag">Ripasso lampo · MT05 e MT03 · 1 minuto</span>
+    <details>
+      <summary>Due condensatori: quando sono in serie e quando in parallelo?</summary>
+      <div><p>In <b>serie</b> se hanno la <b>stessa carica</b> (stessa corrente li ha caricati); in <b>parallelo</b> se hanno la <b>stessa tensione</b> ai capi. Lo userai nel §10: durante il trasferimento di carica due condensatori sono “in serie”, alla fine “in parallelo”.</p></div>
+    </details>
+    <details>
+      <summary>Quanto lavoro serve per portare una carica Δq attraverso una differenza di potenziale V?</summary>
+      <div><p>\(L = \Delta q\cdot V\) (definizione di potenziale, MT03). Da qui nasceranno la potenza \(P = VI\) (§5) e il lavoro del generatore \(L_{gen} = \mathcal E_0\,q\) (§9).</p></div>
+    </details>
+  </section>
+
+  <!-- QUADRO -->
+  <section id="quadro" data-part="Il quadro">
+    <span class="tag">Il quadro</span>
+    <h2>Che cosa tiene in moto le cariche, e dove va l'energia?</h2>
+    <p>Finora le cariche erano ferme (elettrostatica). Ora le colleghiamo con un filo: si muovono. Tutta la mappa risponde a tre domande: <b>come si misura il moto delle cariche</b>, <b>che cosa lo mantiene e che cosa lo frena</b>, <b>come evolve nel tempo quando c'è un condensatore</b>.</p>
+    <ul>
+      <li><b>Sessione 1 · Le leggi</b> (1-5): generatore e f.e.m., corrente e vettore J, conservazione della carica, legge di Ohm, effetto Joule.</li>
+      <li><b>Sessione 2 · I circuiti</b> (6-7): serie e parallelo, legge dei nodi, generatore reale, legge delle maglie, misura della f.e.m.</li>
+      <li><b>Sessione 3 · Il tempo</b> (8-11): scarica e carica del condensatore, bilanci di energia, due condensatori collegati, esercizio d'esame.</li>
+    </ul>
+    <p>Il filo che lega tutto: <b>le leggi di Kirchhoff sono due leggi di conservazione</b> — della carica (nodi) e dell'energia (maglie). Il professore: «la fisica non sono equazioni matematiche: le equazioni rappresentano quantitativamente dei concetti».</p>
+    <p class="sub">Metafora guida (del professore, lez. 18-19): la <b>pista da sci</b>. Le cariche sono sciatori, il circuito è la pista, la resistenza è l'attrito con la neve, il generatore è lo skilift che li riporta in cima.</p>
+
+    <h3>Lista di copertura</h3>
+    <p class="sub">Fonti: <b>registrazioni Teams</b> delle lezioni 17, 18, 19, 20 e 21 (trascrizione + lavagna OneNote); le tue mappe delle lezioni 18 e 20; programma ufficiale (“Corrente elettrica. Densità di corrente. Equazione di continuità. Legge di Ohm. Resistività. Effetto Joule. Forza elettromotrice. Leggi di Kirchhoff. Circuiti RC”); Mencuccini cap. 4.</p>
+    <ul class="cover">
+      <li class="grp">1 · Perché serve un generatore</li>
+      <li><span>Due conduttori a potenziale diverso collegati: scorre carica finché i potenziali si uguagliano (tempo brevissimo); pila di Volta</span><span class="chip lez">lez. 17</span></li>
+      <li class="grp">2 · Corrente e J</li>
+      <li><span>\(I = dq/dt\), ampere; \(\vec J = nq\vec v\); \(dI = \vec J\cdot\hat n\,dA\), \(I = \)flusso di J; più tipi di portatori; velocità di deriva (media d'insieme)</span><span class="chip lez">lez. 17</span></li>
+      <li class="grp">3 · Conservazione della carica</li>
+      <li><span>\(\oint\vec J\cdot\hat n\,dA = -dQ_{int}/dt\); \(\nabla\cdot\vec J = -\partial\rho/\partial t\) (equazione di continuità)</span><span class="chip lez">lez. 17-18</span></li>
+      <li><span>Corrente stazionaria: \(\nabla\cdot\vec J = 0\), linee di J chiuse, \(\rho\) costante nel tempo; correnti quasi-stazionarie</span><span class="chip lez">lez. 18</span></li>
+      <li class="grp">4 · Ohm e resistività</li>
+      <li><span>\(V = RI\); \(R = \rho_R\,l/A\); classi di materiali e \(\rho_R(T)\); urti e forza resistente; Ohm locale \(\vec E = \rho_R\vec J\), \(\vec J = \sigma\vec E\)</span><span class="chip lez">lez. 18</span></li>
+      <li><span>Ordine di grandezza della velocità di deriva nel rame</span><span class="chip">approfondimento</span></li>
+      <li class="grp">5 · Effetto Joule</li>
+      <li><span>\(dL = V\,dq\), \(P = VI = I^2R\); equilibrio dinamico</span><span class="chip lez">lez. 18</span></li>
+      <li class="grp">6 · Serie, parallelo, nodi</li>
+      <li><span>\(R_{eq}\) in serie e in parallelo (quale domina); 1ª legge di Kirchhoff</span><span class="chip lez">lez. 18</span></li>
+      <li class="grp">7 · F.e.m. e maglie</li>
+      <li><span>\(\mathcal E = \oint\vec E_m\cdot d\vec l\) (campo elettromotore, sciatori e skilift); resistenza interna; \(\mathcal E_0 = I(R_i+R)\); 2ª legge di Kirchhoff; \(V_{AB} &lt; \mathcal E_0\)</span><span class="chip lez">lez. 18-19</span></li>
+      <li><span>Rete con due generatori risolta con Kirchhoff; metodo potenziometrico</span><span class="chip lez">lez. 19-20</span></li>
+      <li class="grp">8-10 · Circuiti RC</li>
+      <li><span>Scarica: \(q(t)\), \(I(t)\), \(V_C\), \(V_R\), \(\tau = RC\); energia dissipata \(= \tfrac12q_0^2/C\) indipendente da R; circuito complesso → \(R_{eq}C_{eq}\)</span><span class="chip lez">lez. 19</span></li>
+      <li><span>Carica: \(q(t) = \mathcal E_0C(1-e^{-t/\tau})\); bilancio \(E_{gen} = E_C + E_R\), \(E_C = E_R\)</span><span class="chip lez">lez. 20</span></li>
+      <li><span>C₁ carico → C₂ scarico tramite R: \(\tau = RC_{serie}\), “serie durante, parallelo alla fine”, energia dissipata</span><span class="chip lez">lez. 19-20</span></li>
+      <li class="grp">11 · Esercizi</li>
+      <li><span>C, 2C, C in serie isolati, R chiusa su 2C: tensioni iniziali e finali, ΔE</span><span class="chip lez">lez. 20-21</span></li>
+      <li><span>Nuovo esercizio della lez. 21 (C = 0,5 μF, f = 50 V): soluzione detta a voce, non registrata → qui una soluzione mia da confrontare</span><span class="chip">approfondimento</span></li>
+    </ul>
+    <p class="sub">Spostato altrove: la prima mezz'ora della lez. 17 (soluzione del compito sui dielettrici, sfera davanti al singolo strato) è di MT06 e di ripasso MT01-MT03; le esperienze di laboratorio della lez. 21 non sono registrate.</p>
+
+    <h3>Prerequisiti</h3>
+    <ul>
+      <li><b>Potenziale e lavoro</b> (MT03, lez. 7-9): \(V_A - V_B = \int_A^B\vec E\cdot d\vec l\); il campo elettrostatico è conservativo, \(\oint\vec E\cdot d\vec l = 0\).</li>
+      <li><b>Flusso e teorema della divergenza</b> (MT02, lez. 4-6): \(\oint_S\vec v\cdot\hat n\,dA = \int_\tau\nabla\cdot\vec v\,d\tau\).</li>
+      <li><b>Conduttori</b> (MT05, lez. 11-13): all'equilibrio E = 0 dentro e il conduttore è equipotenziale.</li>
+      <li><b>Condensatori</b> (MT05, lez. 13-14): \(q = CV\), \(U = q^2/2C = \tfrac12CV^2\), serie e parallelo, processi a q o V costante.</li>
+    </ul>
+    <details>
+      <summary>Richiamo di Analisi · logaritmo, esponenziale e l'integrale di 1/u (serve ai §8-10)</summary>
+      <div>
+        <p><b>Immagine:</b> una quantità che cala sempre della stessa <i>frazione</i> in tempi uguali (metà, poi metà della metà…) segue un esponenziale \(e^{-t/\tau}\). τ è il tempo in cui scende a \(1/e \approx 37\%\).</p>
+        \[\begin{aligned}
+        \int\frac{du}{u} &= \ln\lvert u\rvert + \text{cost.} && \text{(integrale notevole)}\\
+        \int_{u_0}^{u}\frac{du'}{u'} &= \ln u-\ln u_0 = \ln\frac{u}{u_0} && \text{(differenza di logaritmi)}\\
+        \ln\frac{u}{u_0} = a \;&\Longleftrightarrow\; \frac{u}{u_0} = e^{a} && \text{(exp, inversa di ln)}\\
+        \frac{d}{dt}\,e^{-t/\tau} &= -\frac1\tau\,e^{-t/\tau} && \text{(regola della catena)}\\
+        \int_0^\infty e^{-kt}\,dt &= \left[-\tfrac{1}{k}e^{-kt}\right]_0^\infty && \text{(primitiva)}\\ &= 0-\left(-\tfrac1k\right) = \frac1k && \text{(estremi)}
+        \end{aligned}\]
+        <p><b>Esempi numerici:</b> \(e^{-1} = 0{,}368\), \(e^{-2} = 0{,}135\), \(e^{-3} = 0{,}050\), \(e^{-5} = 0{,}007\): dopo 5τ resta meno dell'1%. Con \(k = 2/\tau\): \(\int_0^\infty e^{-2t/\tau}dt = \tau/2\) (servirà per l'energia).</p>
+        <p><b>Variabile muta</b> (il professore ci tiene): se l'estremo di integrazione è t, la variabile dentro si chiama t′. E gli estremi devono essere valori <b>della stessa grandezza</b> della variabile: se integri in dq, gli estremi sono cariche, non tempi.</p>
+      </div>
+    </details>
+    <button class="done" data-sec="intro" data-min="6" type="button">Segna “Ripasso e quadro” come fatto</button>
+  </section>
+
+  <!-- ==================== 1 ==================== -->
+  <div class="part" id="s1" data-part="1 · Perché serve un generatore">
+    <div class="part-head">
+      <span class="part-n">1 / 11 · sessione 1</span>
+      <h2>Perché serve un generatore</h2>
+      <span class="level">Livello leggero · 6 minuti · lez. 17</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Collego con un filo due conduttori carichi a potenziali diversi: quanto dura la corrente? E come la faccio durare?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Fra due conduttori a potenziali \(V_1 \ne V_2\) esiste un campo elettrico, \(V_1-V_2 = \int_1^2\vec E\cdot d\vec l\). Collegandoli con un filo conduttore, il campo nel filo mette in moto le cariche libere: c'è <b>conduzione elettrica</b> finché \(V_1 = V_2\), cioè finché il campo nel filo si annulla. Per mantenere costante la differenza di potenziale serve un dispositivo che riporti le cariche indietro: un <b>generatore</b>, caratterizzato dalla sua <b>forza elettromotrice</b> (che in realtà è una tensione).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Due vasche d'acqua a livelli diversi collegate da un tubo: l'acqua scorre finché i livelli sono uguali, in un attimo. Per avere un ruscello che scorre sempre serve una pompa che riporti l'acqua in alto. Nel 1799 Volta costruì la “pompa” per le cariche: una barra di zinco e una di rame in acqua e sale.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Filo collegato</b> → campo nel filo → le cariche negative passano dal conduttore negativo a quello positivo.</div></li>
+        <li><div><b>La ddp diminuisce</b> → il campo nel filo cala → quando \(V_1 = V_2\) la corrente si ferma. Dura pochissimo: non si riesce nemmeno a studiarla.</div></li>
+        <li><div><b>Pila di Volta</b> → la reazione chimica fra zinco, rame ed elettrolita accumula carica negativa sullo zinco e lascia un difetto di elettroni sul rame, e <b>riporta indietro</b> gli elettroni arrivati attraverso il filo.</div></li>
+        <li><div><b>Risultato</b> → la ddp fra i poli resta costante → corrente che dura nel tempo (finché la pila non si scarica).</div></li>
+      </ol>
+      <p><b>In una frase:</b> il campo elettrostatico da solo scarica tutto in un istante; il generatore tiene viva la differenza di potenziale.</p>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Perché il professore dice che la “forza” elettromotrice non è una forza?</summary><div><p>Perché si misura in volt: è un lavoro per unità di carica (§7), non una forza in newton. Il nome è storico.</p></div></details>
+    </section>
+    <button class="done" data-sec="s1" data-min="6" type="button">Segna “1 · Perché serve un generatore” come fatto</button>
+  </div>
+
+  <!-- ==================== 2 ==================== -->
+  <div class="part" id="s2" data-part="2 · Corrente e J">
+    <div class="part-head">
+      <span class="part-n">2 / 11 · sessione 1</span>
+      <h2>Corrente e densità di corrente</h2>
+      <span class="level">Livello pieno · 20 minuti · lez. 17</span>
+    </div>
+    <section><p><b>La domanda guida.</b> La corrente dice quanta carica passa. Come descrivo anche <i>dove</i> e <i>in che direzione</i> si muove?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>L'<b>intensità di corrente</b> attraverso una superficie S è la carica che la attraversa nell'unità di tempo: \(\ I = \dfrac{dq}{dt}\), in ampere (1 A = 1 C/s). È uno scalare.</p>
+        <p>Il <b>vettore densità di corrente</b> è \(\ \vec J = nq\,\vec v_d\ \) (n portatori per unità di volume, ciascuno di carica q, velocità di deriva \(\vec v_d\)). Il suo modulo è la corrente che attraversa una superficie <b>unitaria disposta perpendicolarmente</b> a \(\vec v_d\). La corrente attraverso S è il <b>flusso</b> di \(\vec J\):</p>
+        \[ dI = \vec J\cdot\hat n\,dA, \qquad I = \int_S \vec J\cdot\hat n\,dA \]
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Una folla che esce da uno stadio attraverso un cancello. La corrente è il numero di persone che passano il cancello al secondo. J è la “densità di folla in moto” in ogni punto: quante persone, quanto veloci, in che direzione. Se il cancello è storto rispetto al flusso, passano meno persone: conta solo la componente della velocità perpendicolare al cancello.</p></section>
+    <figure style="margin:0">
+      <svg viewBox="0 0 440 200" role="img" aria-label="Cilindretto obliquo: le cariche che attraversano la superficie dA nel tempo dt sono quelle contenute nel volume dA per v n per dt" style="width:100%;max-width:440px;display:block;margin:0 auto">
+        <defs><marker id="mkV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" style="stroke:var(--accent)" stroke-width="1.6"/></marker>
+        <marker id="mkN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" style="stroke:var(--warn)" stroke-width="1.6"/></marker></defs>
+        <polygon points="120,40 230,40 300,160 190,160" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <line x1="230" y1="40" x2="230" y2="160" style="stroke:var(--ink);stroke-width:3"/>
+        <text x="236" y="34" style="fill:var(--ink);font:600 12px var(--f-label)">superficie dA</text>
+        <line x1="230" y1="100" x2="290" y2="100" style="stroke:var(--warn);stroke-width:2" marker-end="url(#mkN)"/>
+        <text x="294" y="104" style="fill:var(--warn);font:600 13px var(--f-label)">n̂</text>
+        <line x1="150" y1="120" x2="210" y2="145" style="stroke:var(--accent);stroke-width:2" marker-end="url(#mkV)"/>
+        <text x="140" y="150" style="fill:var(--accent);font:600 13px var(--f-label)">v</text>
+        <g style="fill:var(--neg)"><circle cx="150" cy="60" r="4"/><circle cx="175" cy="90" r="4"/><circle cx="205" cy="70" r="4"/><circle cx="215" cy="125" r="4"/><circle cx="250" cy="140" r="4"/><circle cx="190" cy="110" r="4"/></g>
+        <line x1="120" y1="176" x2="230" y2="176" style="stroke:var(--muted)"/>
+        <text x="130" y="192" style="fill:var(--muted);font:12px var(--f-label)">spessore v·n̂·dt = vₙdt</text>
+        <text x="320" y="70" style="fill:var(--muted);font:12px var(--f-label)">in dt passano solo</text>
+        <text x="320" y="86" style="fill:var(--muted);font:12px var(--f-label)">le cariche dentro</text>
+        <text x="320" y="102" style="fill:var(--muted);font:12px var(--f-label)">il cilindretto obliquo:</text>
+        <text x="320" y="118" style="fill:var(--muted);font:12px var(--f-label)">volume dA·vₙ·dt</text>
+      </svg>
+    </figure>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Quanta carica passa in dt <span class="chip lez">a lezione</span></span>
+        <p>Conta solo la componente della velocità lungo la normale, \(v_n = \vec v\cdot\hat n\). In un tempo dt arrivano a dA solo le cariche che distano al massimo \(v_n\,dt\):</p>
+        \[\begin{aligned}
+        d\tau &= dA\cdot v_n\,dt && \text{(base × altezza)}\\
+        dq &= (nq)\,d\tau && \text{(densità × volume)}\\
+        dq &= nq\,v_n\,dA\,dt && \text{(sostituisco } d\tau)\\
+        dI = \frac{dq}{dt} &= nq\,v_n\,dA && \text{(divido per dt)}\\
+        &= nq\,\vec v\cdot\hat n\,dA && (v_n = \vec v\cdot\hat n)\\ &= \vec J\cdot\hat n\,dA && (\vec J \equiv nq\vec v)
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Il significato di |J| <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        dI &= nq\,v\cos\theta\,dA && \text{(prodotto scalare)}\\
+        &= J\,dA_\perp && (dA_\perp = dA\cos\theta)\\
+        J &= \frac{dI}{dA_\perp} && \text{(per unità di area ⊥)}
+        \end{aligned}\]
+        <p class="why"><b>Perché:</b> è la “definizione operativa” del professore: \(\lvert\vec J\rvert\) è la corrente che attraversa una superficie unitaria disposta ortogonalmente alla velocità. La corrente totale è poi il flusso: \(I = \int_S\vec J\cdot\hat n\,dA\) (scalare, perché il flusso di un vettore è uno scalare).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Più tipi di portatori <span class="chip lez">a lezione</span></span>
+        <p>Nei metalli si muovono solo gli elettroni (q &lt; 0): \(\vec J\) ha verso <b>opposto</b> alla loro velocità. In una soluzione elettrolitica si muovono ioni positivi e negativi in versi opposti:</p>
+        \[ \vec J = n_+q_+\vec v_+ + n_-q_-\vec v_- \]
+        <p class="why">I due contributi hanno lo <b>stesso verso</b>: \(q_-\) negativa e \(\vec v_-\) opposta a \(\vec v_+\) → il prodotto \(q_-\vec v_-\) punta come \(q_+\vec v_+\). Si sommano, non si annullano.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Velocità di deriva <span class="chip lez">a lezione</span></span>
+        <p>Senza campo gli elettroni si muovono velocissimi ma a caso (agitazione termica): la <b>media vettoriale d'insieme</b> delle velocità è zero, e attraverso qualsiasi sezione passano tanti elettroni in un verso quanti nell'altro → I = 0. Con un campo E c'è una forza netta: la media diventa \(\vec v_d \ne 0\) (velocità di deriva) ed è lei che fa la corrente.</p>
+        <p class="why"><b>Ordine di grandezza</b> <span class="chip">approfondimento</span>: rame, \(n = 8{,}5\cdot10^{28}\) m⁻³, filo di 1 mm², I = 1 A: \(v_d = I/(nqA) = 1/(8{,}5\cdot10^{28}\cdot1{,}6\cdot10^{-19}\cdot10^{-6}) \approx 7\cdot10^{-5}\) m/s, meno di un decimo di millimetro al secondo! La lampadina si accende subito perché si propaga in fretta il <b>campo</b>, non gli elettroni (§3).</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT02</span><div>\(I = \int\vec J\cdot\hat n\,dA\) è un flusso, esattamente come il flusso di \(\vec E\): stessa matematica, altro significato.</div></li>
+        <li><span>→ §3</span><div>Il flusso di J attraverso una superficie <b>chiusa</b> dà la legge di conservazione della carica.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>I è uno scalare (con segno), J è un vettore: non scrivere “I vettore”.</li>
+        <li>Nei metalli il verso della corrente è opposto al moto degli elettroni.</li>
+        <li>\(\vec v\) in \(\vec J = nq\vec v\) è la velocità di <b>deriva</b> (media), non quella di agitazione termica.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Se inclino la superficie S fino a renderla parallela a \(\vec v\), quanta corrente la attraversa?</summary><div><p>Zero: \(\hat n\perp\vec v\), quindi \(\vec J\cdot\hat n = 0\). Le cariche le scivolano accanto senza attraversarla.</p></div></details>
+      <details><summary>Un filo di sezione variabile: J è uguale in tutti i punti?</summary><div><p>No. La corrente I è la stessa in ogni sezione (§3), ma dove la sezione è più stretta J = I/A è più grande: le cariche vanno più veloci, come l'acqua in una strettoia.</p></div></details>
+    </section>
+    <button class="done" data-sec="s2" data-min="20" type="button">Segna “2 · Corrente e J” come fatto</button>
+  </div>
+
+  <!-- ==================== 3 ==================== -->
+  <div class="part" id="s3" data-part="3 · Conservazione della carica">
+    <div class="part-head">
+      <span class="part-n">3 / 11 · sessione 1</span>
+      <h2>Conservazione della carica e regime stazionario</h2>
+      <span class="level">Livello pieno · 20 minuti · lez. 17-18</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Se della carica esce da un volume, che cosa succede dentro? E che cosa vuol dire, esattamente, “corrente stazionaria”?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p><b>Equazione di continuità</b> (conservazione della carica): il flusso di \(\vec J\) uscente da una superficie chiusa S è uguale alla diminuzione per unità di tempo della carica racchiusa:</p>
+        \[ \oint_S\vec J\cdot\hat n\,dA = -\frac{dQ_{int}}{dt} \qquad\Longleftrightarrow\qquad \nabla\cdot\vec J = -\frac{\partial\rho}{\partial t} \]
+        <p>Vale in qualsiasi regime. Una corrente è <b>stazionaria</b> quando in ogni istante attraversa con lo stesso valore qualsiasi sezione del circuito; allora \(\partial\rho/\partial t = 0\) e \(\nabla\cdot\vec J = 0\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Un salone con tante porte. Se ogni minuto escono più persone di quante entrano, la folla dentro diminuisce: il bilancio “escono − entrano = quanto cala dentro” è l'equazione di continuità. Corrente stazionaria: il salone resta sempre ugualmente pieno, anche se la gente si muove di continuo — quanti entrano, tanti escono.</p></section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Dalla forma integrale a quella locale <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \oint_S\vec J\cdot\hat n\,dA &= -\frac{d}{dt}\int_\tau\rho\,d\tau && (Q_{int} = \int_\tau\rho\,d\tau)\\
+        \int_\tau\nabla\cdot\vec J\,d\tau &= -\frac{d}{dt}\int_\tau\rho\,d\tau && \text{(teor. divergenza)}\\
+        \int_\tau\nabla\cdot\vec J\,d\tau &= \int_\tau\left(-\frac{\partial\rho}{\partial t}\right)d\tau && \text{(derivata dentro)}\\
+        \nabla\cdot\vec J &= -\frac{\partial\rho}{\partial t} && \text{(per ogni volume)}
+        \end{aligned}\]
+        <p class="why"><b>Perché l'ultimo passo:</b> se due integrali sono uguali per <i>ogni</i> volume, anche piccolissimo, devono essere uguali le funzioni integrande punto per punto. Il professore: «questa è la legge che dovete ricordare».</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Regime stazionario <span class="chip lez">lez. 18</span></span>
+        <p>Prendo come superficie chiusa un pezzo di filo: le due sezioni \(S_1\), \(S_2\) più la superficie laterale (da cui non esce niente).</p>
+        \[\begin{aligned}
+        \oint\vec J\cdot\hat n\,dA &= -I_1 + I_2 && \text{(entra da } S_1\text{, esce da } S_2)\\
+        -I_1+I_2 &= 0 && \text{(stazionario)}\\
+        \nabla\cdot\vec J &= 0 && \text{(teor. divergenza, ogni volume)}\\
+        \frac{\partial\rho}{\partial t} &= 0 && \text{(continuità)}
+        \end{aligned}\]
+      </div>
+    </section>
+    <section>
+      <span class="tag">Come funziona · le due conseguenze</span>
+      <ol class="chain">
+        <li><div><b>\(\nabla\cdot\vec J = 0\)</b> → il flusso di J da qualsiasi superficie chiusa è zero → tante linee entrano quante escono → nessun punto è sorgente → le <b>linee di J sono chiuse</b> (un circuito è proprio un anello chiuso).</div></li>
+        <li><div><b>\(\partial\rho/\partial t = 0\)</b> → le cariche si muovono, ma la loro <b>distribuzione</b> non cambia (in ogni punto ne arrivano tante quante ne partono) → il campo prodotto è costante → ha le stesse proprietà del campo elettrostatico: conservativo, \(\oint\vec E\cdot d\vec l = 0\).</div></li>
+        <li><div><b>Correnti lentamente variabili</b> → anche una corrente che cambia nel tempo è “quasi-stazionaria” se cambia lentamente rispetto al tempo con cui la variazione si propaga lungo il circuito (alla velocità della luce, 3·10⁸ m/s): in ogni istante è la stessa in tutte le sezioni. È il caso dei circuiti RC (§8-10).</div></li>
+      </ol>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT02</span><div>Teorema della divergenza: stesso passaggio che da \(\oint\vec E\cdot\hat n\,dA = q/\varepsilon_0\) porta a \(\nabla\cdot\vec E = \rho/\varepsilon_0\).</div></li>
+        <li><span>→ §6</span><div>Applicata a un nodo, \(\nabla\cdot\vec J = 0\) diventa la legge dei nodi.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>“Stazionaria” non vuol dire solo “costante nel tempo”: vuol dire <b>uguale in tutte le sezioni</b> (con nessun accumulo di carica).</li>
+        <li>Il segno meno: se la carica dentro <b>diminuisce</b> (dQ/dt &lt; 0) il flusso uscente è <b>positivo</b>.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Mentre un condensatore si carica, la corrente nel filo che va all'armatura è stazionaria?</summary><div><p>Se prendi una superficie chiusa attorno a una sola armatura, no: lì dentro la carica cresce, quindi il flusso di J non è zero. Ma la corrente è la stessa in tutti i fili del circuito in ogni istante (quasi-stazionaria): per questo le leggi di Kirchhoff si usano istante per istante nei §8-10.</p></div></details>
+    </section>
+    <button class="done" data-sec="s3" data-min="20" type="button">Segna “3 · Conservazione della carica” come fatto</button>
+  </div>
+
+  <!-- ==================== 4 ==================== -->
+  <div class="part" id="s4" data-part="4 · Ohm e resistività">
+    <div class="part-head">
+      <span class="part-n">4 / 11 · sessione 1</span>
+      <h2>Le leggi di Ohm e la resistività</h2>
+      <span class="level">Livello pieno · 25 minuti · lez. 18</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Che relazione c'è fra la causa (la tensione) e l'effetto (la corrente)? E da che cosa dipende quanto un filo “si oppone”?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p><b>Prima legge di Ohm:</b> per un conduttore ohmico la corrente è proporzionale alla tensione applicata, \(\ V = RI\). R è la <b>resistenza</b>, in ohm: 1 Ω è la resistenza in cui 1 V fa passare 1 A.</p>
+        <p><b>Seconda legge di Ohm:</b> per un filo di lunghezza l e sezione A, \(\ R = \rho_R\,\dfrac{l}{A}\). \(\rho_R\) è la <b>resistività</b> (Ω·m), dipende solo dal materiale e dalla temperatura.</p>
+        <p><b>Legge di Ohm locale:</b> in ogni punto del conduttore \(\ \vec E = \rho_R\vec J\ \), ovvero \(\ \vec J = \sigma\vec E\), con \(\sigma = 1/\rho_R\) <b>conducibilità</b> (S/m, siemens al metro; 1 S = 1/Ω).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Un corridoio pieno di gente (il conduttore) e una spinta continua da dietro (il campo). Più il corridoio è <b>lungo</b>, più si fa fatica ad attraversarlo; più è <b>largo</b>, più persone passano insieme. E il “tipo di pavimento” — liscio o pieno di ostacoli — è la resistività.</p></section>
+    <section>
+      <span class="tag">Come funziona · la resistenza vista da vicino</span>
+      <ol class="chain">
+        <li><div><b>Il campo spinge</b> gli elettroni → se il conduttore fosse un pavimento liscio accelererebbero sempre di più.</div></li>
+        <li><div><b>Gli elettroni urtano</b> gli ioni del reticolo (e le impurità) → a ogni urto perdono energia cinetica, che diventa agitazione termica (calore).</div></li>
+        <li><div><b>Effetto medio degli urti</b> = una <b>forza resistente</b>, come un attrito viscoso, che cresce con la velocità → si arriva a un <b>equilibrio dinamico</b>: forza del campo = forza resistente → velocità di deriva costante.</div></li>
+        <li><div><b>Velocità costante</b> → \(v_d\) proporzionale a E → \(J = nqv_d\) proporzionale a E → legge di Ohm.</div></li>
+      </ol>
+      <p><b>In una frase:</b> la resistenza è l'attrito che gli elettroni incontrano nel reticolo; per questo si chiama “resistenza”.</p>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Ohm locale da un cilindretto <span class="chip lez">a lezione</span></span>
+        <p>Pezzetto di conduttore di lunghezza dl e sezione dA, con \(\vec E\) e \(\vec J\) lungo l'asse. Applico le due leggi di Ohm al pezzetto:</p>
+        \[\begin{aligned}
+        dV &= E\,dl && \text{(campo × lunghezza)}\\
+        dI &= J\,dA && \text{(flusso di J)}\\
+        dR &= \rho_R\,\frac{dl}{dA} && \text{(seconda legge di Ohm)}\\
+        dV &= dR\cdot dI && \text{(prima legge di Ohm)}\\
+        E\,dl &= \rho_R\,\frac{dl}{dA}\cdot J\,dA && \text{(sostituisco)}\\
+        E &= \rho_R\,J && \text{(semplifico dl e dA)}
+        \end{aligned}\]
+        <p class="why">Vettorialmente \(\vec E = \rho_R\vec J = \rho_R\,nq\,\vec v_d\). Il professore fa notare: è come se su ogni carica, oltre alla forza del campo, agisse una forza resistente proporzionale alla velocità.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Esempio numerico <span class="chip">numeri miei</span></span>
+        \[\begin{aligned}
+        R &= \rho_R\frac{l}{A} = 1{,}7\cdot10^{-8}\cdot\frac{10}{10^{-6}} = 0{,}17\ \Omega && \text{(rame, 10 m, 1 mm²)}\\
+        V &= RI = 0{,}17\cdot 2 = 0{,}34\ \text{V} && \text{(con 2 A)}
+        \end{aligned}\]
+      </div>
+    </section>
+    <section>
+      <span class="tag">Resistività dei materiali · lez. 18</span>
+      <div class="tbl"><table>
+        <tr><th>classe</th><th>esempi</th><th>\(\rho_R\) (Ω·m)</th><th>con T che sale</th></tr>
+        <tr><td>conduttori</td><td>metalli</td><td>\(10^{-8}\) – \(10^{-5}\)</td><td>cresce: \(\rho_R = \rho_{rif}(1+\alpha\Delta T)\)</td></tr>
+        <tr><td>semiconduttori</td><td>Si, Ge, GaAs</td><td>\(10^{-1}\) – \(10^{3}\)</td><td>cala (puri): la banda proibita si restringe</td></tr>
+        <tr><td>isolanti</td><td>vetro, ceramica, legno</td><td>\(10^{7}\) – \(10^{17}\)</td><td>—</td></tr>
+      </table></div>
+      <p class="why">«I confini sono labili»: un materiale vicino a \(10^{-5}\) somiglia più a un conduttore, uno vicino a \(10^{3}\) a un isolante.</p>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← Fis. 1</span><div>Equilibrio dinamico: un corpo in un fluido viscoso raggiunge una velocità limite costante, come gli elettroni.</div></li>
+        <li><span>→ §5</span><div>L'energia persa negli urti è l'effetto Joule.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>Resistività in Ω·m (ohm <b>per</b> metro), non Ω/m.</li>
+        <li>R dipende da forma e materiale; \(\rho_R\) solo da materiale e temperatura.</li>
+        <li>Causa ed effetto: la tensione è la causa, la corrente l'effetto (scrivere \(I = V/R\) aiuta a ricordarlo).</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Raddoppio la lunghezza di un filo e ne raddoppio il diametro: la resistenza?</summary><div><p>l raddoppia (×2), l'area va col quadrato del diametro (×4): \(R' = \rho_R\cdot 2l/4A = R/2\). Si dimezza.</p></div></details>
+      <details><summary>Perché un filo di rame scalda poco e una stufetta molto, con la stessa corrente?</summary><div><p>La potenza dissipata è \(I^2R\) (§5): a parità di corrente conta R. La resistenza della stufa è molto più grande di quella del filo.</p></div></details>
+    </section>
+    <button class="done" data-sec="s4" data-min="25" type="button">Segna “4 · Ohm e resistività” come fatto</button>
+  </div>
+
+  <!-- ==================== 5 ==================== -->
+  <div class="part" id="s5" data-part="5 · Effetto Joule">
+    <div class="part-head">
+      <span class="part-n">5 / 11 · sessione 1</span>
+      <h2>Effetto Joule</h2>
+      <span class="level">Livello leggero · 10 minuti · lez. 18</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Il generatore fa lavoro sulle cariche, ma la loro velocità resta costante. Dove va l'energia?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Per far passare la carica dq attraverso una tensione V il campo compie il lavoro \(dL = V\,dq\). La potenza erogata, a regime, viene tutta <b>dissipata in calore</b> nel resistore (<b>effetto Joule</b>):</p>
+        \[ P = \frac{dL}{dt} = VI = I^2R = \frac{V^2}{R} \]
+      </div>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Lavoro e potenza <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        dL &= U_{in}-U_{fin} && (L = -\Delta U)\\ &= dq\,(V_{in}-V_{fin}) && (U = q\,V)\\
+        &= dq\,V && \text{(tensione ai capi)}\\
+        &= I\,dt\,V && (dq = I\,dt)\\
+        P = \frac{dL}{dt} &= VI && \text{(divido per dt)}\\
+        &= (RI)\,I = I^2R && (V = RI)
+        \end{aligned}\]
+        <p class="why"><b>Perché tutta in calore:</b> la velocità di deriva è costante, quindi l'energia cinetica non cambia (teorema dell'energia cinetica: \(\Delta K = L_{tot} = 0\)). Il lavoro del campo è esattamente compensato dal lavoro negativo della forza resistente: «equilibrio dinamico, vi ricordate la differenza tra equilibrio statico e dinamico?».</p>
+        <p class="why"><b>Esempio:</b> stufetta da 230 V con R = 26,5 Ω: \(I = 230/26{,}5 = 8{,}7\) A, \(P = 230\cdot 8{,}7 \approx 2000\) W.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Con un condensatore nel circuito, l'energia del generatore va tutta in calore?</summary><div><p>No: una parte si accumula nel condensatore come energia elettrostatica. Nella carica di un condensatore esattamente metà va in calore e metà nel condensatore (§9).</p></div></details>
+    </section>
+    <button class="done" data-sec="s5" data-min="10" type="button">Segna “5 · Effetto Joule” come fatto</button>
+  </div>
+
+  <!-- ==================== 6 ==================== -->
+  <div class="part" id="s6" data-part="6 · Serie, parallelo, nodi">
+    <div class="part-head">
+      <span class="part-n">6 / 11 · sessione 2</span>
+      <h2>Resistenze in serie e in parallelo, legge dei nodi</h2>
+      <span class="level">Livello pieno · 15 minuti · lez. 18</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Più resistenze collegate insieme: con quale unica resistenza posso sostituirle?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p><b>In serie</b> (stessa corrente, le tensioni si sommano): \(\ R_{eq} = R_1+R_2+\dots\)</p>
+        <p><b>In parallelo</b> (stessa tensione, le correnti si sommano): \(\ \dfrac1{R_{eq}} = \dfrac1{R_1}+\dfrac1{R_2}+\dots\)</p>
+        <p><b>Prima legge di Kirchhoff (legge dei nodi):</b> in regime stazionario la somma delle correnti entranti in un nodo è uguale alla somma di quelle uscenti; con il segno (+ entrante, − uscente) \(\ \sum_k I_k = 0\). È la conservazione della carica: nel nodo non si accumula carica.</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p><b>Serie:</b> due strettoie una dopo l'altra sulla stessa strada: le auto le attraversano tutte e due, e i rallentamenti si sommano. <b>Parallelo:</b> due strade affiancate fra le stesse due città: il traffico si divide, e una nuova strada (anche stretta) aiuta sempre.</p></section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Serie <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        V_{AC} &= V_{AB}+V_{BC} && \text{(si sommano)}\\
+        &= IR_1 + IR_2 && \text{(stessa I)}\\
+        &= I(R_1+R_2) \equiv IR_{eq} && \text{(raccolgo I)}
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Parallelo <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        I &= I_1 + I_2 && \text{(legge dei nodi in A)}\\
+        \frac{V_{AB}}{R_{eq}} &= \frac{V_{AB}}{R_1}+\frac{V_{AB}}{R_2} && \text{(Ohm, stessa } V_{AB})\\
+        \frac1{R_{eq}} &= \frac1{R_1}+\frac1{R_2} && \text{(divido per } V_{AB})
+        \end{aligned}\]
+        <p class="why"><b>Chi domina:</b> in serie la resistenza <b>più grande</b>; in parallelo la <b>più piccola</b> (il suo reciproco è il termine più grosso). <b>Esempio:</b> 100 Ω e 1 Ω: in serie 101 Ω, in parallelo 0,99 Ω.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Resistenze e condensatori: regole opposte</span>
+      <div class="tbl"><table>
+        <tr><th></th><th>serie</th><th>parallelo</th></tr>
+        <tr><td>resistenze</td><td>\(R_{eq} = R_1+R_2\)</td><td>\(1/R_{eq} = 1/R_1+1/R_2\)</td></tr>
+        <tr><td>condensatori (MT05)</td><td>\(1/C_{eq} = 1/C_1+1/C_2\)</td><td>\(C_{eq} = C_1+C_2\)</td></tr>
+      </table></div>
+      <p class="why">Il professore: «ricordatevi che i risultati sono opposti, però associate il risultato giusto».</p>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>Riconosci serie e parallelo dalla <b>definizione</b> (stessa corrente / stessa tensione), non dal disegno: «ve lo disegnano in maniera strana».</li>
+        <li>Il reciproco: dopo aver sommato \(1/R_1+1/R_2\) non dimenticare di invertire.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Aggiungo in parallelo una resistenza enorme: la resistenza equivalente sale o scende?</summary><div><p>Scende (pochissimo): ogni nuovo ramo in parallelo è una strada in più per la corrente. \(1/R_{eq}\) aumenta di \(1/R_{nuova}\), che è piccolo ma positivo.</p></div></details>
+    </section>
+    <button class="done" data-sec="s6" data-min="15" type="button">Segna “6 · Serie, parallelo, nodi” come fatto</button>
+  </div>
+
+  <!-- ==================== 7 ==================== -->
+  <div class="part" id="s7" data-part="7 · F.e.m. e maglie">
+    <div class="part-head">
+      <span class="part-n">7 / 11 · sessione 2</span>
+      <h2>Forza elettromotrice, generatore reale, legge delle maglie</h2>
+      <span class="level">Livello pieno · 30 minuti · lez. 18-20</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Lungo un giro completo il campo elettrostatico non fa lavoro. Allora chi rifornisce l'energia che le resistenze dissipano?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Il campo elettrostatico è conservativo: \(\oint\vec E\cdot d\vec l = 0\), quindi da solo non può mantenere una corrente contro le forze dissipative. Nel generatore agisce un <b>campo elettromotore</b> \(\vec E_m\) non conservativo (di origine chimica nella pila). La <b>forza elettromotrice</b> è la sua circuitazione:</p>
+        \[ \mathcal E = \oint\vec E_m\cdot d\vec l \]
+        <p>cioè il lavoro per unità di carica che il generatore compie per riportare le cariche da un polo all'altro. Si misura in volt.</p>
+        <p><b>Seconda legge di Kirchhoff (legge delle maglie):</b> lungo una maglia la somma delle f.e.m. è uguale alla somma delle cadute di potenziale sugli elementi: \(\ \sum\mathcal E_k = \sum R_kI_k\). È la conservazione dell'energia (per unità di carica).</p>
+        <p class="sub">Simboli: il professore scrive la f.e.m. come ε₀, F₀ o f₀; qui \(\mathcal E_0\) per non confonderla con la costante \(\varepsilon_0\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina · la metafora del professore</span><p>Uno sciatore scende il pendio: lo tira giù la forza peso. Arrivato a valle, per ricominciare deve tornare in cima: la forza peso, su un giro chiuso, fa lavoro <b>nullo</b>, e intanto la neve (l'attrito) gli ha rubato energia. Serve lo <b>skilift</b>, che compie lavoro positivo e lo riporta su. Nel circuito: sciatori = cariche, pendio = campo elettrostatico nel filo, attrito = resistenza, skilift = generatore.</p></section>
+    <figure style="margin:0">
+      <svg viewBox="0 0 440 210" role="img" aria-label="Generatore reale: dentro la scatola tratteggiata una f.e.m. e la resistenza interna in serie; fuori la resistenza di carico; i punti A e B sono i morsetti" style="width:100%;max-width:440px;display:block;margin:0 auto">
+        <rect x="30" y="40" width="150" height="130" rx="6" fill="none" style="stroke:var(--muted);stroke-dasharray:5 4"/>
+        <text x="40" y="34" style="fill:var(--muted);font:12px var(--f-label)">generatore reale</text>
+        <line x1="70" y1="80" x2="70" y2="130" style="stroke:var(--ink);stroke-width:3"/>
+        <line x1="85" y1="92" x2="85" y2="118" style="stroke:var(--ink);stroke-width:5"/>
+        <text x="58" y="150" style="fill:var(--ink);font:600 13px var(--f-label)">𝓔₀</text>
+        <polyline points="85,105 100,105 105,95 112,115 119,95 126,115 133,95 140,115 145,105 180,105" fill="none" style="stroke:var(--ink);stroke-width:2"/>
+        <text x="108" y="135" style="fill:var(--ink);font:600 13px var(--f-label)">Rᵢ</text>
+        <polyline points="70,105 50,105 50,190 400,190 400,105" fill="none" style="stroke:var(--ink);stroke-width:2"/>
+        <polyline points="180,105 260,105 265,95 272,115 279,95 286,115 293,95 300,115 305,105 400,105" fill="none" style="stroke:var(--ink);stroke-width:2"/>
+        <text x="268" y="88" style="fill:var(--ink);font:600 13px var(--f-label)">R (carico)</text>
+        <circle cx="200" cy="105" r="4" style="fill:var(--accent)"/><text x="194" y="96" style="fill:var(--accent);font:600 13px var(--f-label)">A</text>
+        <circle cx="200" cy="190" r="4" style="fill:var(--accent)"/><text x="194" y="206" style="fill:var(--accent);font:600 13px var(--f-label)">B</text>
+        <text x="330" y="150" style="fill:var(--muted);font:12px var(--f-label)">I →</text>
+      </svg>
+    </figure>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Generatore reale: bilancio di potenza <span class="chip lez">lez. 19</span></span>
+        <p>Dentro il generatore ci sono processi dissipativi: si schematizzano con una <b>resistenza interna</b> \(R_i\) in serie alla f.e.m.</p>
+        \[\begin{aligned}
+        \mathcal E_0\,I &= I^2R_i + I^2R && \text{(erogata = dissipata)}\\
+        \mathcal E_0 &= IR_i + IR && \text{(divido per I)}\\
+        \mathcal E_0 &= I\,(R_i+R) && \text{(raccolgo I)}
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Tensione ai morsetti <span class="chip lez">lez. 19</span></span>
+        \[\begin{aligned}
+        V_{AB} &= IR && \text{(tensione ai capi del carico)}\\
+        &= \mathcal E_0 - IR_i && \text{(dal passo 1: } IR = \mathcal E_0-IR_i)\\
+        &&lt; \mathcal E_0 \ \ (I \ne 0) && \text{(caduta interna)}
+        \end{aligned}\]
+        <p class="why"><b>Esempio:</b> pila da 9 V con \(R_i = 1\ \Omega\) su un carico da 17 Ω: \(I = 9/18 = 0{,}5\) A, \(V_{AB} = 9-0{,}5 = 8{,}5\) V. <b>Conseguenza:</b> finché scorre corrente nel generatore non posso misurarne la f.e.m.; serve la condizione di <b>circuito aperto</b> (corrente nulla nel generatore).</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Lessico dei circuiti <span class="chip lez">lez. 19</span></span>
+        <p><b>Ramo</b>: tratto di circuito percorso dalla stessa corrente. <b>Nodo</b>: punto in cui confluiscono tre o più rami. <b>Maglia</b>: percorso chiuso fatto di rami. Ogni circuito, anche complicato, si analizza maglia per maglia.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Rete con due generatori e metodo potenziometrico · lez. 20 (all'inizio della lezione)</span>
+      <figure style="margin:0">
+        <svg viewBox="0 0 440 230" role="img" aria-label="Due generatori con resistenze interne R1 e R2 collegati in parallelo a una resistenza esterna variabile Re; correnti i1 e i2 confluiscono in Re" style="width:100%;max-width:440px;display:block;margin:0 auto">
+          <polyline points="60,30 380,30" fill="none" style="stroke:var(--ink);stroke-width:2"/>
+          <polyline points="60,115 380,115" fill="none" style="stroke:var(--ink);stroke-width:2"/>
+          <polyline points="60,200 380,200" fill="none" style="stroke:var(--ink);stroke-width:2"/>
+          <line x1="60" y1="30" x2="60" y2="200" style="stroke:var(--ink);stroke-width:2"/>
+          <line x1="380" y1="30" x2="380" y2="200" style="stroke:var(--ink);stroke-width:2"/>
+          <rect x="150" y="18" width="24" height="24" style="fill:var(--card)"/><line x1="155" y1="18" x2="155" y2="42" style="stroke:var(--ink);stroke-width:3"/><line x1="168" y1="23" x2="168" y2="37" style="stroke:var(--ink);stroke-width:5"/>
+          <text x="140" y="60" style="fill:var(--ink);font:600 12px var(--f-label)">𝓔₀₂</text>
+          <rect x="230" y="22" width="44" height="16" style="fill:var(--card);stroke:var(--ink)"/><text x="240" y="60" style="fill:var(--ink);font:600 12px var(--f-label)">R₂</text>
+          <circle cx="320" cy="30" r="10" style="fill:var(--card);stroke:var(--accent)"/><text x="315" y="35" style="fill:var(--accent);font:600 11px var(--f-label)">A</text>
+          <text x="330" y="54" style="fill:var(--accent);font:600 12px var(--f-label)">i₂ ←</text>
+          <rect x="190" y="105" width="60" height="20" style="fill:var(--accent-soft);stroke:var(--accent)"/><line x1="185" y1="132" x2="258" y2="98" style="stroke:var(--accent);stroke-width:1.5"/>
+          <text x="196" y="146" style="fill:var(--accent);font:600 12px var(--f-label)">Rₑ variabile</text>
+          <text x="268" y="110" style="fill:var(--ink);font:12px var(--f-label)">i₁ + i₂</text>
+          <rect x="150" y="188" width="24" height="24" style="fill:var(--card)"/><line x1="155" y1="188" x2="155" y2="212" style="stroke:var(--ink);stroke-width:3"/><line x1="168" y1="193" x2="168" y2="207" style="stroke:var(--ink);stroke-width:5"/>
+          <text x="140" y="182" style="fill:var(--ink);font:600 12px var(--f-label)">𝓔₀₁</text>
+          <rect x="230" y="192" width="44" height="16" style="fill:var(--card);stroke:var(--ink)"/><text x="240" y="184" style="fill:var(--ink);font:600 12px var(--f-label)">R₁</text>
+          <circle cx="320" cy="200" r="10" style="fill:var(--card);stroke:var(--accent)"/><text x="315" y="205" style="fill:var(--accent);font:600 11px var(--f-label)">A</text>
+          <text x="330" y="226" style="fill:var(--accent);font:600 12px var(--f-label)">i₁ ←</text>
+        </svg>
+      </figure>
+      <p>Due generatori (\(\mathcal E_{01}\), \(R_1\)) e (\(\mathcal E_{02}\), \(R_2\)), con una resistenza esterna variabile \(R_e\) in comune e un amperometro (A, resistenza trascurabile) in ogni maglia. Il metodo del professore:</p>
+      <ol>
+        <li><b>Scegli i versi</b> delle correnti \(i_1\), \(i_2\) come vuoi (lui li prende concordi con i generatori).</li>
+        <li><b>Legge dei nodi:</b> in \(R_e\) scorre \(i_1+i_2\).</li>
+        <li><b>Legge delle maglie</b> sulle due maglie → due equazioni, due incognite.</li>
+        <li>Se una corrente viene <b>negativa</b>, il suo verso vero è opposto a quello scelto: nessun errore.</li>
+      </ol>
+      <div class="step">
+        <span class="step-n">Le equazioni e la condizione i₂ = 0 <span class="chip lez">lez. 20</span></span>
+        \[\begin{aligned}
+        \mathcal E_{02} &= i_2R_2+(i_1+i_2)R_e && \text{(maglia superiore)}\\
+        \mathcal E_{01} &= i_1R_1+(i_1+i_2)R_e && \text{(maglia inferiore)}\\
+        \text{se } i_2 = 0:\quad \mathcal E_{02} &= i_1R_e && \text{(maglia sup.)}\\
+        \mathcal E_{01} &= i_1(R_1+R_e) && \text{(maglia inf.)}\\
+        \frac{\mathcal E_{02}}{\mathcal E_{01}} &= \frac{R_e}{R_1+R_e} && \text{(divido; } i_1\text{ se ne va)}\\
+        R_e &= \frac{R_1\,\mathcal E_{02}}{\mathcal E_{01}-\mathcal E_{02}} && \text{(isolo } R_e)
+        \end{aligned}\]
+        <p class="why"><b>Metodo potenziometrico:</b> si varia \(R_e\) finché l'amperometro della maglia 2 segna zero. In quel momento nel generatore 2 non passa corrente (circuito aperto), non c'è caduta su \(R_2\), e la sua f.e.m. si legge come \(\mathcal E_{02} = i_1R_e\). Se \(R_e\) supera quel valore, \(i_2\) diventa negativa: la corrente nel generatore 2 si inverte.</p>
+        <p class="why"><b>Esempio:</b> \(\mathcal E_{01} = 12\) V, \(R_1 = 2\ \Omega\), \(\mathcal E_{02} = 9\) V: \(R_e = 2\cdot 9/3 = 6\ \Omega\), \(i_1 = 12/8 = 1{,}5\) A, controllo \(i_1R_e = 9\) V ✓.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Collegamenti</span>
+      <ul class="links">
+        <li><span>← MT03</span><div>\(\oint\vec E\cdot d\vec l = 0\): proprio la conservatività del campo elettrostatico rende necessario \(\vec E_m\).</div></li>
+        <li><span>→ §8-10</span><div>La legge delle maglie, scritta istante per istante, dà l'equazione differenziale dei circuiti RC.</div></li>
+      </ul>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>La tensione ai morsetti è \(\mathcal E_0-IR_i\), non \(\mathcal E_0\), quando il generatore eroga corrente.</li>
+        <li>Nella legge delle maglie i segni: una f.e.m. percorsa dal − al + conta positiva; una caduta \(RI\) è positiva se percorri la resistenza nel verso scelto per I.</li>
+        <li>Due leggi di Kirchhoff = due leggi di <b>conservazione</b>: carica (nodi), energia (maglie). È una domanda d'orale.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Perché un voltmetro collegato a una pila “a vuoto” misura quasi la f.e.m.?</summary><div><p>Il voltmetro ha una resistenza enorme: la corrente è quasi zero, quindi \(IR_i \approx 0\) e \(V_{AB}\approx\mathcal E_0\). È una condizione quasi di circuito aperto.</p></div></details>
+      <details><summary>Il campo elettromotore è conservativo?</summary><div><p>No: la sua circuitazione è proprio \(\mathcal E \ne 0\). Esiste solo dentro il generatore e “spinge” sempre nello stesso verso, mentre il campo elettrostatico dentro il generatore va in verso opposto (dal + al −).</p></div></details>
+    </section>
+    <button class="done" data-sec="s7" data-min="30" type="button">Segna “7 · F.e.m. e maglie” come fatto</button>
+  </div>
+
+  <!-- ==================== 8 ==================== -->
+  <div class="part" id="s8" data-part="8 · Scarica del condensatore">
+    <div class="part-head">
+      <span class="part-n">8 / 11 · sessione 3</span>
+      <h2>Scarica del condensatore</h2>
+      <span class="level">Livello pieno · 30 minuti · lez. 19</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Finora studiavamo solo la situazione iniziale e quella finale. Che cosa succede <i>durante</i>, nel transitorio?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Un condensatore C con carica iniziale \(q_0\) (tensione \(V_0 = q_0/C\)) viene chiuso su una resistenza R a \(t = 0\). Carica, corrente e tensioni decrescono esponenzialmente con la stessa <b>costante di tempo</b> \(\tau = RC\):</p>
+        \[ q(t) = q_0\,e^{-t/\tau},\qquad I(t) = I_0\,e^{-t/\tau},\quad I_0 = \frac{V_0}{R} \]\[ V_C(t) = V_R(t) = V_0\,e^{-t/\tau} \]
+        <p>L'energia dissipata in R durante tutta la scarica è uguale all'energia iniziale del condensatore, \(\tfrac12 q_0^2/C\), qualunque sia R.</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Una vasca piena d'acqua con un buco sul fondo. All'inizio l'acqua è alta e spinge forte: esce di getto. Man mano che il livello cala esce sempre più piano, e la vasca non si svuota mai “del tutto” in un tempo finito. Il livello è la tensione, il getto è la corrente, la strettezza del buco è R, la larghezza della vasca è C.</p></section>
+    <section>
+      <span class="tag">Come funziona</span>
+      <ol class="chain">
+        <li><div><b>Chiudo l'interruttore</b> → le cariche negative dell'armatura − attraversano R e neutralizzano quelle dell'armatura + (attraverso il vuoto fra le armature non possono passare, a meno di una scarica).</div></li>
+        <li><div><b>Istante per istante</b> le armature e i capi di R sono collegati da fili equipotenziali → \(V_C = V_R\).</div></li>
+        <li><div><b>All'inizio</b> \(V_C\) è massima → corrente massima \(I_0 = V_0/R\).</div></li>
+        <li><div><b>La carica cala</b> → cala \(V_C\) → cala la corrente → la carica cala più piano → curva esponenziale.</div></li>
+      </ol>
+    </section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · L'equazione della maglia <span class="chip lez">a lezione</span></span>
+        <p>q(t) è la carica sulle armature: diminuisce, quindi \(dq/dt &lt; 0\). La corrente, che è positiva, è allora \(I = -dq/dt\).</p>
+        \[\begin{aligned}
+        V_C &= V_R && \text{(stessi due punti)}\\
+        \frac{q}{C} &= IR && (V_C = q/C;\ V_R = IR)\\
+        \frac{q}{C} &= -\frac{dq}{dt}\,R && (I = -dq/dt)
+        \end{aligned}\]
+        <p class="why">È un'<b>equazione differenziale del primo ordine</b>: lega q alla sua derivata. Si risolve per <b>separazione delle variabili</b>: tutto ciò che contiene q da una parte, tutto ciò che contiene t dall'altra.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Separo le variabili <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        \frac{q}{C}\,dt &= -R\,dq && \text{(moltiplico per dt)}\\
+        \frac{dq}{q} &= -\frac{dt}{RC} && \text{(divido per } q\text{ e per } R)\\
+        \frac{dq}{q} &= -\frac{dt}{\tau},\qquad \tau \equiv RC && \text{(pongo } \tau = RC)
+        \end{aligned}\]
+        <p class="why"><b>Analisi dimensionale:</b> a sinistra \(dq/q\) è un numero puro, quindi anche \(dt/RC\) lo è: RC ha le dimensioni di un tempo. Controllo: \(\Omega\cdot\text{F} = \frac{\text{V}}{\text{A}}\cdot\frac{\text{C}}{\text{V}} = \frac{\text{C}}{\text{A}} = \text{s}\) ✓.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Integro <span class="chip lez">a lezione</span></span>
+        <p>Sommo tutti i contributi dall'istante 0 all'istante t. A sinistra la variabile è la carica, quindi gli estremi sono <b>cariche</b> (\(q_0\) e \(q(t)\)); a destra tempi, con la variabile muta \(t'\).</p>
+        \[\begin{aligned}
+        \int_{q_0}^{q(t)}\frac{dq'}{q'} &= -\int_0^{t}\frac{dt'}{\tau} && \text{(integro i due membri)}\\
+        \ln\frac{q(t)}{q_0} &= -\frac{t}{\tau} && \text{(integrale di 1/u)}\\
+        \frac{q(t)}{q_0} &= e^{-t/\tau} && \text{(exp dei due membri)}\\
+        q(t) &= q_0\,e^{-t/\tau} && \text{(moltiplico per } q_0)
+        \end{aligned}\]
+        <p class="why"><b>Controllo:</b> \(t = 0\) → \(q = q_0\) ✓; \(t\to\infty\) → \(q\to 0\) ✓ (si scarica tutto). Il professore ha scritto apposta gli estremi sbagliati alla lavagna («una corbelleria») per vedere chi se ne accorgeva.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Corrente e tensioni <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        I(t) &= -\frac{dq}{dt} = -q_0\,\frac{d}{dt}e^{-t/\tau} && \text{(def. di I)}\\
+        &= -q_0\cdot\left(-\frac1\tau\right)e^{-t/\tau} && \text{(regola della catena)}\\
+        &= \frac{q_0}{RC}\,e^{-t/\tau} && (\tau = RC)\\
+        &= \frac{V_0}{R}\,e^{-t/\tau} = I_0\,e^{-t/\tau} && (q_0/C = V_0)\\
+        V_C(t) &= \frac{q(t)}{C} = V_0\,e^{-t/\tau} && \text{(divido q(t) per C)}\\
+        V_R(t) &= I(t)\,R = V_0\,e^{-t/\tau} && \text{(Ohm)}
+        \end{aligned}\]
+        <p class="why"><b>Il messaggio del professore:</b> «tutte le grandezze elettriche — carica, corrente, tensione sul condensatore, tensione sulla resistenza — hanno un andamento esponenziale con la stessa costante di tempo τ = RC».</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 5 · Energia dissipata in R <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        E_R &= \int_0^\infty I^2R\,dt && \text{(Joule su tutta la scarica)}\\
+        &= \int_0^\infty \frac{q_0^2}{R^2C^2}\,e^{-2t/\tau}\,R\,dt && \text{(sostituisco I)}\\
+        &= \frac{q_0^2}{RC^2}\int_0^\infty e^{-2t/\tau}\,dt && \text{(costanti fuori)}\\
+        &= \frac{q_0^2}{RC^2}\cdot\frac{\tau}{2} && (k = 2/\tau)\\
+        &= \frac{q_0^2}{RC^2}\cdot\frac{RC}{2} = \frac12\,\frac{q_0^2}{C} && (\tau = RC)
+        \end{aligned}\]
+        <p class="why"><b>È l'energia iniziale del condensatore</b> ✓: si dissipa tutta. <b>Non dipende da R:</b> con R grande la potenza è piccola ma il processo dura di più; con R piccola la potenza è grande ma dura poco. L'area sotto la curva della potenza resta la stessa.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Laboratorio · carica e scarica RC</span>
+      <div class="lab">
+        <canvas id="rc" width="640" height="300" aria-label="Grafico di carica e corrente nel tempo per un circuito RC"></canvas>
+        <div class="controls">
+          <label>R <input type="range" id="rcR" min="1" max="10" step="0.5" value="2"> <span id="rcRv">2 kΩ</span></label>
+          <label>C <input type="range" id="rcC" min="1" max="10" step="0.5" value="5"> <span id="rcCv">5 μF</span></label>
+          <button class="btn on" id="rcScarica" type="button">Scarica</button>
+          <button class="btn" id="rcCarica" type="button">Carica</button>
+        </div>
+        <dl class="readout">
+          <div><dt>τ = RC</dt><dd id="rcTau">—</dd></div>
+          <div><dt>I₀ (V₀ = 10 V)</dt><dd id="rcI0">—</dd></div>
+          <div><dt>energia in R</dt><dd id="rcER">—</dd></div>
+          <div><dt>dopo 5τ resta</dt><dd>0,7%</dd></div>
+        </dl>
+        <p class="legend"><span><span class="dot" style="background:var(--accent)"></span>q(t)/q<sub>max</sub></span><span><span class="dot" style="background:var(--pos)"></span>I(t)/I₀</span><span>asse orizzontale: tempo fino a 50 ms; tratteggio = τ</span></p>
+        <p class="why"><b>Prova:</b> raddoppia R. La curva si allunga (τ doppio), I₀ si dimezza, ma l'<b>energia in R non cambia</b>. Poi passa a “Carica”: la q sale, la I scende con la stessa τ.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Circuito complesso · lez. 19</span>
+      <p>Il professore: un sistema di condensatori carichi (C₁ e C₂ in serie, il tutto in parallelo a C₃) si scarica su R₁ in serie a (R₂ ∥ R₃). Strategia: <b>sostituisci con il circuito equivalente</b> — un solo \(C_{eq}\) con la carica totale, che si scarica su un solo \(R_{eq}\):</p>
+      \[ q_T(t) = q_{T0}\,e^{-t/\tau},\qquad \tau = R_{eq}\,C_{eq},\qquad V_0 = q_{T0}/C_{eq} \]
+      <p class="why">«Ridurre un circuito apparentemente complicato a un circuito equivalente molto più semplice, di cui conosco già la soluzione.»</p>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>In scarica \(I = -dq/dt\) (q cala); in carica \(I = +dq/dt\). Il segno serve a tenere I positiva.</li>
+        <li>Gli estremi dell'integrale in dq sono cariche, non tempi.</li>
+        <li>τ = RC è il tempo per scendere al 37%, non a metà (a metà serve \(\tau\ln 2 \approx 0{,}69\,\tau\)).</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>C = 5 μF, R = 2 kΩ, \(V_0\) = 10 V: dopo quanto la carica è un terzo circa di quella iniziale? Quanta energia si dissipa in tutto?</summary><div><p>\(\tau = 2\cdot10^3\cdot5\cdot10^{-6} = 10\) ms; al 37% (circa un terzo) dopo 10 ms. Energia: \(\tfrac12CV_0^2 = \tfrac12\cdot5\cdot10^{-6}\cdot100 = 250\) μJ, tutta in R.</p></div></details>
+      <details><summary>Se R → 0 la scarica è istantanea: dove va l'energia?</summary><div><p>Sempre in calore (e in radiazione, in un caso reale): la potenza diventa enorme per un tempo brevissimo. Il bilancio non cambia: \(\tfrac12q_0^2/C\).</p></div></details>
+    </section>
+    <button class="done" data-sec="s8" data-min="30" type="button">Segna “8 · Scarica del condensatore” come fatto</button>
+  </div>
+
+  <!-- ==================== 9 ==================== -->
+  <div class="part" id="s9" data-part="9 · Carica ed energia">
+    <div class="part-head">
+      <span class="part-n">9 / 11 · sessione 3</span>
+      <h2>Carica del condensatore e bilancio energetico</h2>
+      <span class="level">Livello pieno · 25 minuti · lez. 20 (es. 20.1 e 20.1.1)</span>
+    </div>
+    <section><p><b>La domanda guida.</b> Carico un condensatore con un generatore attraverso una resistenza: come sale la carica, e quanta energia spende il generatore?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>Condensatore scarico, generatore \(\mathcal E_0\), resistenza R (che include quella interna), interruttore chiuso a \(t = 0\):</p>
+        \[ q(t) = \mathcal E_0C\left(1-e^{-t/\tau}\right),\qquad I(t) = \frac{\mathcal E_0}{R}\,e^{-t/\tau},\qquad \tau = RC \]
+        <p><b>Bilancio energetico:</b> il generatore fornisce \(E_{gen} = C\mathcal E_0^2\); metà si accumula nel condensatore (\(E_C = \tfrac12C\mathcal E_0^2\)), metà si dissipa in R (\(E_R = \tfrac12C\mathcal E_0^2\)), qualunque sia R.</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina</span><p>Riempi una vasca (il condensatore) con un tubo da un serbatoio a livello fisso (il generatore). All'inizio la vasca è vuota e l'acqua entra di getto; man mano che il livello sale si avvicina a quello del serbatoio e l'acqua entra sempre più piano. La vasca non “arriva” mai esattamente al livello del serbatoio, ci si avvicina.</p></section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Maglia <span class="chip lez">a lezione</span></span>
+        <p>Ora la carica cresce: \(I = +dq/dt\).</p>
+        \[\begin{aligned}
+        \mathcal E_0 &= V_R + V_C && \text{(maglia)}\\
+        \mathcal E_0 &= R\,\frac{dq}{dt}+\frac{q}{C} && (I = dq/dt)\\
+        R\,\frac{dq}{dt} &= \frac{\mathcal E_0C - q}{C} && \text{(isolo la derivata)}\\
+        \frac{dq}{\mathcal E_0C-q} &= \frac{dt}{RC} = \frac{dt}{\tau} && \text{(separo le variabili)}
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Integro <span class="chip lez">a lezione</span></span>
+        <p>Moltiplico per −1: così il numeratore \(-dq\) è il differenziale del denominatore \(\mathcal E_0C-q\) e l'integrale è un logaritmo. Estremi: carica da \(q(0) = 0\) a \(q(t)\).</p>
+        \[\begin{aligned}
+        \int_0^{q(t)}\frac{-dq'}{\mathcal E_0C-q'} &= -\int_0^t\frac{dt'}{\tau} && \text{(× (−1), integro)}\\
+        \ln\frac{\mathcal E_0C-q(t)}{\mathcal E_0C-0} &= -\frac{t}{\tau} && (u = \mathcal E_0C-q)\\
+        \frac{\mathcal E_0C-q(t)}{\mathcal E_0C} &= e^{-t/\tau} && \text{(exp)}\\
+        \mathcal E_0C-q(t) &= \mathcal E_0C\,e^{-t/\tau} && \text{(moltiplico per } \mathcal E_0C)\\
+        q(t) &= \mathcal E_0C\left(1-e^{-t/\tau}\right) && \text{(isolo q)}
+        \end{aligned}\]
+        <p class="why"><b>Controllo:</b> \(t = 0\) → \(q = 0\) ✓; \(t\to\infty\) → \(q_F = \mathcal E_0C\): a fine transitorio cessa la corrente e il condensatore ha la stessa tensione del generatore ✓.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Corrente e tensioni <span class="chip lez">a lezione</span></span>
+        \[\begin{aligned}
+        I(t) &= \frac{dq}{dt} = \mathcal E_0C\cdot\frac1\tau\,e^{-t/\tau} && \text{(regola della catena)}\\
+        &= \frac{\mathcal E_0C}{RC}\,e^{-t/\tau} = \frac{\mathcal E_0}{R}\,e^{-t/\tau} && (\tau = RC)\\
+        V_R(t) &= IR = \mathcal E_0\,e^{-t/\tau} && \text{(Ohm)}\\
+        V_C(t) &= \frac{q}{C} = \mathcal E_0\left(1-e^{-t/\tau}\right) && (V = q/C)
+        \end{aligned}\]
+        <p class="why">Controllo: \(V_R+V_C = \mathcal E_0\) in ogni istante ✓ (è la maglia). Sono i tre grafici della tua mappa della lez. 20.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Bilancio energetico <span class="chip lez">es. 20.1.1</span></span>
+        \[\begin{aligned}
+        E_{gen} &= \int_0^\infty\mathcal E_0\,I\,dt && \text{(potenza integrata)}\\ &= \mathcal E_0\,q_F && (I\,dt = dq)\\
+        &= \mathcal E_0\cdot\mathcal E_0C = C\mathcal E_0^2 && (q_F = \mathcal E_0C)\\
+        E_C &= \frac{q_F^2}{2C} = \tfrac12C\mathcal E_0^2 && \text{(energia finale)}\\
+        E_R &= \frac{\mathcal E_0^2}{R}\int_0^\infty e^{-2t/\tau}dt && (\textstyle\int I^2R\,dt)\\
+        &= \frac{\mathcal E_0^2}{R}\cdot\frac{RC}{2} = \tfrac12C\mathcal E_0^2 && (\tau/2 = RC/2)
+        \end{aligned}\]
+        <p class="why"><b>Controllo:</b> \(E_C+E_R = \tfrac12C\mathcal E_0^2+\tfrac12C\mathcal E_0^2 = C\mathcal E_0^2 = E_{gen}\) ✓. Il professore: per caricare un condensatore a una certa tensione bisogna spendere il doppio dell'energia che vi si accumula; la metà va sempre persa in calore, «per qualsiasi valore della resistenza». R decide solo la <b>velocità</b>: R grande → lento, R piccola → veloce.</p>
+        <p class="why"><b>Esempio:</b> C = 10 μF, \(\mathcal E_0\) = 100 V: \(E_{gen} = 10^{-5}\cdot10^4 = 0{,}1\) J; nel condensatore 0,05 J, in calore 0,05 J.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Carica di più elementi · lez. 20</span>
+      <p>Generatore che carica R₁, C₁, R₂, C₂ tutti in un'unica maglia: le resistenze sono in serie e anche i condensatori (stessa corrente). Il circuito equivalente ha \(R_{eq} = R_1+R_2\), \(C_{eq} = C_1C_2/(C_1+C_2)\) e \(\tau = R_{eq}C_{eq}\). «Indipendentemente dalla loro posizione»: puoi ridisegnare le resistenze una accanto all'altra.</p>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>Il generatore fa \(\mathcal E_0q_F\), non \(\tfrac12\mathcal E_0q_F\): la carica la sposta tutta a tensione piena.</li>
+        <li>\(E_C = E_R\) vale con un generatore ideale a f.e.m. costante che carica un condensatore inizialmente scarico.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Perché la corrente è massima all'inizio della carica e non alla fine?</summary><div><p>All'inizio il condensatore è scarico, \(V_C = 0\): tutta la f.e.m. sta su R e \(I = \mathcal E_0/R\). Poi \(V_C\) cresce, su R resta meno tensione e la corrente cala.</p></div></details>
+    </section>
+    <button class="done" data-sec="s9" data-min="25" type="button">Segna “9 · Carica ed energia” come fatto</button>
+  </div>
+
+  <!-- ==================== 10 ==================== -->
+  <div class="part" id="s10" data-part="10 · Due condensatori e R">
+    <div class="part-head">
+      <span class="part-n">10 / 11 · sessione 3</span>
+      <h2>Due condensatori collegati da una resistenza</h2>
+      <span class="level">Livello pieno · 25 minuti · lez. 19-20</span>
+    </div>
+    <section><p><b>La domanda guida.</b> In MT05 avevamo trovato che collegando C₁ carico a C₂ scarico l'energia diminuisce. Dove finisce? E come vanno considerati i due condensatori durante il trasferimento: in serie o in parallelo?</p></section>
+    <section>
+      <span class="tag">Definizione d'esame</span>
+      <div class="formal">
+        <p>C₁ con carica \(q_{10}\) (tensione \(V_{10} = q_{10}/C_1\)), collegato attraverso R a C₂ scarico a \(t = 0\). Durante il transitorio i due condensatori sono percorsi dalla stessa corrente (“in serie”); alla fine hanno la stessa tensione (“in parallelo”):</p>
+        \[ I(t) = I_0\,e^{-t/\tau},\qquad I_0 = \frac{q_{10}}{C_1R} \]\[ \tau = R\,C_s,\qquad C_s = \frac{C_1C_2}{C_1+C_2} \]
+        <p>L'energia dissipata in R è la differenza tra l'energia iniziale e quella finale: \(\ E_R = \tfrac12\,\dfrac{q_{10}^2}{C_1^2}\,C_s\).</p>
+      </div>
+    </section>
+    <section><span class="tag">Immagina · i vasi comunicanti (tua mappa, lez. 20)</span><p>Due vasi collegati da un tubo stretto. Il livello è il potenziale, l'acqua è la carica, il flusso è la corrente. All'inizio un vaso è pieno e l'altro vuoto: l'acqua scorre, veloce all'inizio, sempre più lenta. Si ferma quando i livelli sono uguali. Durante il travaso <b>la stessa acqua</b> esce da uno ed entra nell'altro (serie); alla fine i due vasi hanno <b>lo stesso livello</b> (parallelo).</p></section>
+    <section>
+      <span class="tag">Il calcolo, passo per passo</span>
+      <div class="step">
+        <span class="step-n">Passo 1 · Maglia ed equazione nella corrente <span class="chip lez">lez. 20</span></span>
+        <p>Le armature inferiori sono collegate: hanno lo stesso potenziale. C₁ si scarica (\(I = -dq_1/dt\)), C₂ si carica (\(I = +dq_2/dt\)).</p>
+        \[\begin{aligned}
+        V_{C1}-V_{C2} &= IR && \text{(maglia)}\\
+        \frac{q_1}{C_1}-\frac{q_2}{C_2} &= IR && (V = q/C)\\
+        \tfrac1{C_1}\tfrac{dq_1}{dt}-\tfrac1{C_2}\tfrac{dq_2}{dt} &= R\,\tfrac{dI}{dt} && \text{(derivo)}\\
+        -\frac{I}{C_1}-\frac{I}{C_2} &= R\,\frac{dI}{dt} && (dq_1/dt = -I,\ dq_2/dt = +I)\\
+        -I\left(\frac1{C_1}+\frac1{C_2}\right) &= R\,\frac{dI}{dt} && \text{(raccolgo −I)}\\
+        -\frac{I}{C_s} &= R\,\frac{dI}{dt} && \text{(serie)}\\
+        \frac{dI}{I} &= -\frac{dt}{RC_s} = -\frac{dt}{\tau} && \text{(separo le variabili)}
+        \end{aligned}\]
+        <p class="why"><b>Il trucco:</b> derivando si ottiene un'equazione nella sola corrente, identica a quella della scarica (§8) con \(C_s\) al posto di C. Ecco perché “in serie”: \(C_s\) è proprio la capacità della serie.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 2 · Corrente <span class="chip lez">lez. 20</span></span>
+        \[\begin{aligned}
+        I(t) &= I_0\,e^{-t/\tau} && \text{(integro come nel §8)}\\
+        I_0 &= \frac{V_{10}-0}{R} = \frac{q_{10}}{C_1R} && \text{(C₂ scarico a t = 0)}
+        \end{aligned}\]
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 3 · Stato finale <span class="chip lez">lez. 20</span></span>
+        \[\begin{aligned}
+        \frac{q_{1F}}{C_1} &= \frac{q_{2F}}{C_2} && \text{(stessa tensione)}\\
+        q_{1F}+q_{2F} &= q_{10} && \text{(conservazione)}\\
+        q_{1F} &= q_{10}\frac{C_1}{C_1+C_2} && \text{(risolvo)}\\ q_{2F} &= q_{10}\frac{C_2}{C_1+C_2} = q_{10}\frac{C_s}{C_1}
+        \end{aligned}\]
+        <p class="why">Andamenti nel tempo (il professore li ha anche ricavati integrando): \(q_2(t) = q_{2F}(1-e^{-t/\tau})\) sale; \(q_1(t) = q_{1F}+(q_{10}-q_{1F})e^{-t/\tau}\) scende, ma non a zero.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Passo 4 · Energia dissipata, in due modi <span class="chip lez">lez. 20</span></span>
+        \[\begin{aligned}
+        E_R &= \int_0^\infty I^2R\,dt = I_0^2R\cdot\frac\tau2 && \text{(come nel §8)}\\
+        &= \frac{q_{10}^2}{C_1^2R^2}\cdot R\cdot\frac{RC_s}{2} && (\tau = RC_s)\\ &= \frac12\,\frac{q_{10}^2}{C_1^2}\,C_s && (R^2\text{ si semplifica})\\[4pt]
+        \lvert\Delta U\rvert &= U_i-U_f = \frac{q_{10}^2}{2C_1}-\frac{q_{10}^2}{2(C_1+C_2)} && \text{(prima / dopo)}\\
+        &= \frac{q_{10}^2}{2}\cdot\frac{C_2}{C_1(C_1+C_2)} && \text{(denom. comune)}\\
+        &= \frac12\,\frac{q_{10}^2}{C_1^2}\,C_s && (\times C_1/C_1)
+        \end{aligned}\]
+        <p class="why"><b>Stesso risultato</b> ✓: l'energia “mancante” di MT05 è finita in calore per effetto Joule. Il professore: «magia delle magie». <b>Analisi dimensionale</b>: \(q^2/C^2\cdot C = q^2/C\) è un'energia ✓.</p>
+        <p class="why"><b>Esempio:</b> C₁ = C₂ = 2 μF, \(V_{10}\) = 100 V: \(q_{10} = 200\) μC, \(C_s = 1\) μF, \(E_R = \tfrac12\cdot(100)^2\cdot10^{-6} = 5\) mJ; \(U_i = 10\) mJ, \(U_f = 5\) mJ: metà dell'energia si perde.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Trappole d'esame</span>
+      <div class="warnbox"><ul>
+        <li>τ usa la capacità in <b>serie</b>, non la somma: durante il transitorio passa la stessa corrente in entrambi.</li>
+        <li>«All'esame non si chiede tutto il transitorio così»: di solito le domande riguardano la situazione stazionaria iniziale e quella finale (cariche, tensioni, ΔU).</li>
+        <li>\(E_R\) non dipende da R, come nel §8.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Domande di ragionamento</span>
+      <details><summary>Se C₂ è molto più grande di C₁, quanta dell'energia iniziale si perde?</summary><div><p>Quasi tutta: \(U_f/U_i = C_1/(C_1+C_2)\to 0\). C₁ si scarica quasi completamente in C₂ e l'energia va in calore.</p></div></details>
+    </section>
+    <button class="done" data-sec="s10" data-min="25" type="button">Segna “10 · Due condensatori e R” come fatto</button>
+  </div>
+
+  <!-- ==================== 11 ==================== -->
+  <div class="part" id="s11" data-part="11 · Esercizio C, 2C, C">
+    <div class="part-head">
+      <span class="part-n">11 / 11 · sessione 3</span>
+      <h2>Esercizio guidato: tre condensatori in serie e una resistenza</h2>
+      <span class="level">Guida all'esercizio · 25 minuti · lez. 20-21 (esercizio d'esame, numeri del professore)</span>
+    </div>
+    <section>
+      <div class="task">
+        <span class="tag">Testo</span>
+        <p>Tre condensatori \(C_1 = C\), \(C_2 = 2C\), \(C_3 = C\) in serie vengono caricati da un generatore \(f_0 = 400\) V e poi isolati. Una resistenza R è collegata, tramite un interruttore inizialmente aperto, ai capi di \(C_2\). Si chiude l'interruttore.</p>
+        <p>1) Le tensioni iniziali ai capi dei condensatori. &nbsp; 2) Le tensioni finali, dopo il transitorio. &nbsp; 3) La variazione di energia del sistema.</p>
+      </div>
+    </section>
+    <section>
+      <span class="tag">Classifica prima di calcolare</span>
+      <details><summary>Quale processo? Quale Modello?</summary><div>
+        <p><b>Processo:</b> sistema isolato → <b>carica costante</b> sulle armature che non possono scambiare carica.</p>
+        <p><b>Modello:</b> condensatori in serie (MT05) + scarica su R (§8) di un solo condensatore. «Il valore di R non serve ai fini di quanto richiesto»: influisce solo sulla durata.</p>
+      </div></details>
+    </section>
+    <section>
+      <span class="tag">Indizi, uno alla volta</span>
+      <details><summary>Indizio 1</summary><div><p>In serie la carica è la stessa su tutti: \(q_{T0} = f_0\,C_s\). Calcola \(C_s\).</p></div></details>
+      <details><summary>Indizio 2</summary><div><p>Dopo la chiusura, le armature esterne di C₁ e C₃ sono isolate: la loro carica può cambiare?</p></div></details>
+      <details><summary>Indizio 3</summary><div><p>R collega fra loro le due armature di C₂: alla fine del transitorio, che tensione ha C₂?</p></div></details>
+    </section>
+    <section>
+      <span class="tag">Soluzione</span>
+      <details><summary>Punto 1 · Tensioni iniziali</summary><div>
+        \[\begin{aligned}
+        \frac1{C_s} &= \frac1C+\frac1{2C}+\frac1C = \frac{2+1+2}{2C} = \frac{5}{2C} && \text{(serie)}\\
+        C_s &= \frac25\,C && \text{(inverto)}\\
+        q_{T0} &= f_0\,C_s = 400\cdot\frac25\,C = 160\,C && \text{(stessa q)}\\
+        V_{C1,0} &= \frac{q_{T0}}{C_1} = \frac{160\,C}{C} = 160\ \text{V}\\
+        V_{C2,0} &= \frac{q_{T0}}{2C} = 80\ \text{V}\\ V_{C3,0} &= 160\ \text{V}
+        \end{aligned}\]
+        <p class="why">Controllo: 160 + 80 + 160 = 400 V = \(f_0\) ✓.</p>
+      </div></details>
+      <details><summary>Punto 2 · Tensioni finali</summary><div>
+        <p>Le armature esterne di C₁ e C₃ non sono collegate a nulla: la loro carica non cambia, quindi neanche quella di C₁ e C₃. C₂ invece è chiuso su R: si scarica completamente (§8).</p>
+        \[ V_{C1,F} = V_{C3,F} = 160\ \text{V},\qquad V_{C2,F} = 0 \]
+      </div></details>
+      <details><summary>Punto 3 · Variazione di energia</summary><div>
+        \[\begin{aligned}
+        \Delta E &= \Delta E_{C2} = 0-\frac{q_{T0}^2}{2C_2} && \text{(solo C₂ cambia)}\\
+        &= -\tfrac12\,C_2\,V_{C2,0}^2 && (q = C_2V)\\ &= -\tfrac12\cdot 2C\cdot 80^2 = -6400\,C && \text{(J, C in farad)}
+        \end{aligned}\]
+        <p class="why">Negativa: l'energia di C₂ si è dissipata in R per effetto Joule. Con C = 1 μF: ΔE = −6,4 mJ.</p>
+      </div></details>
+    </section>
+    <section>
+      <span class="tag">Errori tipici</span>
+      <div class="warnbox"><ul>
+        <li>Pensare che dopo la chiusura i tre condensatori si “ridistribuiscano”: C₁ e C₃ non possono scambiare carica.</li>
+        <li>Usare \(f_0\) dopo l'isolamento: il generatore non c'è più.</li>
+      </ul></div>
+    </section>
+    <section>
+      <span class="tag">Variante per allenarti · l'esercizio della lez. 21</span> <span class="chip">soluzione mia</span>
+      <p>Alla lavagna (lez. 21, dopo il minuto 12) ci sono solo i dati: due condensatori uguali \(C = 0{,}5\) μF in serie collegati a un generatore \(f = 50\) V, con una resistenza R collegata (tramite interruttore) ai capi del condensatore inferiore. La soluzione è stata detta a voce e non è nella registrazione. Questa è la mia: <b>confrontala con quella del professore</b> appena la recuperiamo.</p>
+      <details><summary>Risultati per controllare (generatore che resta collegato)</summary><div>
+        <p><b>Prima:</b> serie di due C uguali, \(C_s = 0{,}25\) μF, \(q = 12{,}5\) μC, 25 V ciascuno; energia \(2\cdot\tfrac12\cdot0{,}5\cdot10^{-6}\cdot25^2 = 312{,}5\) μJ.</p>
+        <p><b>Dopo il transitorio:</b> il condensatore inferiore è chiuso su R → 0 V; tutta la tensione sul superiore → 50 V, \(q = 25\) μC, energia \(\tfrac12\cdot0{,}5\cdot10^{-6}\cdot2500 = 625\) μJ.</p>
+        <p><b>Bilancio:</b> il generatore ha spostato \(\Delta q = 12{,}5\) μC a 50 V: \(L_{gen} = 625\) μJ; \(\Delta U = +312{,}5\) μJ; in R \(E_R = L_{gen}-\Delta U = 312{,}5\) μJ. <b>Costante di tempo:</b> visti dalla resistenza i due condensatori sono in parallelo (il generatore ideale fa da cortocircuito per le variazioni): \(\tau = R\cdot 2C = R\cdot 1\) μF.</p>
+      </div></details>
+    </section>
+    <button class="done" data-sec="s11" data-min="25" type="button">Segna “11 · Esercizio C, 2C, C” come fatto</button>
+  </div>
+
+  <!-- ==================== CHIUSURA ==================== -->
+  <div class="part" id="chiusura" data-part="Chiusura">
+    <div class="part-head"><span class="part-n">fine</span><h2>Mappa, Dossier e libro</h2></div>
+    <section>
+      <span class="tag">Per la Mappa Tematica MT07 · rami proposti</span>
+      <div class="flow">
+        <div><span>Generatore</span><span>scaricare in un istante, pila di Volta, f.e.m. = ∮E<sub>m</sub>·dl, sciatori e skilift</span></div>
+        <div><span>Corrente</span><span>I = dq/dt, J = nqv, flusso di J, velocità di deriva</span></div>
+        <div><span>Conservare la carica</span><span>∇·J = −∂ρ/∂t, stazionario, linee chiuse, nodi</span></div>
+        <div><span>Resistere</span><span>Ohm 1ª e 2ª, Ohm locale, resistività e T, urti, Joule</span></div>
+        <div><span>Circuitare</span><span>serie/parallelo, nodi, maglie, generatore reale, potenziometro</span></div>
+        <div><span>Transitorio RC</span><span>scarica, carica, τ = RC, metà e metà, vasi comunicanti</span></div>
+      </div>
+      <p class="sub">Le parole chiave le scegli tu.</p>
+    </section>
+    <section>
+      <span class="tag">Rami del Modello “scarica RC” (sequenza del tuo metodo)</span>
+      <div class="flow">
+        <div><span>Geometria</span><span>C carico (q₀) chiuso su R a t = 0</span></div>
+        <div><span>Simmetrie</span><span>V<sub>C</sub> = V<sub>R</sub> istante per istante, I = −dq/dt</span></div>
+        <div><span>Elemento</span><span>dq/q = −dt/τ</span></div>
+        <div><span>Variabile e intervallo</span><span>q da q₀ a q(t); t′ da 0 a t</span></div>
+        <div><span>Risultato</span><span>q = q₀e<sup>−t/τ</sup>, I = I₀e<sup>−t/τ</sup>, E<sub>R</sub> = ½q₀²/C</span></div>
+      </div>
+    </section>
+    <section><span class="tag">Schede del Dossier</span>
+      <ul>
+        <li>★ D · J = nqv, I = flusso di J; equazione di continuità (forma integrale → locale)</li>
+        <li>D · Ohm locale dal cilindretto; P = VI dal lavoro su dq</li>
+        <li>★ D · Generatore reale: 𝓔₀ = I(Rᵢ + R), V<sub>AB</sub> &lt; 𝓔₀, 2ª legge di Kirchhoff</li>
+        <li>★ M · Rete a due generatori + metodo potenziometrico</li>
+        <li>M · Resistenze in serie e parallelo + legge dei nodi</li>
+        <li>★ M · Scarica RC: q, I, V<sub>C</sub>, V<sub>R</sub>, energia (es. 19.4-19.5)</li>
+        <li>★ M · Carica RC e bilancio energetico (es. 20.1-20.1.1)</li>
+        <li>★ M · C₁ carico → C₂ scarico tramite R: τ = RC<sub>s</sub>, E<sub>R</sub> = |ΔU|</li>
+        <li>M · C, 2C, C in serie e R su 2C (lez. 20-21)</li>
+      </ul>
+    </section>
+    <section><span class="tag">Controlla sul libro · 5-10 minuti</span><p>Mencuccini-Silvestrini, cap. 4: §2-6 per corrente, densità di corrente, continuità, Ohm e Joule (p. 154-175); §9 per i circuiti (p. 182); §15 per carica e scarica del condensatore (p. 204).</p></section>
+  </div>
+
+  <!-- ==================== FORMULARIO ==================== -->
+  <div class="part" id="formulario" data-part="Formulario">
+    <div class="part-head"><span class="part-n">fine</span><h2>Formulario da memorizzare</h2></div>
+    <p>Le formule da sapere a memoria. Per allenarti premi <b>Mettiti alla prova</b>: le formule si sfocano, prova a scriverle e tocca per controllare.</p>
+    <button class="tb-btn" id="bQuiz" type="button">Mettiti alla prova</button>
+    <section>
+      <span class="tag">2 · Corrente e J</span>
+      <div class="fcard"><div class="f-name">Intensità di corrente</div><div class="f-eq">\[ I = \frac{dq}{dt} \]</div><div class="f-note">ampere = C/s · → §2</div></div>
+      <div class="fcard"><div class="f-name">Densità di corrente</div><div class="f-eq">\[ \vec J = nq\,\vec v_d \]</div><div class="f-note">n portatori per m³, q carica di ciascuno, \(\vec v_d\) velocità di deriva · → §2</div></div>
+      <div class="fcard"><div class="f-name">Corrente come flusso di J</div><div class="f-eq">\[ I = \int_S\vec J\cdot\hat n\,dA \]</div><div class="f-note">uniforme e ⊥: I = J·A · → §2</div></div>
+    </section>
+    <section>
+      <span class="tag">3 · Conservazione della carica</span>
+      <div class="fcard"><div class="f-name">Equazione di continuità</div><div class="f-eq">\[ \oint_S\vec J\cdot\hat n\,dA = -\frac{dQ_{int}}{dt},\qquad \nabla\cdot\vec J = -\frac{\partial\rho}{\partial t} \]</div><div class="f-note">sempre valida · → §3</div></div>
+      <div class="fcard"><div class="f-name">Regime stazionario</div><div class="f-eq">\[ \nabla\cdot\vec J = 0 \]</div><div class="f-note">linee di J chiuse, ρ costante nel tempo · → §3</div></div>
+    </section>
+    <section>
+      <span class="tag">4-5 · Ohm e Joule</span>
+      <div class="fcard"><div class="f-name">Prima legge di Ohm</div><div class="f-eq">\[ V = RI \]</div><div class="f-note">ohm = V/A · → §4</div></div>
+      <div class="fcard"><div class="f-name">Seconda legge di Ohm</div><div class="f-eq">\[ R = \rho_R\,\frac{l}{A} \]</div><div class="f-note">\(\rho_R\) resistività in Ω·m · → §4</div></div>
+      <div class="fcard"><div class="f-name">Ohm locale</div><div class="f-eq">\[ \vec E = \rho_R\,\vec J,\qquad \vec J = \sigma\vec E,\quad \sigma = 1/\rho_R \]</div><div class="f-note">σ conducibilità in S/m · → §4</div></div>
+      <div class="fcard"><div class="f-name">Resistività e temperatura (metalli)</div><div class="f-eq">\[ \rho_R = \rho_{rif}\,(1+\alpha\,\Delta T) \]</div><div class="f-note">nei semiconduttori puri invece cala · → §4</div></div>
+      <div class="fcard"><div class="f-name">Potenza (effetto Joule)</div><div class="f-eq">\[ P = VI = I^2R = \frac{V^2}{R} \]</div><div class="f-note">→ §5</div></div>
+    </section>
+    <section>
+      <span class="tag">6-7 · Circuiti</span>
+      <div class="fcard"><div class="f-name">Resistenze in serie e in parallelo</div><div class="f-eq">\[ R_s = R_1+R_2,\qquad \frac1{R_p} = \frac1{R_1}+\frac1{R_2} \]</div><div class="f-note">opposte ai condensatori · → §6</div></div>
+      <div class="fcard"><div class="f-name">Legge dei nodi</div><div class="f-eq">\[ \sum_k I_k = 0 \]</div><div class="f-note">entranti +, uscenti − · → §6</div></div>
+      <div class="fcard"><div class="f-name">Forza elettromotrice</div><div class="f-eq">\[ \mathcal E = \oint\vec E_m\cdot d\vec l \]</div><div class="f-note">\(\vec E_m\) campo elettromotore, non conservativo · → §7</div></div>
+      <div class="fcard"><div class="f-name">Legge delle maglie</div><div class="f-eq">\[ \sum\mathcal E_k = \sum R_kI_k \]</div><div class="f-note">→ §7</div></div>
+      <div class="fcard"><div class="f-name">Generatore reale</div><div class="f-eq">\[ \mathcal E_0 = I(R_i+R),\qquad V_{AB} = \mathcal E_0-IR_i \]</div><div class="f-note">\(R_i\) resistenza interna · → §7</div></div>
+    </section>
+    <section>
+      <span class="tag">8-10 · Circuiti RC</span>
+      <div class="fcard"><div class="f-name">Costante di tempo</div><div class="f-eq">\[ \tau = RC \]</div><div class="f-note">in secondi; con più elementi \(R_{eq}C_{eq}\) · → §8</div></div>
+      <div class="fcard"><div class="f-name">Scarica</div><div class="f-eq">\[ q = q_0e^{-t/\tau},\quad I = \frac{V_0}{R}e^{-t/\tau},\quad V_C = V_R = V_0e^{-t/\tau} \]</div><div class="f-note">\(I = -dq/dt\) · → §8</div></div>
+      <div class="fcard"><div class="f-name">Energia dissipata nella scarica</div><div class="f-eq">\[ E_R = \frac12\,\frac{q_0^2}{C} \]</div><div class="f-note">indipendente da R · → §8</div></div>
+      <div class="fcard"><div class="f-name">Carica</div><div class="f-eq">\[ q = \mathcal E_0C\left(1-e^{-t/\tau}\right),\quad I = \frac{\mathcal E_0}{R}e^{-t/\tau} \]</div><div class="f-note">\(I = +dq/dt\) · → §9</div></div>
+      <div class="fcard"><div class="f-name">Bilancio della carica</div><div class="f-eq">\[ E_{gen} = C\mathcal E_0^2,\qquad E_C = E_R = \tfrac12C\mathcal E_0^2 \]</div><div class="f-note">→ §9</div></div>
+      <div class="fcard"><div class="f-name">C₁ carico → C₂ scarico tramite R</div><div class="f-eq">\[ \tau = RC_s,\qquad I_0 = \frac{q_{10}}{C_1R},\qquad E_R = \frac12\frac{q_{10}^2}{C_1^2}\,C_s \]</div><div class="f-note">\(C_s = C_1C_2/(C_1+C_2)\); alla fine stessa tensione · → §10</div></div>
+    </section>
+  </div>
+
+  <footer>Dispensa MT07. Dimmi in chat cosa cambiare.</footer>
+</main>
+</div>
+
+
+<div class="toolbar" id="toolbar" role="toolbar" aria-label="Sfoglia la dispensa">
+  <button class="tb-btn" id="bIdx" type="button" title="Vai all'indice">Indice</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn arrow" id="bPrev" type="button" aria-label="Pagina precedente">‹</button>
+  <span id="pgNum" aria-live="polite">pag. 1</span>
+  <button class="tb-btn arrow" id="bNext" type="button" aria-label="Pagina successiva">›</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn" id="bFlip" type="button" title="Quante pagine girare a ogni passo">sfoglia di 2</button>
+  <button class="tb-btn" id="bSmall" type="button" aria-label="Testo più piccolo">A−</button>
+  <button class="tb-btn" id="bBig" type="button" aria-label="Testo più grande">A+</button>
+  <span class="tb-sep"></span>
+  <span id="railSlot"></span>
+</div>
+
+<!-- Formulario: "Mettiti alla prova" sfoca le formule, un tocco ne scopre una -->
+<script>
+(function () {
+  const box = document.getElementById('formulario'), b = document.getElementById('bQuiz');
+  if (!box || !b) return;
+  b.addEventListener('click', () => {
+    const on = box.classList.toggle('quiz');
+    box.querySelectorAll('.f-eq.show').forEach(e => e.classList.remove('show'));
+    b.textContent = on ? 'Mostra tutte le formule' : 'Mettiti alla prova';
+  });
+  box.addEventListener('click', ev => {
+    const e = ev.target.closest('.f-eq');
+    if (e && box.classList.contains('quiz')) e.classList.toggle('show');
+  });
+})();
+</script>
+
+<script>
+(function () {
+  const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const cv = document.getElementById('rc'); if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const sR = document.getElementById('rcR'), sC = document.getElementById('rcC');
+  const bS = document.getElementById('rcScarica'), bC = document.getElementById('rcCarica');
+  let mode = 'scarica';
+  const V0 = 10, TMAX = 50; // volt, millisecondi
+  function draw() {
+    const R = parseFloat(sR.value), C = parseFloat(sC.value); // kΩ, μF
+    const tau = R * C; // kΩ·μF = ms
+    document.getElementById('rcRv').textContent = R + ' kΩ';
+    document.getElementById('rcCv').textContent = C + ' μF';
+    document.getElementById('rcTau').textContent = tau.toFixed(1) + ' ms';
+    document.getElementById('rcI0').textContent = (V0 / R).toFixed(2) + ' mA';
+    document.getElementById('rcER').textContent = (0.5 * C * V0 * V0).toFixed(0) + ' μJ';
+    const W = cv.width, H = cv.height, L = 46, B = H - 34, T = 14, Rt = W - 14;
+    const ink = cssVar('--ink'), mut = cssVar('--muted'), rule = cssVar('--rule');
+    const acc = cssVar('--accent'), pos = cssVar('--pos');
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar('--card'); ctx.fillRect(0, 0, W, H);
+    const X = t => L + (Rt - L) * t / TMAX, Y = v => B - (B - T) * v;
+    ctx.strokeStyle = rule; ctx.lineWidth = 1;
+    for (let k = 0; k <= 4; k++) { ctx.beginPath(); ctx.moveTo(L, Y(k / 4)); ctx.lineTo(Rt, Y(k / 4)); ctx.stroke(); }
+    ctx.strokeStyle = ink; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(L, T); ctx.lineTo(L, B); ctx.lineTo(Rt, B); ctx.stroke();
+    ctx.fillStyle = mut; ctx.font = '13px system-ui, sans-serif';
+    ctx.fillText('1', L - 16, Y(1) + 4); ctx.fillText('0', L - 16, B + 4);
+    for (let t = 0; t <= TMAX; t += 10) ctx.fillText(t + ' ms', X(t) - 14, B + 20);
+    if (tau <= TMAX) {
+      ctx.setLineDash([5, 4]); ctx.strokeStyle = mut;
+      ctx.beginPath(); ctx.moveTo(X(tau), T); ctx.lineTo(X(tau), B); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillText('τ', X(tau) + 4, T + 12);
+    }
+    const curve = (f, col) => {
+      ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.beginPath();
+      for (let i = 0; i <= 300; i++) { const t = TMAX * i / 300, x = X(t), y = Y(f(t)); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.stroke();
+    };
+    const e = t => Math.exp(-t / tau);
+    curve(mode === 'scarica' ? e : t => 1 - e(t), acc);
+    ctx.setLineDash([7, 5]); curve(e, pos); ctx.setLineDash([]);
+    ctx.fillStyle = ink; ctx.font = '600 14px system-ui, sans-serif';
+    ctx.fillText(mode === 'scarica' ? 'Scarica: q e I calano insieme' : 'Carica: q sale, I scende', L + 10, T + 14);
+  }
+  function setMode(m) { mode = m; bS.classList.toggle('on', m === 'scarica'); bC.classList.toggle('on', m === 'carica'); draw(); }
+  sR.addEventListener('input', draw); sC.addEventListener('input', draw);
+  bS.addEventListener('click', () => setMode('scarica')); bC.addEventListener('click', () => setMode('carica'));
+  draw();
+})();
+</script>
+
+<script>
+/* Avanzamento: pieno = parti segnate come fatte (pesate sui minuti), chiaro = dove sei arrivato a leggere.
+   Le spunte restano salvate solo in questo browser. */
+(function () {
+  const KEY = 'mt07-dispensa-fatto';   // ← cambiare per ogni dispensa
+  const btns = [...document.querySelectorAll('.done')];
+  const total = btns.reduce((a, b) => a + +b.dataset.min, 0);
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+  const fill = document.getElementById('pgFill'), read = document.getElementById('pgRead');
+  const pct = document.getElementById('pgPct'), mins = document.getElementById('pgMin'), list = document.getElementById('pgList');
+  btns.forEach(b => b.dataset.label = b.textContent.match(/“(.*)”/)[1]);
+  const target = sec => sec === 'intro' ? 'ripasso' : sec;
+  list.innerHTML = btns.map(b => `<li data-sec="${b.dataset.sec}"><a href="#${target(b.dataset.sec)}"><span class="ck"></span><span>${b.dataset.label}</span></a></li>`).join('');
+  const lis = [...list.children];
+  let cur = 'intro';
+
+  function paint() {
+    let m = 0;
+    btns.forEach((b, i) => {
+      const on = !!done[b.dataset.sec];
+      b.classList.toggle('is-done', on);
+      b.setAttribute('aria-pressed', on);
+      b.textContent = on ? '✓ ' + b.dataset.label + ' · fatto' : 'Segna “' + b.dataset.label + '” come fatto';
+      lis[i].classList.toggle('done', on);
+      lis[i].querySelector('.ck').textContent = on ? '✓' : '';
+      if (on) m += +b.dataset.min;
+    });
+    lis.forEach(li => li.classList.toggle('cur', li.dataset.sec === cur));
+    const p = Math.round(m / total * 100);
+    fill.style.width = p + '%';
+    pct.textContent = p + '%';
+    mins.textContent = p < 100 ? 'fatto · ~' + (total - m) + ' min' : 'fatto';
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    done[b.dataset.sec] = !done[b.dataset.sec];
+    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    paint();
+  }));
+
+  const parts = [...document.querySelectorAll('[data-part]')];
+  const secOf = id => (id === 'ripasso' || id === 'quadro') ? 'intro' : (/^s\d$/.test(id) ? id : null);
+  function onScroll() {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    read.style.height = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + '%';
+    let c = 'intro';
+    for (const el of parts) if (el.getBoundingClientRect().top < innerHeight * 0.35) c = secOf(el.id) || c;
+    if (c !== cur) { cur = c; paint(); }
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  paint(); onScroll();
+})();
+</script>
+<script>
+/* Modalità libro: la dispensa è divisa in colonne alte quanto lo schermo (le pagine); si sfoglia spostando la vista di una o due colonne. */
+(function () {
+  const main = document.querySelector('.sheet main');
+  document.getElementById('railSlot').appendChild(document.getElementById('prog'));
+  const num = document.getElementById('pgNum'), prev = document.getElementById('bPrev'), next = document.getElementById('bNext');
+  const flipBtn = document.getElementById('bFlip');
+  const KEY = 'mt07-libro';   // ← cambiare per ogni dispensa
+  let st = { fs: 16, flip: 2, frac: 0 };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let count = 2, gap = 72, step = 1, total = 1, idx = 0;
+
+  function measure() {
+    count = innerWidth >= 900 ? 2 : 1;
+    gap = count === 2 ? 72 : 40;
+    document.documentElement.style.setProperty('--fs', st.fs + 'px');
+    main.style.columnCount = count;
+    main.style.columnGap = gap + 'px';
+    const pw = (main.clientWidth - gap * (count - 1)) / count, ph = main.clientHeight;
+    document.querySelectorAll('.lab canvas').forEach(c => {
+      c.style.width = Math.max(160, Math.min(pw - 30, ph * 0.5 * c.width / c.height)) + 'px';
+    });
+    step = pw + gap;
+    total = Math.max(1, Math.round((main.scrollWidth + gap) / step));
+  }
+  const maxIdx = () => Math.max(0, total - count);
+  const align = () => { if (count === 2 && st.flip === 2) idx -= idx % 2; };
+  function show(anim) {
+    idx = Math.min(Math.max(0, idx), maxIdx());
+    const before = main.scrollLeft;
+    main.scrollLeft = Math.round(idx * step);
+    // effetto "pagina che gira": breve scivolata nella direzione in cui si sfoglia
+    if (anim && !reduce && main.animate && main.scrollLeft !== before) {
+      const dir = main.scrollLeft > before ? 1 : -1;
+      main.animate([{ opacity: 0.2, transform: 'translateX(' + (dir * 28) + 'px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 220, easing: 'ease-out' });
+    }
+    const a = idx + 1, b = Math.min(total, idx + count);
+    num.textContent = 'pag. ' + (a === b ? a : a + '–' + b) + ' di ' + total;
+    prev.disabled = idx <= 0;
+    next.disabled = idx >= maxIdx();
+    flipBtn.hidden = count !== 2;
+    flipBtn.textContent = st.flip === 2 ? 'sfoglia di 2' : 'sfoglia di 1';
+    st.frac = total > 1 ? idx / (total - 1) : 0;
+    save();
+  }
+  function layout() { measure(); idx = Math.round(st.frac * (total - 1)); align(); show(false); }
+  function relayout() { measure(); show(false); }
+  function turn(dir) { idx += dir * (count === 2 ? st.flip : 1); show(true); }
+  function pageOf(el) {
+    const r = el.getBoundingClientRect(), m = main.getBoundingClientRect();
+    return Math.floor((r.left - m.left + main.scrollLeft + 2) / step);
+  }
+
+  prev.addEventListener('click', () => turn(-1));
+  next.addEventListener('click', () => turn(1));
+  flipBtn.addEventListener('click', () => { st.flip = 3 - st.flip; align(); show(false); });
+  document.getElementById('bSmall').addEventListener('click', () => { st.fs = Math.max(13, st.fs - 1); layout(); });
+  document.getElementById('bBig').addEventListener('click', () => { st.fs = Math.min(24, st.fs + 1); layout(); });
+  document.getElementById('bIdx').addEventListener('click', () => { idx = pageOf(document.querySelector('nav')); align(); show(true); });
+
+  // link interni (indice, rimandi): vai alla pagina giusta invece di scorrere
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    idx = pageOf(t); align(); show(true);
+  });
+  // tastiera
+  addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, select')) return;
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); turn(1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); turn(-1); }
+  });
+  // swipe con il dito (iPad) o con il mouse trascinando
+  let sx = null, sy = 0;
+  main.addEventListener('pointerdown', e => {
+    sx = e.target.closest('canvas, input, button, summary, a, .lab') ? null : e.clientX; sy = e.clientY;
+  });
+  main.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) turn(dx < 0 ? 1 : -1);
+    sx = null;
+  });
+  // trackpad e rotella: un gesto = una pagina
+  let acc = 0, lastTurn = 0, accTimer = 0;
+  main.addEventListener('wheel', e => {
+    if (e.target.closest('mjx-container') && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    acc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    clearTimeout(accTimer); accTimer = setTimeout(() => { acc = 0; }, 200);
+    const now = Date.now();
+    if (Math.abs(acc) > 60 && now - lastTurn > 500) { turn(acc > 0 ? 1 : -1); acc = 0; lastTurn = now; }
+  }, { passive: false });
+  // se il browser sposta la vista da solo (es. passando con Tab), riallinea alla pagina
+  let scTimer = 0;
+  main.addEventListener('scroll', () => {
+    clearTimeout(scTimer);
+    scTimer = setTimeout(() => {
+      if (Math.abs(main.scrollLeft - idx * step) > 4) { idx = Math.round(main.scrollLeft / step); align(); show(false); }
+    }, 200);
+  });
+  // aprire o chiudere una risposta cambia il numero di pagine
+  document.addEventListener('toggle', relayout, true);
+  addEventListener('resize', layout);
+
+  layout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  addEventListener('load', () => {
+    const mj = window.MathJax;
+    if (mj && mj.startup && mj.startup.promise) mj.startup.promise.then(layout); else layout();
+  });
+})();
+</script>
